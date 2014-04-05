@@ -227,7 +227,7 @@ def p_expression_1(p):
 
 # assignment_expression:
 def p_assignment_expression_1(p):
-    'assignment_expression : ID EQUALS primary_expression'
+    'assignment_expression : ID EQUALS assignment_expression'
     p[0] = p[1] + ' = ' + p[3]
     
 def p_assignment_expression_2(p):
@@ -235,13 +235,22 @@ def p_assignment_expression_2(p):
     p[0] = p[1]
 
 # logical_OR_expression:
-##def p_logical_OR_expression_1(p):
-##    'logical_OR_expression : logical_OR_expression LOR primary_expression'
-##    p[0] = p[1] + ' || ' + p[3]
-
-def p_logical_OR_expression_2(p):
-    'logical_OR_expression : primary_expression'
+def p_logical_OR_expression_1(p):
+    'logical_OR_expression : logical_AND_expression'
     p[0] = p[1]
+    
+def p_logical_OR_expression_2(p):
+    'logical_OR_expression : logical_OR_expression LOR logical_AND_expression'
+    p[0] = p[1] + ' || ' + p[3]
+
+# logical_AND_expression:
+def p_logical_AND_expression_1(p):
+    'logical_AND_expression : primary_expression'
+    p[0] = p[1]
+
+def p_logical_AND_expression_2(p):
+    'logical_AND_expression : logical_AND_expression LAND primary_expression'
+    p[0] = p[1] + ' && ' + p[3]
 
 # compound_statement:
 def p_compound_statement_1(p):
@@ -293,7 +302,7 @@ parser = yacc.yacc(method='LALR')
 
 ##profile.run("yacc.yacc(method='LALR')")
 
-s = 'int abc ( 1 ) { abc=2; } { abc=2; }'
+s = 'int abc ( 1 ) { abc = cde = 4; } { abc = 2 || 3 && 4; }'
 ##f = open('/Users/nithin/Desktop/Spring_2014/PLT/project/compiler/hello.txt','r')
 ##s = f.read()
 ##f.close()
