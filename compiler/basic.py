@@ -14,7 +14,7 @@ reserved = (
     'AUTO', 'BREAK', 'CASE', 'CHAR', 'CONST', 'CONTINUE', 'DEFAULT', 'DO', 'DOUBLE',
     'ELSE', 'ENUM', 'EXTERN', 'FLOAT', 'FOR', 'GOTO', 'IF', 'INT', 'LONG', 'REGISTER',
     'RETURN', 'SHORT', 'SIGNED', 'SIZEOF', 'STATIC', 'STRUCT', 'SWITCH', 'TYPEDEF',
-    'UNION', 'UNSIGNED', 'VOID', 'VOLATILE', 'WHILE'
+    'UNION', 'UNSIGNED', 'VOID', 'VOLATILE', 'WHILE', 'KEY', 'STRING', 'ENTER', 'REPEAT', 'UNTIL'
     )
 
 tokens = reserved + (
@@ -176,7 +176,6 @@ def p_translation_unit_2(p):
 def p_external_declaration_1(p):
     'external_declaration : function_definition'
     p[0] = p[1]
-    pass
 
 def p_external_declaration_2(p):
     'external_declaration : statement'
@@ -184,18 +183,54 @@ def p_external_declaration_2(p):
 
 # function_definition:
 def p_function_definition_1(p):
-    'function_definition : type ID LPAREN primary_expression RPAREN LBRACE statement_list RBRACE'
+    'function_definition : type ID LPAREN parameter_list RPAREN LBRACE statement_list RBRACE'
     p[0] = p[1]+' '+p[2]+' ( '+p[4]+ ' ) { '+p[7]+' }'
-    pass
 
 def p_function_definition_2(p):
-    'function_definition : type ID LPAREN primary_expression RPAREN LBRACE RBRACE'
+    'function_definition : type ID LPAREN parameter_list RPAREN LBRACE RBRACE'
     p[0] = p[1]+' '+p[2]+' ( '+p[4]+ ' ) { }'
-    pass
+
+# parameter_list:
+def p_parameter_list_1(p):
+    'parameter_list : parameter_declaration'
+    p[0] = p[1]
+
+def p_parameter_list_2(p):
+    'parameter_list : parameter_list COMMA parameter_declaration'
+    p[0] = p[1] + ' , ' + p[3]
+
+# parameter_declaration:
+def p_parameter_declaration_1(p):
+    'parameter_declaration : primary_expression'
+    p[0] = p[1]
+
+def p_parameter_declaration_2(p):
+    'parameter_declaration : type ID'
+    p[0] = p[1] + ' ' + p[2]
+
+def p_parameter_declaration_3(p):
+    'parameter_declaration : type ID EQUALS assignment_expression'
+    p[0] = p[1] + ' ' + p[2] + ' = ' + p[4]
 
 # type:
 def p_type_1(p):
     'type : INT'
+    p[0] = p[1]
+
+def p_type_2(p):
+    'type : DOUBLE'
+    p[0] = p[1]
+
+def p_type_3(p):
+    'type : CHAR'
+    p[0] = p[1]
+
+def p_type_4(p):
+    'type : STRING'
+    p[0] = p[1]
+
+def p_type_5(p):
+    'type : KEY'
     p[0] = p[1]
 
 ##################### Add more types here #############
@@ -204,12 +239,57 @@ def p_type_1(p):
 def p_statement_1(p):
     'statement : expression_statement'
     p[0] = p[1]
-    pass
 
 def p_statement_2(p):
     'statement : compound_statement'
     p[0] = p[1]
-    pass
+
+def p_statement_3(p):
+    'statement : declaration_statement'
+    p[0] = p[1]
+
+def p_statement_4(p):
+    'statement : selection_statement'
+    p[0] = p[1]
+
+def p_statement_5(p):
+    'statement : iteration_statement'
+    p[0] = p[1]
+
+def p_statement_6(p):
+    'statement : return_statement'
+    p[0] = p[1]
+
+def p_statement_7(p):
+    'statement : break_statement'
+    p[0] = p[1]
+
+# iteration_statement:
+def p_iteration_statement_1(p):
+    'iteration_statement : REPEAT LPAREN expression RPAREN LBRACE statement_list RBRACE'
+    p[0] = 'repeat ( ' + p[3] + ' ) { ' + p[6] + ' }'
+
+def p_iteration_statement_2(p):
+    'iteration_statement : UNTIL LPAREN expression RPAREN LBRACE statement_list RBRACE'
+    p[0] = 'until ( ' + p[3] + ' ) { ' + p[6] + ' }'
+
+# selection_statement:
+def p_selection_statement_1(p):
+    'selection_statement : IF LPAREN expression RPAREN LBRACE statement_list RBRACE'
+    p[0] = 'if ( ' + p[3] + ' ) ' + p[6]
+
+def p_selection_statement_2(p):
+    'selection_statement : IF LPAREN expression RPAREN LBRACE statement RBRACE ELSE LBRACE statement_list RBRACE'
+    p[0] = 'if ( ' + p[3] + ' ) { ' + p[6] + ' } ( else ) { ' + p[10] + ' }'
+
+# declaration_statement:
+def p_declaration_statement_1(p):
+    'declaration_statement : type ID SEMI'
+    p[0] = p[1] + ' ' + p[2] + ' ;'
+
+def p_declaration_statement_2(p):
+    'declaration_statement : type ID EQUALS assignment_expression SEMI'
+    p[0] = p[1] + ' ' + p[2] + ' = ' + p[4] + ' ;'
 
 # compound_statement:
 def p_compound_statement_1(p):
@@ -234,11 +314,28 @@ def p_expression_1(p):
     'expression : assignment_expression'
     p[0] = p[1]
 
+def p_expression_2(p):
+    'expression : function_expression'
+    p[0] = p[1]
+
+def p_expression_3(p):
+    'expression : LPAREN expression RPAREN'
+    p[0] = '( ' + p[2] + ' )'
+
+# function_expression:
+def p_function_expression_1(p):
+    'function_expression : ID LPAREN parameter_list RPAREN'
+    p[0] = p[1] + ' ( ' + p[3] + ' ) '
+
 # assignment_expression:
 def p_assignment_expression_1(p):
     'assignment_expression : ID EQUALS assignment_expression'
     p[0] = p[1] + ' = ' + p[3]
-    
+
+def p_assignment_expression_3(p):
+    'assignment_expression : logical_OR_expression EQUALS assignment_expression'
+    p[0] = p[1] + ' = ' + p[3]
+
 def p_assignment_expression_2(p):
     'assignment_expression : logical_OR_expression'
     p[0] = p[1]
@@ -332,28 +429,67 @@ def p_statement_list_2(p):
 
 # primary-expression:
 def p_primary_expression_1(p):
-    'primary_expression : constant'
-    p[0] = p[1]
-    pass
+    'primary_expression : LPAREN expression RPAREN'
+    p[0] = '( ' + p[2] + ' )'
 
 def p_primary_expression_2(p):
+    'primary_expression : constant'
+    p[0] = p[1]
+
+def p_primary_expression_3(p):
+    'primary_expression : ID'
+    p[0]= p[1]
+
+def p_primary_expression_4(p):
+    'primary_expression : reserved'
+    p[0]= p[1]
+
+def p_primary_expression_5(p):
     'primary_expression : empty'
     p[0] = p[1]
-    pass
 
 # constant:
-def p_constant(p): 
+def p_constant_1(p): 
    'constant : ICONST'
    p[0] = str(p[1])
-   pass
 
-def p_empty(t):
+def p_constant_2(p):
+    'constant : FCONST'
+    p[0] = str(p[1])
+
+def p_constant_3(p):
+    'constant : SCONST'
+    p[0] = p[1]
+
+#reserved:
+def p_reserved_1(p):
+    'reserved : ENTER'
+    p[0] = p[1]
+
+############################ Fill all the KEYtypes here
+
+# return_statement:
+def p_return_statement_1(p):
+    'return_statement : RETURN SEMI'
+    p[0] = 'return ;'
+
+def p_return_statement_2(p):
+    'return_statement : RETURN expression SEMI'
+    p[0] = 'return ' + p[2] + ' ;'
+
+# break_statement:
+def p_break_statement_1(p):
+    'break_statement : BREAK SEMI'
+    p[0] = 'break ;'
+
+# empty:
+def p_empty(p):
     'empty : '
     p[0] = ''
-    pass
 
-def p_error(t):
-    print("Whoa. We're hosed")
+# error:
+def p_error(p):
+    print("Whoa. We're hosed.")
 
 ##import profile
 # Build the grammar
@@ -362,7 +498,7 @@ parser = yacc.yacc(method='LALR')
 
 ##profile.run("yacc.yacc(method='LALR')")
 
-s = 'int abc ( 1 ) { abc = cde = 4 != 6 < 8 > 7 + 4 * 8; } { abc = 2 || 3 && 4 == 5 <= 8 >= 7 - 3 * 1; }'
+s = 'int abc ( int x = 1 != 2 != 3, 1) { string i = "String initialization"; key k = enter; cde = def = 4 != 6 < 8 > 7 + 4 * (8); abc( (1) , 1 ); xyz = "I am a String"; if(x==1){x = 2;} else {x = 1;} return (1);} { abc = 2 || 3 && 4 == 5 <= 8 >= 7 - 3 * 1; repeat(20){ x = 1;} until(x<y) { y=y+1; break;}}'
 ##f = open('/Users/nithin/Desktop/Spring_2014/PLT/project/compiler/hello.txt','r')
 ##s = f.read()
 ##f.close()
