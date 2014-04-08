@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------
-# ilex.py
+# basic.py
 #
 # A lexer and Parser for iWAL.
 # ----------------------------------------------------------------------
@@ -211,6 +211,15 @@ def p_statement_2(p):
     p[0] = p[1]
     pass
 
+# compound_statement:
+def p_compound_statement_1(p):
+    'compound_statement : LBRACE RBRACE'
+    p[0] = '{ }'
+
+def p_compound_statement_2(p):
+    'compound_statement : LBRACE statement_list RBRACE'
+    p[0] = '{ '+p[2]+' }'
+
 # expression_statement:
 def p_expression_statement_1(p):
     'expression_statement : expression SEMI'
@@ -245,21 +254,72 @@ def p_logical_OR_expression_2(p):
 
 # logical_AND_expression:
 def p_logical_AND_expression_1(p):
-    'logical_AND_expression : primary_expression'
+    'logical_AND_expression : equality_expression'
     p[0] = p[1]
 
 def p_logical_AND_expression_2(p):
-    'logical_AND_expression : logical_AND_expression LAND primary_expression'
+    'logical_AND_expression : logical_AND_expression LAND equality_expression'
     p[0] = p[1] + ' && ' + p[3]
 
-# compound_statement:
-def p_compound_statement_1(p):
-    'compound_statement : LBRACE RBRACE'
-    p[0] = '{ }'
+# equality_expression:
+def p_equality_expression_1(p):
+    'equality_expression : relational_expression'
+    p[0] = p[1]
 
-def p_compound_statement_2(p):
-    'compound_statement : LBRACE statement_list RBRACE'
-    p[0] = '{ '+p[2]+' }'
+def p_equality_expression_2(p):
+    'equality_expression : equality_expression EQ relational_expression'
+    p[0] = p[1] + ' == ' + p[3]
+
+def p_equality_expression_3(p):
+    'equality_expression : equality_expression NE relational_expression'
+    p[0] = p[1] + ' != ' + p[3]
+
+# relational_expression:
+def p_relational_expression_1(p):
+    'relational_expression : additive_expression'
+    p[0] = p[1]
+
+def p_relational_expression_2(p):
+    'relational_expression : relational_expression LT additive_expression'
+    p[0] = p[1] + ' < ' + p[3]
+
+def p_relational_expression_3(p):
+    'relational_expression : relational_expression GT additive_expression'
+    p[0] = p[1] + ' > ' + p[3]
+
+def p_relational_expression_4(p):
+    'relational_expression : relational_expression LE additive_expression'
+    p[0] = p[1] + ' <= ' + p[3]
+
+def p_relational_expression_5(p):
+    'relational_expression : relational_expression GE additive_expression'
+    p[0] = p[1] + ' >= ' + p[3]
+
+# additive_expression:
+def p_additive_expression_1(p):
+    'additive_expression : multiplicative_expression'
+    p[0] = p[1]
+
+def p_additive_expression_2(p):
+    'additive_expression : additive_expression PLUS multiplicative_expression'
+    p[0] = p[1] + ' + ' + p[3]
+
+def p_additive_expression_3(p):
+    'additive_expression : additive_expression MINUS multiplicative_expression'
+    p[0] = p[1] + ' - ' + p[3]
+
+# multiplicative_expression:
+def p_multiplicative_expression_1(p):
+    'multiplicative_expression : primary_expression'
+    p[0] = p[1]
+
+def p_multiplicative_expression_2(p):
+    'multiplicative_expression : multiplicative_expression TIMES primary_expression'
+    p[0] = p[1] + ' * ' + p[3]
+
+def p_multiplicative_expression_3(p):
+    'multiplicative_expression : multiplicative_expression DIVIDE primary_expression'
+    p[0] = p[1] + ' / ' + p[3]
 
 # statement_list:
 def p_statement_list_1(p):
@@ -302,7 +362,7 @@ parser = yacc.yacc(method='LALR')
 
 ##profile.run("yacc.yacc(method='LALR')")
 
-s = 'int abc ( 1 ) { abc = cde = 4; } { abc = 2 || 3 && 4; }'
+s = 'int abc ( 1 ) { abc = cde = 4 != 6 < 8 > 7 + 4 * 8; } { abc = 2 || 3 && 4 == 5 <= 8 >= 7 - 3 * 1; }'
 ##f = open('/Users/nithin/Desktop/Spring_2014/PLT/project/compiler/hello.txt','r')
 ##s = f.read()
 ##f.close()
