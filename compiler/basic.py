@@ -161,11 +161,7 @@ lexer = lex.lex(optimize=1)
 #######################         YACC        ###########################
 #######################################################################
 
-# These things are to be transferred into another file which will be imported
-
-driverNumber = 1;
-
-#####################################################
+driverNumber = 0
 
 # translation_unit:
 
@@ -272,12 +268,7 @@ def p_statement_7(p):
 # iteration_statement:
 def p_iteration_statement_1(p):
     'iteration_statement : REPEAT LPAREN expression RPAREN LBRACE statement_list RBRACE'
-##    p[0] = 'repeat ( ' + p[3] + ' ) { ' + p[6] + ' }'
-    if type(int(p[3]))==int:
-        print 'Yes'
-        p[0] = 'for(int auto=0, i<'+p[3]+', i++) {'+p[6]+'}'
-    else:
-        print 'Error in Repeat loop .. Expression passed isnt what is needed : ' + p[3]
+    p[0] = 'repeat ( ' + p[3] + ' ) { ' + p[6] + ' }'
 
 def p_iteration_statement_2(p):
     'iteration_statement : UNTIL LPAREN expression RPAREN LBRACE statement_list RBRACE'
@@ -340,16 +331,21 @@ def p_function_expression_1(p):
             raise Exception('Start doesnot take arguments ...')
         else:
             global driverNumber
+            driverNumber+=1
             p[0] = 'WebDriver driver'+ str(driverNumber) +' = new ChromeDriver()'
-            driverNumber = driverNumber + 1
             
     elif p[1]=='open':
         try:
             global driverNumber
             url = str(p[3])
-            p[0] = 'driver'+ str(driverNumber) +'.get("'+p[3]+')'
+            p[0] = 'driver'+ str(driverNumber) +'.get('+p[3]+')'
         except:
-            raise Exception('The URL parameter passed should be a string ...')       
+            raise Exception('The URL parameter passed should be a string ...')
+
+    elif p[1]=='close':
+            global driverNumber
+            p[0] = 'driver'+ str(driverNumber) +'.close()'
+            driverNumber = driverNumber - 1
     else:
         p[0] = p[1] + ' ( ' + p[3] + ' ) '
 
@@ -525,7 +521,7 @@ parser = yacc.yacc(method='LALR')
 ##profile.run("yacc.yacc(method='LALR')")
 
 ##s = 'int abc ( int x = 1 != 2 != 3, 1) { string i = "String initialization"; key k = enter; cde = def = 4 != 6 < 8 > 7 + 4 * (8); abc( (1) , 1 ); xyz = "I am a String"; if(x==1){x = 2;} else {x = 1;} return (1);} { abc = 2 || 3 && 4 == 5 <= 8 >= 7 - 3 * 1; repeat(20){ x = 1;} until(x<y) { y=y+1; break;}}'
-f = open('hello.txt','r')
+f = open('/Users/Rafica/Documents/Github/iWAL/test.txt','r')
 s = f.read()
 f.close()
 
