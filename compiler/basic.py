@@ -161,6 +161,11 @@ lexer = lex.lex(optimize=1)
 #######################         YACC        ###########################
 #######################################################################
 
+# These things are to be transferred into another file which will be imported
+
+driverNumber = 1;
+
+#####################################################
 
 # translation_unit:
 
@@ -330,7 +335,23 @@ def p_expression_3(p):
 # function_expression:
 def p_function_expression_1(p):
     'function_expression : ID LPAREN parameter_list RPAREN'
-    p[0] = p[1] + ' ( ' + p[3] + ' ) '
+    if p[1]=='start':
+        if not p[3]=='':
+            raise Exception('Start doesnot take arguments ...')
+        else:
+            global driverNumber
+            p[0] = 'WebDriver driver'+ str(driverNumber) +' = new ChromeDriver()'
+            driverNumber = driverNumber + 1
+            
+    elif p[1]=='open':
+        try:
+            global driverNumber
+            url = str(p[3])
+            p[0] = 'driver'+ str(driverNumber) +'.get("'+p[3]+')'
+        except:
+            raise Exception('The URL parameter passed should be a string ...')       
+    else:
+        p[0] = p[1] + ' ( ' + p[3] + ' ) '
 
 # assignment_expression:
 def p_assignment_expression_1(p):
@@ -503,10 +524,10 @@ parser = yacc.yacc(method='LALR')
 
 ##profile.run("yacc.yacc(method='LALR')")
 
-s = 'int abc ( int x = 1 != 2 != 3, 1) { string i = "String initialization"; key k = enter; cde = def = 4 != 6 < 8 > 7 + 4 * (8); abc( (1) , 1 ); xyz = "I am a String"; if(x==1){x = 2;} else {x = 1;} return (1);} { abc = 2 || 3 && 4 == 5 <= 8 >= 7 - 3 * 1; repeat(20){ x = 1;} until(x<y) { y=y+1; break;}}'
-##f = open('/Users/nithin/Desktop/Spring_2014/PLT/project/compiler/hello.txt','r')
-##s = f.read()
-##f.close()
+##s = 'int abc ( int x = 1 != 2 != 3, 1) { string i = "String initialization"; key k = enter; cde = def = 4 != 6 < 8 > 7 + 4 * (8); abc( (1) , 1 ); xyz = "I am a String"; if(x==1){x = 2;} else {x = 1;} return (1);} { abc = 2 || 3 && 4 == 5 <= 8 >= 7 - 3 * 1; repeat(20){ x = 1;} until(x<y) { y=y+1; break;}}'
+f = open('hello.txt','r')
+s = f.read()
+f.close()
 
 result = parser.parse(s)
 print result
