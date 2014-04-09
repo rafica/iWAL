@@ -267,7 +267,12 @@ def p_statement_7(p):
 # iteration_statement:
 def p_iteration_statement_1(p):
     'iteration_statement : REPEAT LPAREN expression RPAREN LBRACE statement_list RBRACE'
-    p[0] = 'repeat ( ' + p[3] + ' ) { ' + p[6] + ' }'
+##    p[0] = 'repeat ( ' + p[3] + ' ) { ' + p[6] + ' }'
+    if type(int(p[3]))==int:
+        print 'Yes'
+        p[0] = 'for(int auto=0, i<'+p[3]+', i++) {'+p[6]+'}'
+    else:
+        print 'Error in Repeat loop .. Expression passed isnt what is needed : ' + p[3]
 
 def p_iteration_statement_2(p):
     'iteration_statement : UNTIL LPAREN expression RPAREN LBRACE statement_list RBRACE'
