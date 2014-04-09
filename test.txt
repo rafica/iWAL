@@ -1,1 +1,4 @@
-abacgdpi
+start();
+string url = "http://ssol.columbia.edu/";
+open(url);
+close();
