@@ -34,12 +34,6 @@ tokens = reserved + (
     # Increment/decrement (++,--)
     'PLUSPLUS', 'MINUSMINUS',
 
-    # Structure dereference (->)
-    'ARROW',
-
-    # Conditional operator (?)
-    'CONDOP',
-    
     # Delimeters ( ) [ ] { } , . ; :
     'LPAREN', 'RPAREN',
     'LBRACKET', 'RBRACKET',
@@ -107,12 +101,6 @@ t_XOREQUAL         = r'^='
 # Increment/decrement
 t_PLUSPLUS         = r'\+\+'
 t_MINUSMINUS       = r'--'
-
-# ->
-t_ARROW            = r'->'
-
-# ?
-t_CONDOP           = r'\?'
 
 # Delimeters
 t_LPAREN           = r'\('
