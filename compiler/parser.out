@@ -8,7 +8,6 @@ Unused terminals:
     ELLIPSIS
     ENUM
     PERIOD
-    ARROW
     MINUSEQUAL
     TIMESEQUAL
     OR
@@ -38,7 +37,6 @@ Unused terminals:
     MODEQUAL
     SWITCH
     PLUSEQUAL
-    CONDOP
     VOLATILE
     ANDEQUAL
     DO
@@ -138,7 +136,6 @@ Terminals, with rules where they appear
 
 AND                  : 
 ANDEQUAL             : 
-ARROW                : 
 AUTO                 : 
 BREAK                : 72
 CASE                 : 
@@ -146,7 +143,6 @@ CCONST               :
 CHAR                 : 14
 COLON                : 
 COMMA                : 8
-CONDOP               : 
 CONST                : 
 CONTINUE             : 
 DEFAULT              : 
@@ -333,7 +329,7 @@ state 0
   ! shift/reduce conflict for SEMI resolved as shift
     INT             shift and go to state 34
     DOUBLE          shift and go to state 35
-    CHAR            shift and go to state 32
+    CHAR            shift and go to state 3
     STRING          shift and go to state 7
     KEY             shift and go to state 40
     SEMI            shift and go to state 10
@@ -367,7 +363,7 @@ state 0
 
     expression_statement           shift and go to state 1
     constant                       shift and go to state 4
-    break_statement                shift and go to state 3
+    break_statement                shift and go to state 32
     reserved                       shift and go to state 22
     iteration_statement            shift and go to state 5
     additive_expression            shift and go to state 6
@@ -510,41 +506,9 @@ state 2
 
 state 3
 
-    (23) statement -> break_statement .
+    (14) type -> CHAR .
 
-    RBRACE          reduce using rule 23 (statement -> break_statement .)
-    SEMI            reduce using rule 23 (statement -> break_statement .)
-    LBRACE          reduce using rule 23 (statement -> break_statement .)
-    IF              reduce using rule 23 (statement -> break_statement .)
-    REPEAT          reduce using rule 23 (statement -> break_statement .)
-    UNTIL           reduce using rule 23 (statement -> break_statement .)
-    RETURN          reduce using rule 23 (statement -> break_statement .)
-    BREAK           reduce using rule 23 (statement -> break_statement .)
-    LPAREN          reduce using rule 23 (statement -> break_statement .)
-    INT             reduce using rule 23 (statement -> break_statement .)
-    DOUBLE          reduce using rule 23 (statement -> break_statement .)
-    CHAR            reduce using rule 23 (statement -> break_statement .)
-    STRING          reduce using rule 23 (statement -> break_statement .)
-    KEY             reduce using rule 23 (statement -> break_statement .)
-    ID              reduce using rule 23 (statement -> break_statement .)
-    ICONST          reduce using rule 23 (statement -> break_statement .)
-    FCONST          reduce using rule 23 (statement -> break_statement .)
-    SCONST          reduce using rule 23 (statement -> break_statement .)
-    ENTER           reduce using rule 23 (statement -> break_statement .)
-    EQUALS          reduce using rule 23 (statement -> break_statement .)
-    LOR             reduce using rule 23 (statement -> break_statement .)
-    LAND            reduce using rule 23 (statement -> break_statement .)
-    EQ              reduce using rule 23 (statement -> break_statement .)
-    NE              reduce using rule 23 (statement -> break_statement .)
-    LT              reduce using rule 23 (statement -> break_statement .)
-    GT              reduce using rule 23 (statement -> break_statement .)
-    LE              reduce using rule 23 (statement -> break_statement .)
-    GE              reduce using rule 23 (statement -> break_statement .)
-    PLUS            reduce using rule 23 (statement -> break_statement .)
-    MINUS           reduce using rule 23 (statement -> break_statement .)
-    TIMES           reduce using rule 23 (statement -> break_statement .)
-    DIVIDE          reduce using rule 23 (statement -> break_statement .)
-    $end            reduce using rule 23 (statement -> break_statement .)
+    ID              reduce using rule 14 (type -> CHAR .)
 
 
 state 4
@@ -1037,7 +1001,7 @@ state 20
   ! shift/reduce conflict for SEMI resolved as shift
     INT             shift and go to state 34
     DOUBLE          shift and go to state 35
-    CHAR            shift and go to state 32
+    CHAR            shift and go to state 3
     STRING          shift and go to state 7
     KEY             shift and go to state 40
     SEMI            shift and go to state 10
@@ -1071,7 +1035,7 @@ state 20
 
     expression_statement           shift and go to state 1
     constant                       shift and go to state 4
-    break_statement                shift and go to state 3
+    break_statement                shift and go to state 32
     reserved                       shift and go to state 22
     iteration_statement            shift and go to state 5
     additive_expression            shift and go to state 6
@@ -1226,7 +1190,7 @@ state 24
     LPAREN          shift and go to state 27
     INT             shift and go to state 34
     DOUBLE          shift and go to state 35
-    CHAR            shift and go to state 32
+    CHAR            shift and go to state 3
     STRING          shift and go to state 7
     KEY             shift and go to state 40
     ID              shift and go to state 29
@@ -1252,7 +1216,7 @@ state 24
 
     expression_statement           shift and go to state 1
     constant                       shift and go to state 4
-    break_statement                shift and go to state 3
+    break_statement                shift and go to state 32
     reserved                       shift and go to state 22
     iteration_statement            shift and go to state 5
     additive_expression            shift and go to state 6
@@ -1468,9 +1432,41 @@ state 31
 
 state 32
 
-    (14) type -> CHAR .
+    (23) statement -> break_statement .
 
-    ID              reduce using rule 14 (type -> CHAR .)
+    RBRACE          reduce using rule 23 (statement -> break_statement .)
+    SEMI            reduce using rule 23 (statement -> break_statement .)
+    LBRACE          reduce using rule 23 (statement -> break_statement .)
+    IF              reduce using rule 23 (statement -> break_statement .)
+    REPEAT          reduce using rule 23 (statement -> break_statement .)
+    UNTIL           reduce using rule 23 (statement -> break_statement .)
+    RETURN          reduce using rule 23 (statement -> break_statement .)
+    BREAK           reduce using rule 23 (statement -> break_statement .)
+    LPAREN          reduce using rule 23 (statement -> break_statement .)
+    INT             reduce using rule 23 (statement -> break_statement .)
+    DOUBLE          reduce using rule 23 (statement -> break_statement .)
+    CHAR            reduce using rule 23 (statement -> break_statement .)
+    STRING          reduce using rule 23 (statement -> break_statement .)
+    KEY             reduce using rule 23 (statement -> break_statement .)
+    ID              reduce using rule 23 (statement -> break_statement .)
+    ICONST          reduce using rule 23 (statement -> break_statement .)
+    FCONST          reduce using rule 23 (statement -> break_statement .)
+    SCONST          reduce using rule 23 (statement -> break_statement .)
+    ENTER           reduce using rule 23 (statement -> break_statement .)
+    EQUALS          reduce using rule 23 (statement -> break_statement .)
+    LOR             reduce using rule 23 (statement -> break_statement .)
+    LAND            reduce using rule 23 (statement -> break_statement .)
+    EQ              reduce using rule 23 (statement -> break_statement .)
+    NE              reduce using rule 23 (statement -> break_statement .)
+    LT              reduce using rule 23 (statement -> break_statement .)
+    GT              reduce using rule 23 (statement -> break_statement .)
+    LE              reduce using rule 23 (statement -> break_statement .)
+    GE              reduce using rule 23 (statement -> break_statement .)
+    PLUS            reduce using rule 23 (statement -> break_statement .)
+    MINUS           reduce using rule 23 (statement -> break_statement .)
+    TIMES           reduce using rule 23 (statement -> break_statement .)
+    DIVIDE          reduce using rule 23 (statement -> break_statement .)
+    $end            reduce using rule 23 (statement -> break_statement .)
 
 
 state 33
@@ -2478,7 +2474,7 @@ state 62
     LPAREN          shift and go to state 27
     INT             shift and go to state 34
     DOUBLE          shift and go to state 35
-    CHAR            shift and go to state 32
+    CHAR            shift and go to state 3
     STRING          shift and go to state 7
     KEY             shift and go to state 40
     ID              shift and go to state 29
@@ -2504,7 +2500,7 @@ state 62
 
     expression_statement           shift and go to state 1
     constant                       shift and go to state 4
-    break_statement                shift and go to state 3
+    break_statement                shift and go to state 32
     reserved                       shift and go to state 22
     iteration_statement            shift and go to state 5
     additive_expression            shift and go to state 6
@@ -2631,7 +2627,7 @@ state 65
     ID              shift and go to state 76
     INT             shift and go to state 34
     DOUBLE          shift and go to state 35
-    CHAR            shift and go to state 32
+    CHAR            shift and go to state 3
     STRING          shift and go to state 7
     KEY             shift and go to state 40
     ICONST          shift and go to state 25
@@ -3477,7 +3473,7 @@ state 86
     ID              shift and go to state 76
     INT             shift and go to state 34
     DOUBLE          shift and go to state 35
-    CHAR            shift and go to state 32
+    CHAR            shift and go to state 3
     STRING          shift and go to state 7
     KEY             shift and go to state 40
     ICONST          shift and go to state 25
@@ -3883,7 +3879,7 @@ state 112
     ID              shift and go to state 76
     INT             shift and go to state 34
     DOUBLE          shift and go to state 35
-    CHAR            shift and go to state 32
+    CHAR            shift and go to state 3
     STRING          shift and go to state 7
     KEY             shift and go to state 40
     ICONST          shift and go to state 25
@@ -4007,7 +4003,7 @@ state 115
     LPAREN          shift and go to state 27
     INT             shift and go to state 34
     DOUBLE          shift and go to state 35
-    CHAR            shift and go to state 32
+    CHAR            shift and go to state 3
     STRING          shift and go to state 7
     KEY             shift and go to state 40
     ID              shift and go to state 29
@@ -4033,7 +4029,7 @@ state 115
 
     expression_statement           shift and go to state 1
     constant                       shift and go to state 4
-    break_statement                shift and go to state 3
+    break_statement                shift and go to state 32
     reserved                       shift and go to state 22
     iteration_statement            shift and go to state 5
     additive_expression            shift and go to state 6
@@ -4179,7 +4175,7 @@ state 118
     LPAREN          shift and go to state 27
     INT             shift and go to state 34
     DOUBLE          shift and go to state 35
-    CHAR            shift and go to state 32
+    CHAR            shift and go to state 3
     STRING          shift and go to state 7
     KEY             shift and go to state 40
     ID              shift and go to state 29
@@ -4205,7 +4201,7 @@ state 118
 
     expression_statement           shift and go to state 1
     constant                       shift and go to state 4
-    break_statement                shift and go to state 3
+    break_statement                shift and go to state 32
     reserved                       shift and go to state 22
     iteration_statement            shift and go to state 5
     additive_expression            shift and go to state 6
@@ -4382,7 +4378,7 @@ state 121
     LPAREN          shift and go to state 27
     INT             shift and go to state 34
     DOUBLE          shift and go to state 35
-    CHAR            shift and go to state 32
+    CHAR            shift and go to state 3
     STRING          shift and go to state 7
     KEY             shift and go to state 40
     ID              shift and go to state 29
@@ -4408,7 +4404,7 @@ state 121
 
     expression_statement           shift and go to state 1
     constant                       shift and go to state 4
-    break_statement                shift and go to state 3
+    break_statement                shift and go to state 32
     reserved                       shift and go to state 22
     iteration_statement            shift and go to state 5
     additive_expression            shift and go to state 6
@@ -4507,7 +4503,7 @@ state 122
     LPAREN          shift and go to state 27
     INT             shift and go to state 34
     DOUBLE          shift and go to state 35
-    CHAR            shift and go to state 32
+    CHAR            shift and go to state 3
     STRING          shift and go to state 7
     KEY             shift and go to state 40
     ID              shift and go to state 29
@@ -4533,7 +4529,7 @@ state 122
 
     expression_statement           shift and go to state 1
     constant                       shift and go to state 4
-    break_statement                shift and go to state 3
+    break_statement                shift and go to state 32
     reserved                       shift and go to state 22
     iteration_statement            shift and go to state 5
     additive_expression            shift and go to state 6
@@ -4633,7 +4629,7 @@ state 123
     LPAREN          shift and go to state 27
     INT             shift and go to state 34
     DOUBLE          shift and go to state 35
-    CHAR            shift and go to state 32
+    CHAR            shift and go to state 3
     STRING          shift and go to state 7
     KEY             shift and go to state 40
     ID              shift and go to state 29
@@ -4659,7 +4655,7 @@ state 123
 
     expression_statement           shift and go to state 1
     constant                       shift and go to state 4
-    break_statement                shift and go to state 3
+    break_statement                shift and go to state 32
     reserved                       shift and go to state 22
     iteration_statement            shift and go to state 5
     additive_expression            shift and go to state 6
@@ -4758,7 +4754,7 @@ state 124
     LPAREN          shift and go to state 27
     INT             shift and go to state 34
     DOUBLE          shift and go to state 35
-    CHAR            shift and go to state 32
+    CHAR            shift and go to state 3
     STRING          shift and go to state 7
     KEY             shift and go to state 40
     ID              shift and go to state 29
@@ -4784,7 +4780,7 @@ state 124
 
     expression_statement           shift and go to state 1
     constant                       shift and go to state 4
-    break_statement                shift and go to state 3
+    break_statement                shift and go to state 32
     reserved                       shift and go to state 22
     iteration_statement            shift and go to state 5
     additive_expression            shift and go to state 6
@@ -4932,7 +4928,7 @@ state 127
     LPAREN          shift and go to state 27
     INT             shift and go to state 34
     DOUBLE          shift and go to state 35
-    CHAR            shift and go to state 32
+    CHAR            shift and go to state 3
     STRING          shift and go to state 7
     KEY             shift and go to state 40
     ID              shift and go to state 29
@@ -4958,7 +4954,7 @@ state 127
 
     expression_statement           shift and go to state 1
     constant                       shift and go to state 4
-    break_statement                shift and go to state 3
+    break_statement                shift and go to state 32
     reserved                       shift and go to state 22
     iteration_statement            shift and go to state 5
     additive_expression            shift and go to state 6
@@ -5133,7 +5129,7 @@ state 130
     LPAREN          shift and go to state 27
     INT             shift and go to state 34
     DOUBLE          shift and go to state 35
-    CHAR            shift and go to state 32
+    CHAR            shift and go to state 3
     STRING          shift and go to state 7
     KEY             shift and go to state 40
     ID              shift and go to state 29
@@ -5159,7 +5155,7 @@ state 130
 
     expression_statement           shift and go to state 1
     constant                       shift and go to state 4
-    break_statement                shift and go to state 3
+    break_statement                shift and go to state 32
     reserved                       shift and go to state 22
     iteration_statement            shift and go to state 5
     additive_expression            shift and go to state 6
@@ -5387,7 +5383,7 @@ state 136
     LPAREN          shift and go to state 27
     INT             shift and go to state 34
     DOUBLE          shift and go to state 35
-    CHAR            shift and go to state 32
+    CHAR            shift and go to state 3
     STRING          shift and go to state 7
     KEY             shift and go to state 40
     ID              shift and go to state 29
@@ -5413,7 +5409,7 @@ state 136
 
     expression_statement           shift and go to state 1
     constant                       shift and go to state 4
-    break_statement                shift and go to state 3
+    break_statement                shift and go to state 32
     reserved                       shift and go to state 22
     iteration_statement            shift and go to state 5
     additive_expression            shift and go to state 6
@@ -5512,7 +5508,7 @@ state 137
     LPAREN          shift and go to state 27
     INT             shift and go to state 34
     DOUBLE          shift and go to state 35
-    CHAR            shift and go to state 32
+    CHAR            shift and go to state 3
     STRING          shift and go to state 7
     KEY             shift and go to state 40
     ID              shift and go to state 29
@@ -5538,7 +5534,7 @@ state 137
 
     expression_statement           shift and go to state 1
     constant                       shift and go to state 4
-    break_statement                shift and go to state 3
+    break_statement                shift and go to state 32
     reserved                       shift and go to state 22
     iteration_statement            shift and go to state 5
     additive_expression            shift and go to state 6
