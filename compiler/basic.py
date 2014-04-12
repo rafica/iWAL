@@ -525,7 +525,7 @@ parser = yacc.yacc(method='LALR')
 ##profile.run("yacc.yacc(method='LALR')")
 
 ##s = 'int abc ( int x = 1 != 2 != 3, 1) { string i = "String initialization"; key k = enter; cde = def = 4 != 6 < 8 > 7 + 4 * (8); abc( (1) , 1 ); xyz = "I am a String"; if(x==1){x = 2;} else {x = 1;} return (1);} { abc = 2 || 3 && 4 == 5 <= 8 >= 7 - 3 * 1; repeat(20){ x = 1;} until(x<y) { y=y+1; break;}}'
-f = open('/Users/Rafica/Documents/Github/iWAL/test.txt','r')
+f = open('../test.txt','r')
 s = f.read()
 f.close()
 

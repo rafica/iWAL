@@ -1,4 +1,4 @@
-start();
+start(1);
 string url = "http://ssol.columbia.edu/";
 open(url);
-close();
+close(1);
