@@ -34,6 +34,12 @@ tokens = reserved + (
     # Increment/decrement (++,--)
     'PLUSPLUS', 'MINUSMINUS',
 
+    # Structure dereference (->)
+    'ARROW',
+
+    # Conditional operator (?)
+    'CONDOP',
+    
     # Delimeters ( ) [ ] { } , . ; :
     'LPAREN', 'RPAREN',
     'LBRACKET', 'RBRACKET',
@@ -102,6 +108,12 @@ t_XOREQUAL         = r'^='
 t_PLUSPLUS         = r'\+\+'
 t_MINUSMINUS       = r'--'
 
+# ->
+t_ARROW            = r'->'
+
+# ?
+t_CONDOP           = r'\?'
+
 # Delimeters
 t_LPAREN           = r'\('
 t_RPAREN           = r'\)'
@@ -160,7 +172,6 @@ lexer = lex.lex(optimize=1)
 #######################################################################
 
 driverNumber = 0
-errorFlag = 0
 
 # translation_unit:
 
@@ -289,13 +300,6 @@ def p_declaration_statement_1(p):
 
 def p_declaration_statement_2(p):
     'declaration_statement : type ID EQUALS assignment_expression SEMI'
-##    if p[1].lower()=='string':
-##        if not (p[4][0]=='"' and p[4][-1]=='"'):
-##            print 'String was not initialized by string in line number', p.lineno(2)
-            
-##    elif p[1].lower()=='int':
-    ## We will let java handle these kind of errors
-    
     p[0] = p[1] + ' ' + p[2] + ' = ' + p[4] + ' ;'
 
 # compound_statement:
@@ -332,24 +336,26 @@ def p_expression_3(p):
 # function_expression:
 def p_function_expression_1(p):
     'function_expression : ID LPAREN parameter_list RPAREN'
-    global errorFlag
-    if not p[3]=='' and (p[1]=='start' or p[1]=='close'):
-        print 'In line number',p.lineno(2),'...',p[1],'does not take any arguments'
-        errorFlag = 1
-    
     if p[1]=='start':
-        global driverNumber
-        driverNumber+=1
-        p[0] = 'WebDriver driver'+ str(driverNumber) +' = new ChromeDriver()'
+        if not p[3]=='':
+            raise Exception('Start doesnot take arguments ...')
+        else:
+            global driverNumber
+            driverNumber+=1
+            p[0] = 'WebDriver driver'+ str(driverNumber) +' = new ChromeDriver()'
             
-    elif p[1]=='open':                      ###################  JAVA will handle the error for this ; errors can be : 1) URL might not be a string, 2) Mutiple parameters might be passed.
-        global driverNumber
-        p[0] = 'driver'+ str(driverNumber) +'.get('+p[3]+')'
+    elif p[1]=='open':
+        try:
+            global driverNumber
+            url = str(p[3])
+            p[0] = 'driver'+ str(driverNumber) +'.get('+p[3]+')'
+        except:
+            raise Exception('The URL parameter passed should be a string ...')
 
     elif p[1]=='close':
-        global driverNumber
-        p[0] = 'driver'+ str(driverNumber) +'.close()'
-        driverNumber = driverNumber - 1
+            global driverNumber
+            p[0] = 'driver'+ str(driverNumber) +'.close()'
+            driverNumber = driverNumber - 1
     else:
         p[0] = p[1] + ' ( ' + p[3] + ' ) '
 
@@ -525,7 +531,7 @@ parser = yacc.yacc(method='LALR')
 ##profile.run("yacc.yacc(method='LALR')")
 
 ##s = 'int abc ( int x = 1 != 2 != 3, 1) { string i = "String initialization"; key k = enter; cde = def = 4 != 6 < 8 > 7 + 4 * (8); abc( (1) , 1 ); xyz = "I am a String"; if(x==1){x = 2;} else {x = 1;} return (1);} { abc = 2 || 3 && 4 == 5 <= 8 >= 7 - 3 * 1; repeat(20){ x = 1;} until(x<y) { y=y+1; break;}}'
-f = open('../test.txt','r')
+f = open('/Users/Rafica/Documents/Github/iWAL/test.txt','r')
 s = f.read()
 f.close()
 
