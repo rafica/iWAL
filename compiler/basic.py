@@ -588,14 +588,14 @@ print result
 ## Running the target program generated
 javaFileName = 'Target'
 
-p1 = subprocess.Popen('javac -classpath selenium-server-standalone-2.39.0.jar '+javaFileName+'.java', stdout=subprocess.PIPE, stderr = subprocess.PIPE, shell=True)
+p1 = subprocess.Popen('javac -classpath selenium-server-standalone-2.40.0.jar '+javaFileName+'.java', stdout=subprocess.PIPE, stderr = subprocess.PIPE, shell=True)
 (output1, err1) = p1.communicate()
 
 if err1 == '':
 
     print 'Compiled!..\n'
 
-    p2 = subprocess.Popen('java -cp .:selenium-server-standalone-2.39.0.jar ' + javaFileName, stdout=subprocess.PIPE, stderr = subprocess.PIPE, shell=True)
+    p2 = subprocess.Popen('java -cp .:selenium-server-standalone-2.40.0.jar ' + javaFileName, stdout=subprocess.PIPE, stderr = subprocess.PIPE, shell=True)
     (output2, err2) = p2.communicate()
 
     if err2 == '':
