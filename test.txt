@@ -1,8 +1,9 @@
 start();
 string url = "http://ssol.columbia.edu/";
 open(url);
+tab(1);
 string username = "username";
 input(username);
-string password = "password";
-inputE(username, password);
+string elementID = "u_pw";
+inputE(username, elementID);
 close();
