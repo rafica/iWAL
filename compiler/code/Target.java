@@ -1,0 +1,1 @@
+WebDriver driver1 = new ChromeDriver(); string url = "http://ssol.columbia.edu/" ; driver1.get(url); string username = "username" ; driver1.findElement(By.name(1 , 2)); driver1.close();
