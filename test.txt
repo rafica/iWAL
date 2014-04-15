@@ -1,11 +1,5 @@
 start();
 string url = "http://ssol.columbia.edu/";
-open(url);
-tab(1);
-string username = "username";
-input(username);
-string elementID = "u_pw";
-inputE(username, elementID);
-repeat(50) {
-tab(1);
+while(true){
+
 }
