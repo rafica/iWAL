@@ -169,28 +169,23 @@ def getParameterList(string):
        templs[i] = templs[i].strip()
    return templs
 
-final_wrapper = 'import java.awt.List; \
-import java.util.ArrayList;\
+final_wrapper = 'import java.util.Scanner;\
 \
 import org.openqa.selenium.By;\
 import org.openqa.selenium.Keys; \
 import org.openqa.selenium.WebDriver;\
 import org.openqa.selenium.WebElement;\
 import org.openqa.selenium.chrome.ChromeDriver;\
-import org.openqa.selenium.firefox.FirefoxDriver;\
-import org.openqa.selenium.remote.DesiredCapabilities;\
-import org.openqa.selenium.support.ui.ExpectedCondition;\
-import org.openqa.selenium.support.ui.WebDriverWait;\
 \
 public class Target  {\
     public static void main(String[] args) {\
         System.setProperty("webdriver.chrome.driver", "/Users/nithin/Desktop/Spring_2014/PLT/project/tools/chromedriver");\
         '
 
-# # Start_state:
-# def p_start_1(p):
-#     'start : translation_unit'
-#     p[0] = final_wrapper + p[1] + '} }'
+# Start_state:
+def p_start_1(p):
+    'start : translation_unit'
+    p[0] = final_wrapper + p[1] + '} }'
 
 # translation_unit:
 def p_translation_unit_1(p):
@@ -585,29 +580,29 @@ s = f.read()
 f.close()
 
 result = parser.parse(s)
-f = open('code/Target.java','w')
+f = open('Target.java','w')
 f.write(result)
 f.close()
 print result
 
-# ## Running the target program generated
-# javaFileName = 'Target'
+## Running the target program generated
+javaFileName = 'Target'
 
-# p1 = subprocess.Popen('javac ' + javaFileName + '.java', stdout=subprocess.PIPE, stderr = subprocess.PIPE, shell=True)
-# (output1, err1) = p1.communicate()
+p1 = subprocess.Popen('javac -classpath selenium-server-standalone-2.39.0.jar '+javaFileName+'.java', stdout=subprocess.PIPE, stderr = subprocess.PIPE, shell=True)
+(output1, err1) = p1.communicate()
 
-# if err1 == '':
+if err1 == '':
 
-#     print 'Compiled!..\n'
+    print 'Compiled!..\n'
 
-#     p2 = subprocess.Popen('java ' + javaFileName, stdout=subprocess.PIPE, stderr = subprocess.PIPE, shell=True)
-#     (output2, err2) = p2.communicate()
+    p2 = subprocess.Popen('java -cp .:selenium-server-standalone-2.39.0.jar ' + javaFileName, stdout=subprocess.PIPE, stderr = subprocess.PIPE, shell=True)
+    (output2, err2) = p2.communicate()
 
-#     if err2 == '':
-#         print 'Output:\n', output2
-#     else:
-#         print 'Error:\n', err2
+    if err2 == '':
+        print 'Output:\n', output2
+    else:
+        print 'Error:\n', err2
 
-# else:
-#     print 'Compile time error:\n' + err1
+else:
+    print 'Compile time error:\n' + err1
 
