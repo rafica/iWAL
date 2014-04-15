@@ -161,6 +161,7 @@ lexer = lex.lex(optimize=1)
 
 driverNumber = 0
 errorFlag = 0
+final_functions = ''
 
 def getParameterList(string):
    templs = string.split(',')
@@ -168,8 +169,32 @@ def getParameterList(string):
        templs[i] = templs[i].strip()
    return templs
 
-# translation_unit:
+final_wrapper = 'package selTest; \
+\
+import java.awt.List; \
+import java.util.ArrayList;\
+\
+import org.openqa.selenium.By;\
+import org.openqa.selenium.Keys; \
+import org.openqa.selenium.WebDriver;\
+import org.openqa.selenium.WebElement;\
+import org.openqa.selenium.chrome.ChromeDriver;\
+import org.openqa.selenium.firefox.FirefoxDriver;\
+import org.openqa.selenium.remote.DesiredCapabilities;\
+import org.openqa.selenium.support.ui.ExpectedCondition;\
+import org.openqa.selenium.support.ui.WebDriverWait;\
+\
+public class Hello  {\
+    public static void main(String[] args) {\
+        System.setProperty("webdriver.chrome.driver", "/Users/nithin/Desktop/Spring_2014/PLT/project/tools/chromedriver");\
+        '
 
+# Start_state:
+def p_start_1(p):
+    'start : translation_unit'
+    p[0] = final_wrapper + p[1] + '} }'
+
+# translation_unit:
 def p_translation_unit_1(p):
     'translation_unit : external_declaration'
     p[0] = p[1]
