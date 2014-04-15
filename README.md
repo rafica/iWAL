@@ -30,4 +30,5 @@ Rafica, 3, Two parameters should be given in inputE() function, handled
 Rafica, 4, When element with NAME/ID given as input is missing, throw error, NOT HANDLED
 
 
+Nithin, 5, Need to create symbol table or use ply inbuilt symbol table to do the type checking for identiefiers in every phase where needed, NOT HANDLED
 
