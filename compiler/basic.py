@@ -360,6 +360,8 @@ def p_function_expression_1(p):
     global driverNumber
     
     param = getParameterList(p[3])
+    if len(param)==1:
+        param = param[0]
     if (p[1]=='start' or p[1]=='close' or p[1]=='click') and not p[3]=='':
         print 'In line number',p.lineno(2),'...',p[1],'does not take any arguments'
         errorFlag = 1
