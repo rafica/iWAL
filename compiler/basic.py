@@ -162,6 +162,12 @@ lexer = lex.lex(optimize=1)
 driverNumber = 0
 errorFlag = 0
 
+def getParameterList(string):
+   templs = string.split(',')
+   for i in range(len(templs)):
+       templs[i] = templs[i].strip()
+   return templs
+
 # translation_unit:
 
 def p_translation_unit_1(p):
@@ -336,6 +342,17 @@ def p_function_expression_1(p):
     if not p[3]=='' and (p[1]=='start' or p[1]=='close'):
         print 'In line number',p.lineno(2),'...',p[1],'does not take any arguments'
         errorFlag = 1
+
+    param = getParameterList(p[3])
+    if not len(param)==1 and (p[1]=='input'):
+        print 'In line number',p.lineno(2),'...',p[1],'take 1 argument,',len(param),'given'
+        param = '"error"'
+        errorFlag = 1
+
+    if not len(param)==2 and (p[1]=='inputE'):                                                  ## If your function needs exactly 2 parameters append it here
+        print 'In line number',p.lineno(2),'...',p[1],'take 2 arguments,',len(param),'given'
+        param = ['"error1"', '"error2"']
+        errorFlag = 1
     
     if p[1]=='start':
         global driverNumber
@@ -350,6 +367,13 @@ def p_function_expression_1(p):
         global driverNumber
         p[0] = 'driver'+ str(driverNumber) +'.close()'
         driverNumber = driverNumber - 1
+
+    elif p[1]=='input':
+       p[0] = 'driver'+ str(driverNumber) +'.switchTo().activeElement().sendKeys('+param+')'
+       
+    elif p[1]=='inputE':
+       p[0] = 'driver'+ str(driverNumber) +'.findElement(By.name('+param[1]+').sendKeys('+param[0]+')'
+
     else:
         p[0] = p[1] + ' ( ' + p[3] + ' ) '
 
