@@ -6,4 +6,6 @@ string username = "username";
 input(username);
 string elementID = "u_pw";
 inputE(username, elementID);
-close();
+repeat(50) {
+tab(1);
+}
