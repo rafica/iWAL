@@ -2,7 +2,5 @@ start(1);
 string url = "http://ssol.columbia.edu/";
 open(url);
 string username = "username";
-input(username, 1);
-string password = "password";
-inputE(username, password, 1);
+clickE(1,2);
 close(1);

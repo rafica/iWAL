@@ -162,12 +162,6 @@ lexer = lex.lex(optimize=1)
 driverNumber = 0
 errorFlag = 0
 
-def getParameterList(string):
-   templs = string.split(',')
-   for i in range(len(templs)):
-       templs[i] = templs[i].strip()
-   return templs
-
 # translation_unit:
 
 def p_translation_unit_1(p):
@@ -339,49 +333,35 @@ def p_expression_3(p):
 def p_function_expression_1(p):
     'function_expression : ID LPAREN parameter_list RPAREN'
     global errorFlag
-    global driverNumber
-    
-    param = getParameterList(p[3])
-    if (p[1]=='start' or p[1]=='close' or p[1]=='click') and not p[3]=='':
+    if not p[3]=='' and (p[1]=='start' or p[1]=='close' or p[1]=='click'):
         print 'In line number',p.lineno(2),'...',p[1],'does not take any arguments'
         errorFlag = 1
-
-    elif (p[1]=='input' or p[1]=='clickE' or p[1]=='tab') and (not len(param)==1 or param[0]==''):
-        print 'In line number',p.lineno(2),'...',p[1],'takes 1 argument'
-        param = '"error"'
-        errorFlag = 1
-
-    elif (not len(param)==2 or param[0]=='') and (p[1]=='inputE'):                                                  ## If your function needs exactly 2 parameters append it here
-        print 'In line number',p.lineno(2),'...',p[1],'takes 2 arguments'
-        param = ['"error1"', '"error2"']
-        errorFlag = 1
-    
+        
+    #error check for functions with one parameter
+    #if p[3] == ''
     if p[1]=='start':
+        global driverNumber
         driverNumber+=1
         p[0] = 'WebDriver driver'+ str(driverNumber) +' = new ChromeDriver()'
             
     elif p[1]=='open':                      ###################  JAVA will handle the error for this ; errors can be : 1) URL might not be a string, 2) Mutiple parameters might be passed.
+        global driverNumber
         p[0] = 'driver'+ str(driverNumber) +'.get('+p[3]+')'
 
     elif p[1]=='close':
+        global driverNumber
         p[0] = 'driver'+ str(driverNumber) +'.close()'
         driverNumber = driverNumber - 1
-
-    elif p[1]=='input':
-       p[0] = 'driver'+ str(driverNumber) +'.switchTo().activeElement().sendKeys('+param+')'
-       
-    elif p[1]=='inputE':
-       p[0] = 'driver'+ str(driverNumber) +'.findElement(By.name('+param[1]+').sendKeys('+param[0]+')'
-       
     elif p[1]=='click':
+        # common global driverNumber
+        global driverNumber
         p[0] = 'driver'+str(driverNumber) + '.switchTo().activeElement().click()'
-
     elif p[1] == 'clickE':
+        global driverNumber
         p[0] = 'driver'+str(driverNumber)+'.findElement(By.name('+p[3]+'))'
-
     elif p[1] == 'tab':
+        global driverNumber
         p[0] = 'driver'+str(driverNumber)+'.switchTo().activeElement().sendKeys(Keys.TAB)'
-        
     else:
         p[0] = p[1] + ' ( ' + p[3] + ' ) '
 
@@ -557,7 +537,7 @@ parser = yacc.yacc(method='LALR')
 ##profile.run("yacc.yacc(method='LALR')")
 
 ##s = 'int abc ( int x = 1 != 2 != 3, 1) { string i = "String initialization"; key k = enter; cde = def = 4 != 6 < 8 > 7 + 4 * (8); abc( (1) , 1 ); xyz = "I am a String"; if(x==1){x = 2;} else {x = 1;} return (1);} { abc = 2 || 3 && 4 == 5 <= 8 >= 7 - 3 * 1; repeat(20){ x = 1;} until(x<y) { y=y+1; break;}}'
-f = open('../test.txt','r')
+f = open('/Users/Rafica/Documents/Github/iWAL/test.txt','r')
 s = f.read()
 f.close()
 
