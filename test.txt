@@ -2,10 +2,7 @@ start();
 string url = "http://ssol.columbia.edu/";
 open(url);
 tab(1);
-string username = "username";
+string username = "nr2476";
 input(username);
 string elementID = "u_pw";
-inputE(username, elementID);
-repeat(50) {
-tab(1);
-}
+inputE("This is my dummy password", elementID);

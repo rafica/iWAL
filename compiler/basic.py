@@ -592,7 +592,7 @@ f.write(result)
 f.close()
 print result
 
-# ## Running the target program generated
+## Running the target program generated
 # javaFileName = 'Target'
 
 # p1 = subprocess.Popen('javac -classpath selenium-server-standalone-2.39.0.jar '+javaFileName+'.java', stdout=subprocess.PIPE, stderr = subprocess.PIPE, shell=True)
