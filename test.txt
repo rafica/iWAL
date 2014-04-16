@@ -1,1 +1,12 @@
+<<<<<<< HEAD
 aaaashimaaaaa123abacgdpi
+=======
+start();
+string url = "http://ssol.columbia.edu/";
+open(url);
+tab(1);
+string username = "nr2476";
+input(username);
+string elementID = "u_pw";
+inputE("This is my dummy password", elementID);
+>>>>>>> a6f4ed3efc4cd696af7c7e11f02639e549f67712

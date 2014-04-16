@@ -1,0 +1,4 @@
+start();
+string url = "https://ssol.columbia.edu/";
+open(url);
+close();

@@ -4,7 +4,7 @@
 # A lexer and Parser for iWAL.
 # ----------------------------------------------------------------------
 
-import sys
+import sys, subprocess
 
 import ply.lex as lex
 import ply.yacc as yacc
@@ -34,12 +34,6 @@ tokens = reserved + (
     # Increment/decrement (++,--)
     'PLUSPLUS', 'MINUSMINUS',
 
-    # Structure dereference (->)
-    'ARROW',
-
-    # Conditional operator (?)
-    'CONDOP',
-    
     # Delimeters ( ) [ ] { } , . ; :
     'LPAREN', 'RPAREN',
     'LBRACKET', 'RBRACKET',
@@ -57,7 +51,17 @@ t_ignore           = ' \t\x0c'
 def t_NEWLINE(t):
     r'\n+'
     t.lexer.lineno += t.value.count("\n")
-    
+
+# Compute column.
+# input is the input text string
+# token is a token instance
+def find_column(input, token):
+    last_cr = input.rfind('\n',0,token.lexpos)
+    if last_cr < 0:
+        last_cr = 0
+    column = (token.lexpos - last_cr) + 1
+    return column
+
 # Operators
 t_PLUS             = r'\+'
 t_MINUS            = r'-'
@@ -97,12 +101,6 @@ t_XOREQUAL         = r'^='
 # Increment/decrement
 t_PLUSPLUS         = r'\+\+'
 t_MINUSMINUS       = r'--'
-
-# ->
-t_ARROW            = r'->'
-
-# ?
-t_CONDOP           = r'\?'
 
 # Delimeters
 t_LPAREN           = r'\('
@@ -161,9 +159,36 @@ lexer = lex.lex(optimize=1)
 #######################         YACC        ###########################
 #######################################################################
 
+driverNumber = 0
+errorFlag = 0
+repeatNumber = 0
+final_functions = ''
+
+def getParameterList(string):
+   templs = string.split(',')
+   for i in range(len(templs)):
+       templs[i] = templs[i].strip()
+   return templs
+
+final_wrapper = 'import java.util.Scanner;\
+\
+import org.openqa.selenium.By;\
+import org.openqa.selenium.Keys; \
+import org.openqa.selenium.WebDriver;\
+import org.openqa.selenium.WebElement;\
+import org.openqa.selenium.chrome.ChromeDriver;\
+\
+public class Target  {\
+    public static void main(String[] args) {\
+        System.setProperty("webdriver.chrome.driver", "/Users/nithin/Desktop/Spring_2014/PLT/project/tools/chromedriver");\
+        '
+
+# Start_state:
+# def p_start_1(p):
+#     'start : translation_unit'
+#     p[0] = final_wrapper + p[1] + '} }'
 
 # translation_unit:
-
 def p_translation_unit_1(p):
     'translation_unit : external_declaration'
     p[0] = p[1]
@@ -227,7 +252,7 @@ def p_type_3(p):
 
 def p_type_4(p):
     'type : STRING'
-    p[0] = p[1]
+    p[0] = 'String'
 
 def p_type_5(p):
     'type : KEY'
@@ -267,7 +292,13 @@ def p_statement_7(p):
 # iteration_statement:
 def p_iteration_statement_1(p):
     'iteration_statement : REPEAT LPAREN expression RPAREN LBRACE statement_list RBRACE'
-    p[0] = 'repeat ( ' + p[3] + ' ) { ' + p[6] + ' }'
+    global repeatNumber
+    repeatNumber+=1
+    if not p[3].isdigit():
+        print 'In line number',p.lineno(2),'... repeat only takes integers as arguments',p[3],'given'
+        errorFlag = 1
+    # p[0] = 'repeat ( ' + p[3] + ' ) { ' + p[6] + ' }'
+    p[0] = 'for(int repeatNumber'+str(repeatNumber)+'=0, repeatNumber'+str(repeatNumber)+'<'+p[3]+', repeatNumber'+str(repeatNumber)+'++) { '+p[6]+'}'
 
 def p_iteration_statement_2(p):
     'iteration_statement : UNTIL LPAREN expression RPAREN LBRACE statement_list RBRACE'
@@ -289,6 +320,13 @@ def p_declaration_statement_1(p):
 
 def p_declaration_statement_2(p):
     'declaration_statement : type ID EQUALS assignment_expression SEMI'
+##    if p[1].lower()=='string':
+##        if not (p[4][0]=='"' and p[4][-1]=='"'):
+##            print 'String was not initialized by string in line number', p.lineno(2)
+            
+##    elif p[1].lower()=='int':
+    ## We will let java handle these kind of errors
+    
     p[0] = p[1] + ' ' + p[2] + ' = ' + p[4] + ' ;'
 
 # compound_statement:
@@ -325,7 +363,52 @@ def p_expression_3(p):
 # function_expression:
 def p_function_expression_1(p):
     'function_expression : ID LPAREN parameter_list RPAREN'
-    p[0] = p[1] + ' ( ' + p[3] + ' ) '
+    global errorFlag
+    global driverNumber
+    
+    param = getParameterList(p[3])
+    if (p[1]=='start' or p[1]=='close' or p[1]=='click') and not p[3]=='':
+        print 'In line number',p.lineno(2),'...',p[1],'does not take any arguments'
+        errorFlag = 1
+
+    elif (p[1]=='input' or p[1]=='clickE' or p[1]=='tab') and (not len(param)==1 or param[0]==''):
+        print 'In line number',p.lineno(2),'...',p[1],'takes 1 argument'
+        param = ['"error"']
+        errorFlag = 1
+
+    elif (not len(param)==2 or param[0]=='') and (p[1]=='inputE'):                                                  ## If your function needs exactly 2 parameters append it here
+        print 'In line number',p.lineno(2),'...',p[1],'takes 2 arguments'
+        param = ['"error1"', '"error2"']
+        errorFlag = 1
+
+    if p[1]=='start':
+        driverNumber+=1
+        p[0] = 'WebDriver driver'+ str(driverNumber) +' = new ChromeDriver()'
+            
+    elif p[1]=='open':                      ###################  JAVA will handle the error for this ; errors can be : 1) URL might not be a string, 2) Mutiple parameters might be passed.
+        p[0] = 'driver'+ str(driverNumber) +'.get('+p[3]+')'
+
+    elif p[1]=='close':
+        p[0] = 'driver'+ str(driverNumber) +'.close()'
+        driverNumber = driverNumber - 1
+
+    elif p[1]=='input':
+       p[0] = 'driver'+ str(driverNumber) +'.switchTo().activeElement().sendKeys('+param[0]+')'
+       
+    elif p[1]=='inputE':
+       p[0] = 'driver'+ str(driverNumber) +'.findElement(By.name('+param[1]+')).sendKeys('+param[0]+')'
+       
+    elif p[1]=='click':
+        p[0] = 'driver'+str(driverNumber) + '.switchTo().activeElement().click()'
+
+    elif p[1] == 'clickE':
+        p[0] = 'driver'+str(driverNumber)+'.findElement(By.name('+p[3]+'))'
+
+    elif p[1] == 'tab':
+        p[0] = 'driver'+str(driverNumber)+'.switchTo().activeElement().sendKeys(Keys.TAB)'
+        
+    else:
+        p[0] = p[1] + ' ( ' + p[3] + ' ) '
 
 # assignment_expression:
 def p_assignment_expression_1(p):
@@ -498,10 +581,35 @@ parser = yacc.yacc(method='LALR')
 
 ##profile.run("yacc.yacc(method='LALR')")
 
-s = 'int abc ( int x = 1 != 2 != 3, 1) { string i = "String initialization"; key k = enter; cde = def = 4 != 6 < 8 > 7 + 4 * (8); abc( (1) , 1 ); xyz = "I am a String"; if(x==1){x = 2;} else {x = 1;} return (1);} { abc = 2 || 3 && 4 == 5 <= 8 >= 7 - 3 * 1; repeat(20){ x = 1;} until(x<y) { y=y+1; break;}}'
-##f = open('/Users/nithin/Desktop/Spring_2014/PLT/project/compiler/hello.txt','r')
-##s = f.read()
-##f.close()
+##s = 'int abc ( int x = 1 != 2 != 3, 1) { string i = "String initialization"; key k = enter; cde = def = 4 != 6 < 8 > 7 + 4 * (8); abc( (1) , 1 ); xyz = "I am a String"; if(x==1){x = 2;} else {x = 1;} return (1);} { abc = 2 || 3 && 4 == 5 <= 8 >= 7 - 3 * 1; repeat(20){ x = 1;} until(x<y) { y=y+1; break;}}'
+f = open('../test.txt','r')
+s = f.read()
+f.close()
 
 result = parser.parse(s)
+f = open('Target.java','w')
+f.write(result)
+f.close()
 print result
+
+## Running the target program generated
+# javaFileName = 'Target'
+
+# p1 = subprocess.Popen('javac -classpath selenium-server-standalone-2.39.0.jar '+javaFileName+'.java', stdout=subprocess.PIPE, stderr = subprocess.PIPE, shell=True)
+# (output1, err1) = p1.communicate()
+
+# if err1 == '':
+
+#     print 'Compiled!..\n'
+
+#     p2 = subprocess.Popen('java -cp .:selenium-server-standalone-2.39.0.jar ' + javaFileName, stdout=subprocess.PIPE, stderr = subprocess.PIPE, shell=True)
+#     (output2, err2) = p2.communicate()
+
+#     if err2 == '':
+#         print 'Output:\n', output2
+#     else:
+#         print 'Error:\n', err2
+
+# else:
+#     print 'Compile time error:\n' + err1
+
