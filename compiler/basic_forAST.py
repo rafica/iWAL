@@ -265,7 +265,8 @@ def p_type_3(p):
 def p_type_4(p):
     'type : STRING'
     # p[0] = 'String'       #CHECK..
-    p[0] = ('string__type',p[1])
+    # p[0] = ('string__type',p[1])
+    p[0] = ('string__type','String')
 
 def p_type_5(p):
     'type : KEY'
@@ -447,6 +448,7 @@ def p_function_expression_1(p):
     #     # p[0] = p[1] + ' ( ' + p[3] + ' ) '
     #     print 
     p[0] = ('declrtn__funcexpn',p[1],p[3])
+
 # assignment_expression:
 def p_assignment_expression_1(p):
     'assignment_expression : ID EQUALS assignment_expression'
