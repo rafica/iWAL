@@ -1,5 +1,5 @@
 start();
 string url = "http://ssol.columbia.edu/";
-while(true){
-
+repeat(1){
+	x=1;
 }
