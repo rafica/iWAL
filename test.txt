@@ -1,8 +1,14 @@
 start();
 string url = "http://ssol.columbia.edu/";
+<<<<<<< HEAD
 open(url);
 tab(1);
 string username = "nr2476";
 input(username);
 string elementID = "u_pw";
 inputE("This is my dummy password", elementID);
+=======
+repeat(1){
+	x=1;
+}
+>>>>>>> FETCH_HEAD

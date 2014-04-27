@@ -302,7 +302,7 @@ def p_iteration_statement_1(p):
 
 def p_iteration_statement_2(p):
     'iteration_statement : UNTIL LPAREN expression RPAREN LBRACE statement_list RBRACE'
-    p[0] = 'until ( ' + p[3] + ' ) { ' + p[6] + ' }'
+    p[0] = 'while ( ' + p[3] + ' ) { ' + p[6] + ' }'
 
 # selection_statement:
 def p_selection_statement_1(p):
@@ -588,9 +588,9 @@ f.close()
 
 result = parser.parse(s)
 f = open('Target.java','w')
+print result
 f.write(result)
 f.close()
-print result
 
 ## Running the target program generated
 # javaFileName = 'Target'
