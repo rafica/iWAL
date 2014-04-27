@@ -18,11 +18,6 @@ class Node(object):
     def __str__(self):
         return self.traverse(1)
 
-##    def traverse(self):
-##        print self.type
-##
-##        for children
-
     def traverse(self, i):
         s = self.type
         indent = "\n" + i*' |'
@@ -36,8 +31,8 @@ class Node(object):
         for children in self.children:
             if type(children)==Node:
                 s += indent + children.traverse(i+1)
-##            else:
-##                print s
+            else:
+                s += indent + children
         return s
 
 # translation_unit:
@@ -449,4 +444,4 @@ def mainYacc():
     return result
 
 result = mainYacc()
-result.traverse(-1)
+print result.traverse(1)
