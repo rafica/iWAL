@@ -1,5 +1,6 @@
 import ply.yacc as yacc
 from ilexer import *
+
 #######################################################################
 #######################         YACC        ###########################
 #######################################################################
@@ -13,6 +14,31 @@ class Node(object):
             self.children = []
         self.parent = parent
         self.token = token
+
+    def __str__(self):
+        return self.traverse(1)
+
+##    def traverse(self):
+##        print self.type
+##
+##        for children
+
+    def traverse(self, i):
+        s = self.type
+        indent = "\n" + i*' |'
+        if self.parent != None:
+            if isinstance(self.parent, Node):
+                print "Node"
+                s += indent + self.leaf.traverse(i+1)
+            else:
+                s += indent + str(self.parent)
+
+        for children in self.children:
+            if type(children)==Node:
+                s += indent + children.traverse(i+1)
+##            else:
+##                print s
+        return s
 
 # translation_unit:
 def p_translation_unit_1(p):
@@ -415,12 +441,12 @@ def p_error(p):
 
 def mainYacc():
     mainLex()
-    print 'Called Lex'
     parser = yacc.yacc(method='LALR')
     f = open('../test.txt','r')
     s = f.read()
     f.close()
     result = parser.parse(s)
-    print result
-    
-mainYacc()
+    return result
+
+result = mainYacc()
+result.traverse(-1)
