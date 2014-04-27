@@ -1,5 +1,6 @@
 import ply.yacc as yacc
 from ilexer import *
+import typechecker
 
 #######################################################################
 #######################         YACC        ###########################
@@ -14,6 +15,7 @@ class Node(object):
             self.children = []
         self.parent = parent
         self.token = token
+        self.datatype = None
 
     def __str__(self):
         return self.traverse(1)
@@ -34,6 +36,7 @@ class Node(object):
             else:
                 s += indent + children
         return s
+        
 
 # translation_unit:
 def p_translation_unit_1(p):
@@ -56,6 +59,7 @@ def p_external_declaration_2(p):
     'external_declaration : statement'
     # p[0] = p[1]
     p[0] = Node('external_declaration_2', [p[1]])
+
 # function_definition:
 def p_function_definition_1(p):
     'function_definition : type ID LPAREN parameter_list RPAREN LBRACE statement_list RBRACE'
@@ -219,10 +223,10 @@ def p_expression_1(p):
     # p[0] = p[1]
     p[0] = Node('expression_1',[p[1]])
 
-def p_expression_2(p):
-    'expression : function_expression'
-    # p[0] = p[1]
-    p[0] = Node('expression_2',[p[1]])
+##def p_expression_2(p):
+##    'expression : function_expression'
+##    # p[0] = p[1]
+##    p[0] = Node('expression_2',[p[1]])
 
 def p_expression_3(p):
     'expression : LPAREN expression RPAREN'
@@ -232,6 +236,7 @@ def p_expression_3(p):
 # function_expression:
 def p_function_expression_1(p):
     'function_expression : ID LPAREN parameter_list RPAREN'
+    
     p[0] = Node('function_expression_1',[p[1],p[3]])
 
 # assignment_expression:
@@ -249,6 +254,10 @@ def p_assignment_expression_2(p):
     'assignment_expression : logical_OR_expression'
     # p[0] = p[1]
     p[0] = Node('assignment_expression_3',[p[1]])
+
+def p_assignment_expression_4(p):
+    'assignment_expression : function_expression'
+    p[0] = Node('assignment_expression_4',[p[1]])
 
 # logical_OR_expression:
 def p_logical_OR_expression_1(p):

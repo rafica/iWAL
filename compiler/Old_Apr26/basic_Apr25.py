@@ -352,9 +352,9 @@ def p_expression_1(p):
     'expression : assignment_expression'
     p[0] = p[1]
 
-##def p_expression_2(p):
-##    'expression : function_expression'
-##    p[0] = p[1]
+def p_expression_2(p):
+    'expression : function_expression'
+    p[0] = p[1]
 
 def p_expression_3(p):
     'expression : LPAREN expression RPAREN'
@@ -421,10 +421,6 @@ def p_assignment_expression_3(p):
 
 def p_assignment_expression_2(p):
     'assignment_expression : logical_OR_expression'
-    p[0] = p[1]
-
-def p_assignment_expression_4(p):
-    'assignment_expression : function_expression'
     p[0] = p[1]
 
 # logical_OR_expression:
