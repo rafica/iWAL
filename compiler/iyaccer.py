@@ -422,4 +422,5 @@ def mainYacc():
     f.close()
     result = parser.parse(s)
     print result
+    
 mainYacc()
