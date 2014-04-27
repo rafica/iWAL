@@ -32,3 +32,4 @@ Rafica, 4, When element with NAME/ID given as input is missing, throw error, NOT
 
 Nithin, 5, Need to create symbol table or use ply inbuilt symbol table to do the type checking for identiefiers in every phase where needed, NOT HANDLED
 
+Rafica, 6, When target program is empty, error thrown my python. (none type doesnt have result function), NOT HANDLED
