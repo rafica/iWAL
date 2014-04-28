@@ -86,7 +86,7 @@ def p_parameter_list_2(p):
 def p_parameter_declaration_1(p):
     'parameter_declaration : primary_expression'
     # p[0] = p[1]
-    p[0] = Node('paramemter_declaration_1',[p[1]])
+    p[0] = Node('parameter_declaration_1',[p[1]])
 
 def p_parameter_declaration_2(p):
     'parameter_declaration : type ID'
