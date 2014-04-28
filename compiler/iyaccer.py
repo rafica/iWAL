@@ -124,6 +124,10 @@ def p_type_5(p):        #Optional..can remove.
     # p[0] = p[1]
     p[0] = Node('type_5',[p[1]])
 
+def p_type_6(p):
+    'type : BOOLEAN'
+    p[0] = Node('type_6',[p[1]])
+
 ##################### Add more types here #############
 
 # statement:
@@ -248,12 +252,12 @@ def p_assignment_expression_1(p):
 def p_assignment_expression_3(p):
     'assignment_expression : logical_OR_expression EQUALS assignment_expression'
     # p[0] = p[1] + ' = ' + p[3]
-    p[0] = Node('assignment_expression_2',[p[1],p[3]],p[2])
+    p[0] = Node('assignment_expression_3',[p[1],p[3]],p[2])
 
 def p_assignment_expression_2(p):
     'assignment_expression : logical_OR_expression'
     # p[0] = p[1]
-    p[0] = Node('assignment_expression_3',[p[1]])
+    p[0] = Node('assignment_expression_2',[p[1]])
 
 def p_assignment_expression_4(p):
     'assignment_expression : function_expression'
@@ -453,6 +457,6 @@ def mainYacc():
     return result
 
 result = mainYacc()
-##print result.traverse(1)
+print result.traverse(1)
 
-typechecker.inorder(result)
+typechecker.postorder(result)

@@ -1,11 +1,5 @@
 
-int func(int i, int j) {
-	int a;
-}
-
 int x;
 int y;
-x = 1;
 y = 2;
-x = x+y;
-start();
+x = y;

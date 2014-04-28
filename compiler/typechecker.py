@@ -1,7 +1,7 @@
 import nithin, priyanka, ashima, rafica, pranita
 
 symbol_table = {}
-func_dict = {"declaration_statement_1" : nithin.declaration_statement_1,
+func_dict = {"declaration_statement_1" : nithin.declaration_statement_1
              "" : ,
              "" : ,
              "" : ,
@@ -23,4 +23,7 @@ def postorder(root, scope):
         func_dict[root.type](symbol_table, root, scope)
         
         if root.type in scope_incrementers:
-            scope = scope - 1
+            symbol_keys = s.keys()
+            for j in s.keys():
+                if j[2]==scope:
+                    pass
