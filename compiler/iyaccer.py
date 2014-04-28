@@ -185,7 +185,7 @@ def p_selection_statement_1(p):
     p[0] = Node('selection_statement_1',[p[3],p[6]])
 
 def p_selection_statement_2(p):
-    'selection_statement : IF LPAREN expression RPAREN LBRACE statement RBRACE ELSE LBRACE statement_list RBRACE'
+    'selection_statement : IF LPAREN expression RPAREN LBRACE statement_list RBRACE ELSE LBRACE statement_list RBRACE'
     # p[0] = 'if ( ' + p[3] + ' ) { ' + p[6] + ' } ( else ) { ' + p[10] + ' }'
     p[0] = Node('selection_statement_2',[p[3],p[6],p[10]])        #CHECK
 
@@ -456,7 +456,8 @@ def mainYacc():
     result = parser.parse(s)
     return result
 
-result = mainYacc()
-print result.traverse(1)
-
-typechecker.postorder(result)
+if __name__=="__main__":
+    result = mainYacc()
+##    print result.traverse(1)
+    typechecker.postorder(result, 1)
+    print result.code

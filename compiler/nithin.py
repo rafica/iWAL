@@ -15,15 +15,16 @@ def function_definition_1(s, temp, scope):
     pass
 
 def declaration_statement_1(s, temp, scope):
-    flag = 0
     if scope in s:
         if temp.children[1] in s[scope]:
             print 'Variable', temp.children[1], 'is declared again here ...'
-            flag = 1
-    if not flag:
+        else:
+            s[scope][temp.children[1]] = [temp.children[0].datatype]
+    else:
+        s[scope] = {}
         s[scope][temp.children[1]] = [temp.children[0].datatype]
 
-    temp.code = temp.children[0].code + ' ' +str(temp.children[1])
+    temp.code = temp.children[0].code + ' ' +str(temp.children[1]) + ';\n'
 
 ##    if (temp.children[1], scope) in s:
 ##        print 'Variable', temp.children[1], 'is declared again here ...'

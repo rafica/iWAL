@@ -33,11 +33,11 @@ def statement_3(s, temp, scope):
 	temp.datatype = temp.children[0].datatype	
 
 def statement_4(s, temp, scope):
-    temp.code = temp.children[0].code
+        temp.code = temp.children[0].code
 	temp.datatype = temp.children[0].datatype	
 
 def statement_5(s, temp, scope):
-    temp.code = temp.children[0].code
+        temp.code = temp.children[0].code
 	temp.datatype = temp.children[0].datatype	
 
 def statement_6(s, temp, scope):
@@ -45,7 +45,7 @@ def statement_6(s, temp, scope):
 	temp.datatype = temp.children[0].datatype	
 
 def statement_7(s, temp, scope):
-    temp.code = temp.children[0].code
+        temp.code = temp.children[0].code
    	temp.datatype = temp.children[0].datatype	
 
 
@@ -76,28 +76,28 @@ def additive_expression_3(s, temp, scope):
 
 # constant:
 def constant_1(s, temp, scope): 
-   	if(type(temp.children[0])==Node):
-   		print 'Error: '+ temp.children[0] + 'cannot be a Node'
+   	if(type(temp.children[0])=='Node'):
+                print 'Error: '+ temp.children[0] + 'cannot be a Node'
    	temp.code = temp.children[0]
    	temp.datatype = 'int'
 
 def constant_2(s, temp, scope):
-    if(type(temp.children[0])==Node):
-   		print 'Error: '+ temp.children[0] + 'cannot be a Node'
+        if(type(temp.children[0])=='Node'):
+                print 'Error: '+ temp.children[0] + 'cannot be a Node'
    	temp.code = temp.children[0]
    	temp.datatype = 'double'
 
 def constant_3(s, temp, scope):
-    if(type(temp.children[0])==Node):
-   		print 'Error: '+ temp.children[0] + 'cannot be a Node'
-   	temp.code = temp.children[0]
-   	temp.datatype = 'string'
+        if(type(temp.children[0])=='Node'):
+                print 'Error: '+ temp.children[0] + 'cannot be a Node'
+        temp.code = temp.children[0]
+        temp.datatype = 'string'
 
 # expression_statement:
 def expression_statement_1(s, temp, scope):
     temp.datatype = temp.children[0].datatype
-    temp.code = temp.children[0].code + ';'
+    temp.code = temp.children[0].code + ';\n'
 
 def expression_statement_2(s, temp, scope):
     temp.datatype = 'void'
-    temp.code = ';'  
+    temp.code = ';\n'  

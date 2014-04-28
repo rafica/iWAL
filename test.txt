@@ -1,5 +1,7 @@
-
+string s;
 int x;
 int y;
-y = 2;
+boolean z;
+z = (2<3)&&(3<4);
+y = 2 + 3;
 x = y;
