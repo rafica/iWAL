@@ -16,6 +16,7 @@ class Node(object):
         self.parent = parent
         self.token = token
         self.datatype = None
+        self.code = None
 
     def __str__(self):
         return self.traverse(1)
@@ -36,7 +37,6 @@ class Node(object):
             else:
                 s += indent + children
         return s
-        
 
 # translation_unit:
 def p_translation_unit_1(p):
@@ -453,4 +453,6 @@ def mainYacc():
     return result
 
 result = mainYacc()
-print result.traverse(1)
+##print result.traverse(1)
+
+typechecker.inorder(result)
