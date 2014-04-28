@@ -1,6 +1,7 @@
 
 def function_definition_1(s, temp, scope):
-    pass
+    
+    return scope-1
 
 def declaration_statement_1(s, temp, scope):
     s[(temp.children[1], scope)] = [temp.children[0].datatype]
