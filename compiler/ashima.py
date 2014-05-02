@@ -115,27 +115,65 @@ def expression_statement_2(s, temp, scope):
 
 # function_expression
 
+##def function_expression_1(s, temp, scope):
+##    # 'function_expression : ID LPAREN parameter_list RPAREN'
+##    # p[0] = Node('function_expression_1',[p[1],p[3]])
+##    temp.datatype = s[scope][temp.children[0]][1]	#Assign the return type of function to the data type of temp.
+##    temp.code = temp.children[0] + '(' + temp.children[1].code + ');'
+##    if(temp.children[0].type not in s[scope]):
+##    	print 'Function undefined!'
+##        temp.code = 'ERROR ERROR ERROR'
+##    elif(s[scope][temp.children[0]][0]!='function'):
+##    	print 'It\'s not a function!'
+##    	temp.code = 'ERROR ERROR ERROR'
+##    elif(s[scope][temp.children[0]][2]!=len(s[scope][temp.children[0]][3])):
+##    	print 'Function ' + temp.children[0].type + ' accepts '+ s[scope][temp.children[0]][2] + ' arguments. ' + len(s[scope][temp.children[0]][3]) + 'given.'
+##        temp.code = 'ERROR ERROR ERROR'
+##
+##    variables = temp.children[1].code.strip().split(',')
+##    for var in variables:
+##    	[flag, data_type] = check_type(scope, s, )
+##    	if(flag==0):
+##    		print 'Parameter variable ' + var + ' does not exist in scope.'
+##                temp.code = 'ERROR ERROR ERROR'
+
 def function_expression_1(s, temp, scope):
     # 'function_expression : ID LPAREN parameter_list RPAREN'
     # p[0] = Node('function_expression_1',[p[1],p[3]])
-    temp.datatype = s[scope][temp.children[0]][1]	#Assign the return type of function to the data type of temp.
-    temp.code = temp.children[0].type + '(' + temp.children[1].code + ');'
-    if(temp.children[0].type not in s[scope]):
-    	print 'Function undefined!'
-        temp.code = 'ERROR ERROR ERROR'
-    elif(s[scope][temp.children[0]][0]!='function'):
-    	print 'It\'s not a function!'
-    	temp.code = 'ERROR ERROR ERROR'
-    elif(s[scope][temp.children[0]][2]!=len(s[scope][temp.children[0]][3])):
-    	print 'Function ' + temp.children[0].type + ' accepts '+ s[scope][temp.children[0]][2] + ' arguments. ' + len(s[scope][temp.children[0]][3]) + 'given.'
+    flag = 0
+    xx = scope
+    scope = 1
+    if scope in s:
+            if(temp.children[0] not in s[scope]):
+                print 'Function undefined!'
+                temp.code = 'ERROR ERROR ERROR'
+            elif(s[scope][temp.children[0]][0]!='function'):
+                print 'It\'s not a function!'
+                temp.code = 'ERROR ERROR ERROR'
+            elif(s[scope][temp.children[0]][2]!=len(s[scope][temp.children[0]][3])):
+                print 'Function ' + temp.children[0].type + ' accepts '+ s[scope][temp.children[0]][2] + ' arguments. ' + len(s[scope][temp.children[0]][3]) + 'given.'
+                temp.code = 'ERROR ERROR ERROR'
+            else:
+                    variables = temp.children[1].code.strip().split(',')
+                    if variables[0]=='':
+                        temp.datatype = s[scope][temp.children[0]][1]	#Assign the return type of function to the data type of temp.
+                        temp.code = temp.children[0] + '(' + temp.children[1].code + ');'
+                        return 
+                    for var in variables:
+                        flag_temp = check_type(xx, s, var)
+                        if(flag_temp[0]==0):
+                                print s
+                                print 'Parameter variable ' + var + ' does not exist in scope.', xx
+                                temp.code = 'ERROR ERROR ERROR'
+                                temp.datatype = 'error'
+                                return
+                    temp.datatype = s[scope][temp.children[0]][1]	#Assign the return type of function to the data type of temp.
+                    temp.code = temp.children[0] + '(' + temp.children[1].code + ');'
+    else:
+        print 'Function undefined!'
         temp.code = 'ERROR ERROR ERROR'
 
-    variables = temp.children[1].code.strip().split(',')
-    for var in variables:
-    	[flag, data_type] = check_type(scope, s, )
-    	if(flag==0):
-    		print 'Parameter variable ' + var + ' does not exist in scope.'
-                temp.code = 'ERROR ERROR ERROR'
+
 
 
 # parameter_declaration:

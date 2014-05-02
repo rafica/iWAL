@@ -13,7 +13,7 @@ def check_type(scope, s, var):
 def get_parameters(param_list):
     temp = []
     param_list = param_list.strip().split(',')
-    if param_list == '':
+    if param_list[0] == '':
         return temp
     for i in range(len(param_list)):
         param_list[i] = param_list[i].strip().split(' ')
@@ -25,26 +25,35 @@ def get_parameters(param_list):
 
 def function_definition_1(s, temp, scope):
     scope = scope - 1
+    flag = 0
     if scope in s:
         if temp.children[1] in s[scope]:
             print 'Variable', temp.children[1], 'is declared again here ...'
             temp.code = 'ERROR ERROR ERROR'
-        else:
-            params = get_parameters(temp.children[2].code)
-            s[scope][temp.children[1]] = ['function', temp.children[0].datatype, len(params), params]
-            temp.code = 'public static ' + temp.children[0].datatype + ' ' + temp.children[1] + '(' + temp.children[2].code + ') { ' + temp.children[3].code  + ' }'
+            flag = 1
+    if not flag:
+        if not scope in s:
+            s[scope] = {}
+        params = get_parameters(temp.children[2].code)
+        s[scope][temp.children[1]] = ['function', temp.children[0].datatype, len(params), params]
+        temp.code = 'public static ' + temp.children[0].datatype + ' ' + temp.children[1] + '(' + temp.children[2].code + ') { ' + temp.children[3].code  + ' }\n'
+    
 
 def function_definition_2(s, temp, scope):
     scope = scope - 1
+    flag = 0
     if scope in s:
         if temp.children[1] in s[scope]:
             print 'Variable', temp.children[1], 'is declared again here ...'
             temp.code = 'ERROR ERROR ERROR'
-        else:
-            params = get_parameters(temp.children[2].code)
-            s[scope][temp.children[1]] = ['function', temp.children[0].datatype, len(params), params]
-            temp.code = 'public static ' + temp.children[0].datatype + ' ' + temp.children[1] + '(' + temp.children[2].code + ') { }'
- 
+            flag = 1
+    if not flag:
+        if not scope in s:
+            s[scope] = {}
+        params = get_parameters(temp.children[2].code)
+        s[scope][temp.children[1]] = ['function', temp.children[0].datatype, len(params), params]
+        temp.code = 'public static ' + temp.children[0].datatype + ' ' + temp.children[1] + '(' + temp.children[2].code + ') { }\n'
+    
 def declaration_statement_1(s, temp, scope):
     if scope in s:
         if temp.children[1] in s[scope]:

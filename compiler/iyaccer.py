@@ -71,7 +71,7 @@ def p_function_definition_2(p):
     'function_definition : type ID LPAREN parameter_list RPAREN LBRACE RBRACE'
     # p[0] = p[1]+' '+p[2]+' ( '+p[4]+ ' ) { }'
 ##    p[0] = Node('function_definition_2',[p[1],p[4]],p[2])
-    p[0] = Node('function_definition_1', [p[1],p[2],p[4]])
+    p[0] = Node('function_definition_2', [p[1],p[2],p[4]])
 
 # parameter_list:
 def p_parameter_list_1(p):
