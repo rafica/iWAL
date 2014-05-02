@@ -64,12 +64,14 @@ def p_external_declaration_2(p):
 def p_function_definition_1(p):
     'function_definition : type ID LPAREN parameter_list RPAREN LBRACE statement_list RBRACE'
     # p[0] = p[1]+' '+p[2]+' ( '+p[4]+ ' ) { '+p[7]+' }'
-    p[0] = Node('function_definition_1', [p[1],p[4],p[7]],p[2])
+##    p[0] = Node('function_definition_1', [p[1],p[4],p[7]],p[2])
+    p[0] = Node('function_definition_1', [p[1],p[2],p[4],p[7]])
 
 def p_function_definition_2(p):
     'function_definition : type ID LPAREN parameter_list RPAREN LBRACE RBRACE'
     # p[0] = p[1]+' '+p[2]+' ( '+p[4]+ ' ) { }'
-    p[0] = Node('function_definition_2',[p[1],p[4]],p[2])
+##    p[0] = Node('function_definition_2',[p[1],p[4]],p[2])
+    p[0] = Node('function_definition_1', [p[1],p[2],p[4]])
 
 # parameter_list:
 def p_parameter_list_1(p):
@@ -166,6 +168,10 @@ def p_statement_7(p):
     # p[0] = p[1]
     p[0] = Node('statement_7',[p[1]])
 
+def p_statement_8(p):
+    'statement : continue_statement'
+    p[0] = Node('statement_8',[p[1]])
+
 # iteration_statement:
 def p_iteration_statement_1(p):
     'iteration_statement : REPEAT LPAREN expression RPAREN LBRACE statement_list RBRACE'
@@ -185,7 +191,7 @@ def p_selection_statement_1(p):
     p[0] = Node('selection_statement_1',[p[3],p[6]])
 
 def p_selection_statement_2(p):
-    'selection_statement : IF LPAREN expression RPAREN LBRACE statement RBRACE ELSE LBRACE statement_list RBRACE'
+    'selection_statement : IF LPAREN expression RPAREN LBRACE statement_list RBRACE ELSE LBRACE statement_list RBRACE'
     # p[0] = 'if ( ' + p[3] + ' ) { ' + p[6] + ' } ( else ) { ' + p[10] + ' }'
     p[0] = Node('selection_statement_2',[p[3],p[6],p[10]])        #CHECK
 
@@ -197,7 +203,8 @@ def p_declaration_statement_1(p):
 
 def p_declaration_statement_2(p):
     'declaration_statement : type ID EQUALS assignment_expression SEMI'
-    p[0] = Node('declaration_statement_2',[p[1],Node('EqualTo',[p[2],p[4]],p[3])])
+##    p[0] = Node('declaration_statement_2',[p[1],Node('EqualTo',[p[2],p[4]],p[3])])
+    p[0] = Node('declaration_statement_2',[p[1],p[2],p[4]])
 
 # compound_statement:
 def p_compound_statement_1(p):
@@ -437,6 +444,10 @@ def p_break_statement_1(p):
     # p[0] = 'break ;'
     p[0] = Node('break_statement_1',[p[1]])
 
+def p_continue_statement_1(p):
+    'continue_statement : CONTINUE SEMI'
+    p[0] = Node('continue_statement_1',[p[1])
+
 # empty:
 def p_empty(p):
     'empty : '
@@ -456,7 +467,8 @@ def mainYacc():
     result = parser.parse(s)
     return result
 
-result = mainYacc()
-print result.traverse(1)
-
-typechecker.postorder(result)
+if __name__=="__main__":
+    result = mainYacc()
+##    print result.traverse(1)
+    typechecker.postorder(result, 1)
+    print result.code
