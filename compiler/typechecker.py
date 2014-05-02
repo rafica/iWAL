@@ -57,24 +57,45 @@ func_dict = {   "declaration_statement_1" : nithin.declaration_statement_1,
                 "equality_expression_2"   : rafica.equality_expression_2,
                 "equality_expression_3"   : rafica.equality_expression_3,
                 "selection_statement_1"   : rafica.selection_statement_1,
-                "selection_statement_2"   : rafica.selection_statement_2
+                "selection_statement_2"   : rafica.selection_statement_2,
+                "compound_statement_1"    : rafica.compound_statement_1,
+                "compound_statement_2"    : rafica.compound_statement_2
              }
 
 scope_incrementers = ['function_definition_1', 'function_definition_2', 'iteration_statement_1', 'iteration_statement_2', 'selection_statement_1', 'selection_statement_2']
+loops = ['iteration_statement_1', 'iteration_statement_2']
+loop_controls = ['continue_statement_1', 'break_statement_1']
+functions = ['function_definition_1', 'function_definition_2']
+function_return = ['return_statement_1', 'return_statement_2']
+loopFlag = 0
+functionFlag = 0
+def postorder(root, scope, loopFlag):
 
-def postorder(root, scope):
     if root.__class__.__name__ != 'Node':
         return
     else:
         if root.type in scope_incrementers:
             scope = scope + 1
+        if root.type in loop_controls:
+            if not loopFlag:
+                print "error: "+root.type + " is not inside a loop"
+        elif root.type in function_return:
+            if not functionFlag:
+                print "error: "+root.type + " is not inside a function"
+        if root.type in loops:
+            loopFlag = 1
+        elif root.type in functions:
+            functionFlag = 1
+        
         for i in root.children:
-            postorder(i, scope)
+            postorder(i, scope, loopFlag)
             
         func_dict[root.type](symbol_table, root, scope)
         
         if root.type in scope_incrementers:
-            symbol_keys = s.keys()
-            for j in s.keys():
-                if j[2]==scope:
-                    pass
+            del s[scope]
+
+    
+            
+            
+        
