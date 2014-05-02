@@ -9,8 +9,6 @@ def getTypeFromSymTable(t, symTab, curr_scope):
     if(not flag):
         return False
 
-
-
 def relational_expression_1(s, temp, scope):
     temp.datatype = temp.children[0].datatype
     temp.code = temp.children[0].code
