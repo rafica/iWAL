@@ -97,4 +97,14 @@ def selection_statement_2(s, node, scope):
     else:
         node.code = 'ERRORERRORERRORERROR"
         node.datatype = 'error'
-      
+
+def compound_statement(s, node, scope):
+        node.code = "{}"
+        node.datatype = "void"
+
+def compound_statement_2(s, node, scope):
+        node.code = "{"+ node.children[1] + "}"
+        node.datatype = "void"
+
+        
+        
