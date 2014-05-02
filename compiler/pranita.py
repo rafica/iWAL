@@ -127,15 +127,29 @@ def multiplicative_expression_3(s, temp, scope):
         temp.code = temp.children[0].code + ' / ' + temp.children[1].code 
     
 
-            
+def statement_list_1(s, temp, scope):
+	temp.datatype = 'void'
+	temp.code = temp.children[0].code
 
-    
+def statement_list_2(s, temp, scope):
+	temp.datatype = 'void'
+	temp.code = temp.children[0].code + ' ' + temp.children[1].code
+
+def parameter_list_1(s, temp, scope):
+	temp.datatype = 'void'
+	temp.code = temp.children[0].code
+
+def parameter_list_2(s, temp, scope):
+	temp.datatype = 'void'
+	temp.code = temp.children[0].code + ', ' + temp.children[1].code
 
 
+def return_statement_1:(s, temp, scope):
+	temp.datatype = 'void'
+	temp.code = 'return ;'
+
+def return_statement_2:(s, temp, scope):
+	temp.datatype = temp.children[0].datatype
+	temp.code = 'return ' + temp.children[0].code + ' ;' 
 
 
-
-
-
-            
-            
