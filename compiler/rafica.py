@@ -82,7 +82,7 @@ def equality_expression_3(s, node, scope):
 
 
 def selection_statement_1(s, node, scope):
-    if node.children[2].datatype=="boolean":
+    if node.children[0].datatype=="boolean":
         node.code = "if("+children[0].code+"){"+children[1].code + "}"
         node.datatype = "boolean"
     else:
@@ -91,7 +91,7 @@ def selection_statement_1(s, node, scope):
 
 
 def selection_statement_2(s, node, scope):
-    if node.children[2].datatype=="boolean":
+    if node.children[0].datatype=="boolean":
         node.code = "if("+children[0].code+"){"+children[1].code + "}else{"+ children[2].code +"}"
         node.datatype = "boolean"
     else:
