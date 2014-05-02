@@ -53,13 +53,31 @@ func_dict = {   "declaration_statement_1" : nithin.declaration_statement_1,
                 "assignment_expression_4" : rafica.assignment_expression_4,
                 "external_declaration_1"  : rafica.external_declaration_1,
                 "external_declaration_2"  : rafica.external_declaration_2,
-                "equality_expression_1"   : rafica.equality_expression_1,
-                "equality_expression_2"   : rafica.equality_expression_2,
-                "equality_expression_3"   : rafica.equality_expression_3,
+##                "equality_expression_1"   : rafica.equality_expression_1,
+##                "equality_expression_2"   : rafica.equality_expression_2,
+##                "equality_expression_3"   : rafica.equality_expression_3,
                 "selection_statement_1"   : rafica.selection_statement_1,
                 "selection_statement_2"   : rafica.selection_statement_2,
                 "compound_statement_1"    : rafica.compound_statement_1,
-                "compound_statement_2"    : rafica.compound_statement_2
+                "compound_statement_2"    : rafica.compound_statement_2,
+                "function_expression_1"  : ashima.function_expression_1,
+                "parameter_declaration_1"  : ashima.parameter_declaration_1,
+                "parameter_declaration_2"  : ashima.parameter_declaration_2,
+                "parameter_declaration_3"  : ashima.parameter_declaration_3,
+                "statement_8"  : ashima.statement_8,
+                "equality_expression_1" : priyanka.equality_expression_1,
+                "equality_expression_2" : priyanka.equality_expression_2,
+                "equality_expression_3" : priyanka.equality_expression_3,
+                "break_statement_1" : priyanka.break_statement_1,
+                "statement_list_1" : pranita.statement_list_1,
+                "statement_list_2" : pranita.statement_list_2,
+                "parameter_list_1" : pranita.parameter_list_1,
+                "parameter_list_2" : pranita.parameter_list_2,
+                "return_statement_1" : pranita.return_statement_1,
+                "return_statement_2" : pranita.return_statement_2,
+                "function_definition_1" : nithin.function_definition_1,
+                "function_definition_2" : nithin.function_definition_2,
+                "empty_1" : nithin.empty_1
              }
 
 scope_incrementers = ['function_definition_1', 'function_definition_2', 'iteration_statement_1', 'iteration_statement_2', 'selection_statement_1', 'selection_statement_2']
@@ -69,7 +87,7 @@ functions = ['function_definition_1', 'function_definition_2']
 function_return = ['return_statement_1', 'return_statement_2']
 loopFlag = 0
 functionFlag = 0
-def postorder(root, scope, loopFlag):
+def postorder(root, scope, loopFlag, functionFlag):
 
     if root.__class__.__name__ != 'Node':
         return
@@ -88,12 +106,13 @@ def postorder(root, scope, loopFlag):
             functionFlag = 1
         
         for i in root.children:
-            postorder(i, scope, loopFlag)
+            postorder(i, scope, loopFlag, functionFlag)
             
         func_dict[root.type](symbol_table, root, scope)
         
         if root.type in scope_incrementers:
-            del s[scope]
+            if scope in symbol_table:
+                del symbol_table[scope]
 
     
             

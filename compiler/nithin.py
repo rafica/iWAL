@@ -74,4 +74,9 @@ def declaration_statement_2(s, temp, scope):
         temp.datatype = 'void'
     else:
         temp.dataype = temp.children[0].datatype
+##        print temp.children[1],  temp.children[2].code,  temp.children[2].type
         temp.code = temp.children[0].code + ' ' +str(temp.children[1]) + ' = ' + temp.children[2].code + ';\n'
+
+def empty_1(s, temp, scope):
+    temp.code = ''
+    temp.datatype = 'void'

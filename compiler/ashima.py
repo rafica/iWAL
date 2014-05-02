@@ -1,14 +1,14 @@
 #iteration_statement
 def iteration_statement_1(s, temp, scope):
-	i = 1
-	while(('loop'+i) in s[scope]):
-		i+ = 1
-	#loopi is the variable name to use.
-	temp.code = 'for (int loop' + i + ' = 0; loop' + i + ' <' + temp.children[0].code + ' ; loop' + i + '++){\n' + temp.children[1].code + '\n}'
-    temp.datatype = 'void'
-    s[scope]['loop'+i] = ['int']
-    if(temp.children[0].datatype!='int'):
-    	print 'type of '+ temp.children[0].type+' must be int!'
+        i = 1
+        while(('loop'+i) in s[scope]):
+                i=i+1
+        #loopi is the variable name to use.
+        temp.code = 'for (int loop' + i + ' = 0; loop' + i + ' <' + temp.children[0].code + ' ; loop' + i + '++){\n' + temp.children[1].code + '\n}'
+        temp.datatype = 'void'
+        s[scope]['loop'+i] = ['int']
+        if(temp.children[0].datatype!='int'):
+                print 'type of '+ temp.children[0].type+' must be int!'
 
 def iteration_statement_2(s, temp, scope):
     # 'iteration_statement : UNTIL LPAREN expression RPAREN LBRACE statement_list RBRACE'
@@ -40,11 +40,11 @@ def statement_3(s, temp, scope):
 	temp.datatype = temp.children[0].datatype	
 
 def statement_4(s, temp, scope):
-    temp.code = temp.children[0].code
+        temp.code = temp.children[0].code
 	temp.datatype = temp.children[0].datatype	
 
 def statement_5(s, temp, scope):
-    temp.code = temp.children[0].code
+        temp.code = temp.children[0].code
 	temp.datatype = temp.children[0].datatype	
 
 def statement_6(s, temp, scope):
@@ -52,11 +52,11 @@ def statement_6(s, temp, scope):
 	temp.datatype = temp.children[0].datatype	
 
 def statement_7(s, temp, scope):
-    temp.code = temp.children[0].code
+        temp.code = temp.children[0].code
    	temp.datatype = temp.children[0].datatype	
 
 def statement_8(s, temp, scope):
-    temp.code = temp.children[0].code
+        temp.code = temp.children[0].code
    	temp.datatype = temp.children[0].datatype	
 
 
@@ -87,19 +87,19 @@ def additive_expression_3(s, temp, scope):
 
 # constant:
 def constant_1(s, temp, scope): 
-   	if(type(temp.children[0])==Node):
+   	if(type(temp.children[0])=='Node'):
    		print 'Error: '+ temp.children[0] + 'cannot be a Node'
    	temp.code = temp.children[0]
    	temp.datatype = 'int'
 
 def constant_2(s, temp, scope):
-    if(type(temp.children[0])==Node):
+        if(type(temp.children[0])=='Node'):
    		print 'Error: '+ temp.children[0] + 'cannot be a Node'
    	temp.code = temp.children[0]
    	temp.datatype = 'double'
 
 def constant_3(s, temp, scope):
-    if(type(temp.children[0])==Node):
+        if(type(temp.children[0])=='Node'):
    		print 'Error: '+ temp.children[0] + 'cannot be a Node'
    	temp.code = temp.children[0]
    	temp.datatype = 'string'
@@ -107,11 +107,11 @@ def constant_3(s, temp, scope):
 # expression_statement:
 def expression_statement_1(s, temp, scope):
     temp.datatype = temp.children[0].datatype
-    temp.code = temp.children[0].code + ';'
+    temp.code = temp.children[0].code + ';\n'
 
 def expression_statement_2(s, temp, scope):
     temp.datatype = 'void'
-    temp.code = ';'  
+    temp.code = ';\n'  
 
 # function_expression
 
@@ -135,7 +135,7 @@ def function_expression_1(s, temp, scope):
     	[flag, data_type] = check_type(scope, s, )
     	if(flag==0):
     		print 'Parameter variable ' + var + ' does not exist in scope.'
-            temp.code = 'ERROR ERROR ERROR'
+                temp.code = 'ERROR ERROR ERROR'
 
 
 # parameter_declaration:
@@ -158,7 +158,7 @@ def parameter_declaration_2(s, temp, scope):
     else:
         s[scope] = {}
         s[scope][temp.children[1]] = [temp.children[0].datatype]
-    	temp.code = temp.children[0].code + ' ' +str(temp.children[1])
+    temp.code = temp.children[0].code + ' ' +str(temp.children[1])
 
 
 def parameter_declaration_3(s, temp, scope):
@@ -174,6 +174,7 @@ def parameter_declaration_3(s, temp, scope):
     else:
         s[scope] = {}
         s[scope][temp.children[1]] = [temp.children[0].datatype]
+        temp.code = ''
 
     if not temp.children[0].datatype == temp.children[2].datatype:
         print 'Error initializing the variable', temp.children[1], '.. Expecting a', temp.children[0].datatype, ' got', temp.children[2].datatype

@@ -446,7 +446,7 @@ def p_break_statement_1(p):
 
 def p_continue_statement_1(p):
     'continue_statement : CONTINUE SEMI'
-    p[0] = Node('continue_statement_1',[p[1])
+    p[0] = Node('continue_statement_1',[p[1]])
 
 # empty:
 def p_empty(p):
@@ -470,5 +470,5 @@ def mainYacc():
 if __name__=="__main__":
     result = mainYacc()
 ##    print result.traverse(1)
-    typechecker.postorder(result, 1)
+    typechecker.postorder(result, 1, 0, 0)
     print result.code

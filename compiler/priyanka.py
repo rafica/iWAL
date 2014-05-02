@@ -44,7 +44,7 @@ def expression_3(s, temp, scope):
     temp.code = '(' + temp.children[0].code + ')'
 
 def equality_expression_1(s, temp, scope):
-    temp.datatype = temp.children[0].datatype:
+    temp.datatype = temp.children[0].datatype
     temp.code = temp.children[0].code               
         
 def equality_expression_2(s, temp, scope):
@@ -56,9 +56,9 @@ def equality_expression_2(s, temp, scope):
         temp.datatype = "error"
         temp.code = "error error error"
 
-def equality_expresson_3(s, temp, scope):
+def equality_expression_3(s, temp, scope):
     if temp.children[0].datatype == temp.children[1].datatype:
-        temp.datatype = "oolean"
+        temp.datatype = "boolean"
         temp.code = temp.children[0].code + '!=' + temp.children[0].code
     else:
         print "There was an error during the production of Equality Expression not equals Relational Expression"

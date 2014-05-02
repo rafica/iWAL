@@ -1,13 +1,13 @@
 def getTypeFromSymTable(symTab, t , curr_scope):
 	flag = False
 	while curr_scope > 0:
-    	if curr_scope in symTab:
-        	if t in symTab[curr_scope]:
-            	flag = True
-            	return symTab[curr_scope][t][0]
-    	curr_scope = curr_scope - 1    
- 	if(!flag):
-     	return None
+                if curr_scope in symTab:
+                        if t in symTab[curr_scope]:
+                                flag = True
+                                return symTab[curr_scope][t][0]
+                curr_scope = curr_scope - 1    
+ 	if(not flag):
+                return None
 
 
 def assignment_expression_1(s, node, scope):
@@ -17,28 +17,29 @@ def assignment_expression_1(s, node, scope):
         node.code = "ERROR ERROR ERROR ERROR"
         node.datatype = "error"
     else:
-        if node.children[2].datatype != s[temp][node.children[0]][0]:
+##        if not (node.children[1].datatype == s[temp][node.children[0]][0]):
+        if not (node.children[1].datatype == temp):
             print node.children[0] + 'is not '+ node.datatype
             node.code = "ERROR ERROR ERROR ERROR"
             node.datatype = "error"
         else:
-            node.code = node.children[0] + "=" + children[2].code
-            node.datatype = node.children[2].datatype
+            node.code = node.children[0] + "=" + node.children[1].code
+            node.datatype = node.children[1].datatype
     return
 
 def assignment_expression_2(s, node, scope):
-    node.code = node.children[0]
+    node.code = node.children[0].code
     node.datatype = node.children[0].datatype
     return
 
 def assignment_expression_3(s, node, scope):
-    if node.children[0].datatype != node.children[2].datatype:
+    if node.children[0].datatype != node.children[1].datatype:
         node.code = "ERROR ERROR ERROR ERROR"
         node.datatype = "error"
-        print node.children[0] +' datatypes dont match' + node.children[0].datatype +' and '+ node.children[2].datatype
+        print node.children[0] +' datatypes dont match' + node.children[0].datatype +' and '+ node.children[1].datatype
     else:
-        node.code = node.children[0].code + ' = ' + node.children[2].code
-        node.datatype = node.children[2].datatype
+        node.code = node.children[0].code + ' = ' + node.children[1].code
+        node.datatype = node.children[1].datatype
     
 
 def assignment_expression_4(s, node, scope):
@@ -62,43 +63,43 @@ def equality_expression_1(s, node, scope):
 
 
 def equality_expression_2(s, node, scope):
-    if node.children[0].datatype == node.children[2].datatype:
-        node.code = node.children[0].code+ '==' + node.children[2].code
+    if node.children[0].datatype == node.children[1].datatype:
+        node.code = node.children[0].code+ '==' + node.children[1].code
         node.datatype = "boolean"
     else:
         node.code = "ERROR ERROR ERROR ERROR"
         node.datatype = "error"
-        print "datatypes "+ node.children[0].datatype +' and ' + node.children[2].datatype + ' dont match'
+        print "datatypes "+ node.children[0].datatype +' and ' + node.children[1].datatype + ' dont match'
     
 def equality_expression_3(s, node, scope):
-    if node.children[0].datatype == node.children[2].datatype:
-        node.code = node.children[0].code+ '!=' + node.children[2].code
+    if node.children[0].datatype == node.children[1].datatype:
+        node.code = node.children[0].code+ '!=' + node.children[1].code
         node.datatype = "boolean"
     else:
         node.code = "ERROR ERROR ERROR ERROR"
         node.datatype = "error"
-        print "datatypes "+ node.children[0].datatype +' and ' + node.children[2].datatype + ' dont match'
+        print "datatypes "+ node.children[0].datatype +' and ' + node.children[1].datatype + ' dont match'
 
 
 
 def selection_statement_1(s, node, scope):
     if node.children[0].datatype=="boolean":
-        node.code = "if("+children[0].code+"){"+children[1].code + "}"
+        node.code = "if("+node.children[0].code+"){"+node.children[1].code + "}"
         node.datatype = "boolean"
     else:
-        node.code = 'ERRORERRORERRORERROR"
+        node.code = 'ERRORERRORERRORERROR'
         node.datatype = 'error'
 
 
 def selection_statement_2(s, node, scope):
     if node.children[0].datatype=="boolean":
-        node.code = "if("+children[0].code+"){"+children[1].code + "}else{"+ children[2].code +"}"
+        node.code = "if("+node.children[0].code+"){"+node.children[1].code + "}else{"+ node.children[2].code +"}"
         node.datatype = "boolean"
     else:
-        node.code = 'ERRORERRORERRORERROR"
+        node.code = 'ERRORERRORERRORERROR'
         node.datatype = 'error'
 
-def compound_statement(s, node, scope):
+def compound_statement_1(s, node, scope):
         node.code = "{}"
         node.datatype = "void"
 
