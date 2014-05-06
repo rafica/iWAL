@@ -26,14 +26,14 @@ def get_parameters(param_list):
 def function_definition_1(s, temp, scope):
     scope = scope - 1
     if not scope == 1:
-        print 'Function definition error ... Out of scope bounds ...'
+        print 'Line Number ',temp.lineno,': Function definition error - Out of scope bounds'
         temp.dataype = 'void'
         temp.code = 'ERROR ERROR ERROR'
     else:
         flag = 0
         if scope in s:
             if temp.children[1] in s[scope]:
-                print 'Function', temp.children[1], 'is declared again here ...'
+                print 'Line Number ',temp.lineno,': Function ', temp.children[1], ' is already defined'
                 temp.code = 'ERROR ERROR ERROR'
                 flag = 1
         if not flag:
@@ -46,14 +46,14 @@ def function_definition_1(s, temp, scope):
 def function_definition_2(s, temp, scope):
     scope = scope - 1
     if not scope == 1:
-        print 'Function definition error ... Out of scope bounds ...'
+        print 'Line Number ',temp.lineno,': Function definition error - Out of scope bounds'
         temp.dataype = 'void'
         temp.code = 'ERROR ERROR ERROR'
     else:
         flag = 0
         if scope in s:
             if temp.children[1] in s[scope]:
-                print 'Function', temp.children[1], 'is declared again here ...'
+                print 'Line Number ',temp.lineno,': Function ', temp.children[1], ' is already defined'
                 temp.code = 'ERROR ERROR ERROR'
                 flag = 1
         if not flag:
@@ -66,7 +66,7 @@ def function_definition_2(s, temp, scope):
 def function_expression_1(s, temp, scope):
     flags = check_type(scope, s, temp.children[0])
     if flags[0]==0:
-        print 'ERROR : Function',temp.children[0] ,'not defined ...'
+        print 'Line Number ', temp.lineno, ': Function',temp.children[0] ,'not defined'
         temp.dataype = 'error'
         temp.code = 'ERROR ERROR ERROR'
     else:
@@ -74,12 +74,12 @@ def function_expression_1(s, temp, scope):
         temp.datatype = flags[1][1]
         temp_params = temp.children[1].datatype
         if not len(flags[1][3])== len(temp_params):
-            print 'ERROR : In function',temp.children[0],', the number of parameters passed are:',len(temp_params), ',', len(flags[1][3]),'expected ...'
+            print 'Line Number ', temp.lineno, ': In function',temp.children[0],', the number of parameters passed are:',len(temp_params), ',', len(flags[1][3]),'expected ...'
             temp.code = 'ERROR ERROR ERROR'
         else:
             for i in range(len(flags[1][3])):
                 if not flags[1][3][i]==temp_params[i]:
-                    print 'ERROR : In function',temp.children[0],', in parameter #', i+1, ',', flags[1][3][i], 'expected, ', temp_params[i],'given ...'
+                    print 'Line Number ', temp.lineno,': In function',temp.children[0],', in parameter #', i+1, ',', flags[1][3][i], 'expected, ', temp_params[i],'given ...'
                     temp.code = 'ERROR ERROR ERROR'
                     temp_flag = 1
             if not temp_flag == 1:
@@ -88,7 +88,7 @@ def function_expression_1(s, temp, scope):
 def declaration_statement_1(s, temp, scope):
     if scope in s:
         if temp.children[1] in s[scope]:
-            print 'Variable', temp.children[1], 'is declared again here ...'
+            print 'Line Number ', temp.lineno, ': Variable', temp.children[1], ' is already declared'
         else:
             s[scope][temp.children[1]] = [temp.children[0].datatype]
     else:
@@ -100,7 +100,7 @@ def declaration_statement_1(s, temp, scope):
 def declaration_statement_2(s, temp, scope):
     if scope in s:
         if temp.children[1] in s[scope]:
-            print 'Variable', temp.children[1], 'is declared again here ...'
+            print 'Line Number ',temp.lineno, ': Variable ', temp.children[1], ' is already declared'
             temp.code = 'ERROR ERROR ERROR'
         else:
             s[scope][temp.children[1]] = [temp.children[0].datatype]
@@ -109,7 +109,7 @@ def declaration_statement_2(s, temp, scope):
         s[scope][temp.children[1]] = [temp.children[0].datatype]
 
     if not temp.children[0].datatype == temp.children[2].datatype:
-        print 'Error initializing the variable', temp.children[1], '.. Expecting a', temp.children[0].datatype, ' got', temp.children[2].datatype
+        print 'Line Number ', temp.lineno, ': Error initializing the variable', temp.children[1], '.. Expecting a', temp.children[0].datatype, ' got', temp.children[2].datatype
         temp.code = 'ERROR ERROR ERROR'
         temp.datatype = 'void'
     else:
