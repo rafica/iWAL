@@ -1,6 +1,6 @@
 
 #iteration_statement
-def iteration_statement_1(s, temp, scope):
+def iteration_statement_1(s, temp, scope,type_checking_error_flag):
         i = scope
 ##        temp_flag = check_type_loop(scope, s, 'loop'+str(i))
 ##        while(temp_flag[0]==1):
@@ -14,76 +14,80 @@ def iteration_statement_1(s, temp, scope):
         s[scope]['loop'+str(i)] = ['int']
         if(temp.children[0].datatype!='int'):
                 print 'Line Number ', temp.lineno, ': Type of ',temp.children[0].type,' must be int.'
+                type_checking_error_flag = 1
 
-def iteration_statement_2(s, temp, scope):
+def iteration_statement_2(s, temp, scope,type_checking_error_flag):
     # 'iteration_statement : UNTIL LPAREN expression RPAREN LBRACE statement_list RBRACE'
     temp.code = 'while (' + temp.children[0].code + '){\n' + temp.children[1].code + '\n}'
     temp.datatype = 'void'
     if(temp.children[0].datatype!='boolean'):
     	print 'Line Number ', temp.lineno, ': Type of ',temp.children[0].type ,'must be boolean.'
+    	type_checking_error_flag = 1
 
 #translation_unit
-def translation_unit_1(s, temp, scope):
+def translation_unit_1(s, temp, scope,type_checking_error_flag):
 	temp.code = temp.children[0].code
 	temp.datatype = temp.children[0].datatype	
 
-def translation_unit_2(s, temp, scope):
+def translation_unit_2(s, temp, scope,type_checking_error_flag):
 	temp.code = temp.children[0].code + temp.children[1].code
 	temp.datatype = temp.children[0].datatype	
 
 #statement
-def statement_1(s, temp, scope):
+def statement_1(s, temp, scope,type_checking_error_flag):
 	temp.code = temp.children[0].code
 	temp.datatype = temp.children[0].datatype	
 
-def statement_2(s, temp, scope):
+def statement_2(s, temp, scope,type_checking_error_flag):
 	temp.code = temp.children[0].code
 	temp.datatype = temp.children[0].datatype	
 
-def statement_3(s, temp, scope):
+def statement_3(s, temp, scope,type_checking_error_flag):
 	temp.code = temp.children[0].code
 	temp.datatype = temp.children[0].datatype	
 
-def statement_4(s, temp, scope):
+def statement_4(s, temp, scope,type_checking_error_flag):
         temp.code = temp.children[0].code
 	temp.datatype = temp.children[0].datatype	
 
-def statement_5(s, temp, scope):
+def statement_5(s, temp, scope,type_checking_error_flag):
         temp.code = temp.children[0].code
 	temp.datatype = temp.children[0].datatype	
 
-def statement_6(s, temp, scope):
+def statement_6(s, temp, scope,type_checking_error_flag):
    	temp.code = temp.children[0].code
 	temp.datatype = temp.children[0].datatype	
 
-def statement_7(s, temp, scope):
+def statement_7(s, temp, scope,type_checking_error_flag):
         temp.code = temp.children[0].code
    	temp.datatype = temp.children[0].datatype	
 
-def statement_8(s, temp, scope):
+def statement_8(s, temp, scope,type_checking_error_flag):
         temp.code = temp.children[0].code
    	temp.datatype = temp.children[0].datatype	
 
 
 # additive_expression:
-def additive_expression_1(s, temp, scope):
+def additive_expression_1(s, temp, scope,type_checking_error_flag):
 	temp.code = temp.children[0].code
 	temp.datatype = temp.children[0].datatype	
 
-def additive_expression_2(s, temp, scope):
+def additive_expression_2(s, temp, scope,type_checking_error_flag):
 	#Check if the datatype of child1 and child2 is same.
 	if(temp.children[0].datatype!=temp.children[1].datatype):
-		print 'Line Number ', temp.lineno, ': Data type mismatch for ',temp.children[0].type,' and ',temp.children[1].type,'.'
+		print 'Line Number ', temp.lineno, ': Data type mismatch. Left operand is ',temp.children[0].datatype,' and right operand is ',temp.children[1].datatype,'.'
+                type_checking_error_flag = 1
 		temp.code = 'errorerrorerror'
 		temp.datatype = 'error'
 	else:
 		temp.code = temp.children[0].code + ' + ' + temp.children[1].code
 		temp.datatype = temp.children[0].datatype
 
-def additive_expression_3(s, temp, scope):
+def additive_expression_3(s, temp, scope,type_checking_error_flag):
     #Check if the datatype of child1 and child2 is same.
 	if(temp.children[0].datatype!=temp.children[1].datatype):
-		print 'Line Number ', temp.lineno, ': Data type mismatch for ',temp.children[0].type,' and ',temp.children[1].type,'.'
+		print 'Line Number ', temp.lineno, ': Data type mismatch. Left operand is ',temp.children[0].datatype,' and right operand is ',temp.children[1].datatype,'.'
+                type_checking_error_flag = 1
 		temp.code = 'errorerrorerror'
 		temp.datatype = 'error'		
 	else:
@@ -91,39 +95,43 @@ def additive_expression_3(s, temp, scope):
 		temp.datatype = temp.children[0].datatype
 
 # constant:
-def constant_1(s, temp, scope): 
+def constant_1(s, temp, scope,type_checking_error_flag): 
    	if(type(temp.children[0])=='Node'):
    		print 'Line Number ', temp.lineno, ': ',temp.children[0],' cannot be a Node.'
+                type_checking_error_flag = 1
    	temp.code = temp.children[0]
    	temp.datatype = 'int'
 
-def constant_2(s, temp, scope):
+def constant_2(s, temp, scope,type_checking_error_flag):
         if(type(temp.children[0])=='Node'):
    		print 'Line Number ', temp.lineno, ': ',temp.children[0],' cannot be a Node.'
+   		type_checking_error_flag = 1
    	temp.code = temp.children[0]
    	temp.datatype = 'double'
 
-def constant_3(s, temp, scope):
+def constant_3(s, temp, scope,type_checking_error_flag):
         if(type(temp.children[0])=='Node'):
    		print 'Line Number ', temp.lineno, ': ',temp.children[0],' cannot be a Node.'
+   		type_checking_error_flag = 1
    	temp.code = temp.children[0]
    	temp.datatype = 'string'
 
 # expression_statement:
-def expression_statement_1(s, temp, scope):
+def expression_statement_1(s, temp, scope,type_checking_error_flag):
     temp.datatype = temp.children[0].datatype
     temp.code = temp.children[0].code + ';\n'
 
-def expression_statement_2(s, temp, scope):
+def expression_statement_2(s, temp, scope,type_checking_error_flag):
     temp.datatype = 'void'
     temp.code = ';\n'  
 
 # parameter_declaration:
-def parameter_declaration_1(s, temp, scope):
+def parameter_declaration_1(s, temp, scope,type_checking_error_flag):
     temp.datatype = temp.children[0].datatype
     if scope in s:
         if temp.children[1] in s[scope]:
             print 'Line Number ', temp.lineno, ': Variable', temp.children[1], ' is declared again here.'
+            type_checking_error_flag = 1
             temp.code = 'ERROR ERROR ERROR'
             temp.datatype = 'void'
         else:
@@ -134,7 +142,7 @@ def parameter_declaration_1(s, temp, scope):
     temp.code = temp.children[0].code + ' ' +str(temp.children[1])
 
 
-def parameter_declaration_2(s, temp, scope):
+def parameter_declaration_2(s, temp, scope,type_checking_error_flag):
     # 'parameter_declaration : type ID EQUALS assignment_expression'
     # # p[0] = p[1] + ' ' + p[2] + ' = ' + p[4]
     # p[0] = Node('parameter_declaration_3',[[p[2],p[1]],p[4]],p[3])
@@ -151,6 +159,7 @@ def parameter_declaration_2(s, temp, scope):
 
     if not temp.children[0].datatype == temp.children[2].datatype:
         print 'Line Number ', temp.lineno, ': Cannot initialize ', temp.children[1], '. Expecting a ', temp.children[0].datatype, ' but got a ', temp.children[2].datatype
+        type_checking_error_flag = 1
         temp.code = 'ERROR ERROR ERROR'
         temp.datatype = 'void'
     else:

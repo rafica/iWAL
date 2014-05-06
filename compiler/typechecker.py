@@ -88,10 +88,11 @@ functions = ['function_definition_1', 'function_definition_2']
 function_return = ['return_statement_1', 'return_statement_2']
 loopFlag = 0
 functionFlag = 0
+type_checking_error_flag = 0
 def postorder(root, scope, loopFlag, functionFlag):
 
     if root.__class__.__name__ != 'Node':
-        return
+        return type_checking_error_flag
     else:
         if root.type in scope_incrementers:
             scope = scope + 1
@@ -107,7 +108,7 @@ def postorder(root, scope, loopFlag, functionFlag):
             functionFlag = 1
         
         for i in root.children:
-            postorder(i, scope, loopFlag, functionFlag)
+            type_checking_error_flag = postorder(i, scope, loopFlag, functionFlag)
             
         func_dict[root.type](symbol_table, root, scope)
         
