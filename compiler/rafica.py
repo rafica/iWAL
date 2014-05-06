@@ -36,7 +36,7 @@ def assignment_expression_3(s, node, scope, type_checking_error_flag):
     if node.children[0].datatype != node.children[1].datatype:
         node.code = "ERROR ERROR ERROR ERROR"
         node.datatype = "error"
-        print 'Line number ', node.lineno, ': ', node.children[0],  ' datatypes dont match' + node.children[0].datatype +' and '+ node.children[1].datatype
+        print 'Line number ', node.lineno, ': ', node.children[0],  ' datatypes dont match' , node.children[0].datatype ,' and ', node.children[1].datatype
         type_checking_error_flag = 1
     else:
         node.code = node.children[0].code + ' = ' + node.children[1].code
