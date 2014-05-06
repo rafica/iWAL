@@ -6,7 +6,7 @@ def check_type(scope, s, var):
         if scope in s:
             if var in s[scope]:
                 flag = 1
-                data_type = s[scope][var][0]
+                data_type = s[scope][var]
         scope = scope - 1
     return [flag, data_type]
 
@@ -25,35 +25,66 @@ def get_parameters(param_list):
 
 def function_definition_1(s, temp, scope):
     scope = scope - 1
-    flag = 0
-    if scope in s:
-        if temp.children[1] in s[scope]:
-            print 'Variable', temp.children[1], 'is declared again here ...'
-            temp.code = 'ERROR ERROR ERROR'
-            flag = 1
-    if not flag:
-        if not scope in s:
-            s[scope] = {}
-        params = get_parameters(temp.children[2].code)
-        s[scope][temp.children[1]] = ['function', temp.children[0].datatype, len(params), params]
-        temp.code = 'public static ' + temp.children[0].datatype + ' ' + temp.children[1] + '(' + temp.children[2].code + ') { ' + temp.children[3].code  + ' }\n'
-    
+    if not scope == 1:
+        print 'Function definition error ... Out of scope bounds ...'
+        temp.dataype = 'void'
+        temp.code = 'ERROR ERROR ERROR'
+    else:
+        flag = 0
+        if scope in s:
+            if temp.children[1] in s[scope]:
+                print 'Function', temp.children[1], 'is declared again here ...'
+                temp.code = 'ERROR ERROR ERROR'
+                flag = 1
+        if not flag:
+            if not scope in s:
+                s[scope] = {}
+            s[scope][temp.children[1]] = ['function', temp.children[0].datatype, len(temp.children[2].datatype), temp.children[2].datatype]
+            temp.code = 'public static ' + temp.children[0].datatype + ' ' + temp.children[1] + '(' + temp.children[2].code + ') {\n ' + temp.children[3].code  + ' }\n'
+            temp.datatype = 'void'
 
 def function_definition_2(s, temp, scope):
     scope = scope - 1
-    flag = 0
-    if scope in s:
-        if temp.children[1] in s[scope]:
-            print 'Variable', temp.children[1], 'is declared again here ...'
+    if not scope == 1:
+        print 'Function definition error ... Out of scope bounds ...'
+        temp.dataype = 'void'
+        temp.code = 'ERROR ERROR ERROR'
+    else:
+        flag = 0
+        if scope in s:
+            if temp.children[1] in s[scope]:
+                print 'Function', temp.children[1], 'is declared again here ...'
+                temp.code = 'ERROR ERROR ERROR'
+                flag = 1
+        if not flag:
+            if not scope in s:
+                s[scope] = {}
+            s[scope][temp.children[1]] = ['function', temp.children[0].datatype, len(temp.children[2].datatype), temp.children[2].datatype]
+            temp.code = 'public static ' + temp.children[0].datatype + ' ' + temp.children[1] + '(' + temp.children[2].code + ') { }\n'
+            temp.datatype = 'void'
+
+def function_expression_1(s, temp, scope):
+    flags = check_type(scope, s, temp.children[0])
+    if flags[0]==0:
+        print 'ERROR : Function',temp.children[0] ,'not defined ...'
+        temp.dataype = 'error'
+        temp.code = 'ERROR ERROR ERROR'
+    else:
+        temp_flag = 0
+        temp.datatype = flags[1][1]
+        temp_params = temp.children[1].datatype
+        if not len(flags[1][3])== len(temp_params):
+            print 'ERROR : In function',temp.children[0],', the number of parameters passed are:',len(temp_params), ',', len(flags[1][3]),'expected ...'
             temp.code = 'ERROR ERROR ERROR'
-            flag = 1
-    if not flag:
-        if not scope in s:
-            s[scope] = {}
-        params = get_parameters(temp.children[2].code)
-        s[scope][temp.children[1]] = ['function', temp.children[0].datatype, len(params), params]
-        temp.code = 'public static ' + temp.children[0].datatype + ' ' + temp.children[1] + '(' + temp.children[2].code + ') { }\n'
-    
+        else:
+            for i in range(len(flags[1][3])):
+                if not flags[1][3][i]==temp_params[i]:
+                    print 'ERROR : In function',temp.children[0],', in parameter #', i+1, ',', flags[1][3][i], 'expected, ', temp_params[i],'given ...'
+                    temp.code = 'ERROR ERROR ERROR'
+                    temp_flag = 1
+            if not temp_flag == 1:
+                temp.code = temp.children[0] + '( '+temp.children[1].code+' )'
+
 def declaration_statement_1(s, temp, scope):
     if scope in s:
         if temp.children[1] in s[scope]:
@@ -85,6 +116,14 @@ def declaration_statement_2(s, temp, scope):
         temp.dataype = temp.children[0].datatype
 ##        print temp.children[1],  temp.children[2].code,  temp.children[2].type
         temp.code = temp.children[0].code + ' ' +str(temp.children[1]) + ' = ' + temp.children[2].code + ';\n'
+
+def parameter_declaration_list_1(s, temp, scope):
+    temp.datatype = [temp.children[0].datatype]
+    temp.code = temp.children[0].code
+
+def parameter_declaration_list_2(s, temp, scope):
+    temp.datatype = temp.children[0].datatype + [temp.children[1].datatype]
+    temp.code = temp.children[0].code + ',' + temp.children[1].code
 
 def empty_1(s, temp, scope):
     temp.code = ''

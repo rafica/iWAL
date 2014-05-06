@@ -62,43 +62,49 @@ def p_external_declaration_2(p):
 
 # function_definition:
 def p_function_definition_1(p):
-    'function_definition : type ID LPAREN parameter_list RPAREN LBRACE statement_list RBRACE'
+    'function_definition : type ID LPAREN parameter_declaration_list RPAREN LBRACE statement_list RBRACE'
     # p[0] = p[1]+' '+p[2]+' ( '+p[4]+ ' ) { '+p[7]+' }'
 ##    p[0] = Node('function_definition_1', [p[1],p[4],p[7]],p[2])
     p[0] = Node('function_definition_1', [p[1],p[2],p[4],p[7]])
 
 def p_function_definition_2(p):
-    'function_definition : type ID LPAREN parameter_list RPAREN LBRACE RBRACE'
+    'function_definition : type ID LPAREN parameter_declaration_list RPAREN LBRACE RBRACE'
     # p[0] = p[1]+' '+p[2]+' ( '+p[4]+ ' ) { }'
 ##    p[0] = Node('function_definition_2',[p[1],p[4]],p[2])
     p[0] = Node('function_definition_2', [p[1],p[2],p[4]])
 
 # parameter_list:
 def p_parameter_list_1(p):
-    'parameter_list : parameter_declaration'
+    'parameter_list : expression'
     # p[0] = p[1]
     p[0] = Node('parameter_list_1',[p[1]])
 
 def p_parameter_list_2(p):
-    'parameter_list : parameter_list COMMA parameter_declaration'
+    'parameter_list : parameter_list COMMA expression'
     # p[0] = p[1] + ' , ' + p[3]
     p[0] = Node('parameter_list_2',[p[1],p[3]])
 
+# parameter_declaration_list
+def p_parameter_declaration_list_1(p):
+    'parameter_declaration_list : parameter_declaration'
+    # p[0] = p[1]
+    p[0] = Node('parameter_declaration_list_1',[p[1]])
+
+def p_parameter_declaration_list_2(p):
+    'parameter_declaration_list : parameter_declaration_list COMMA parameter_declaration'
+    # p[0] = p[1] + ' , ' + p[3]
+    p[0] = Node('parameter_declaration_list_2',[p[1],p[3]])
+
 # parameter_declaration:
 def p_parameter_declaration_1(p):
-    'parameter_declaration : primary_expression'
-    # p[0] = p[1]
-    p[0] = Node('parameter_declaration_1',[p[1]])
-
-def p_parameter_declaration_2(p):
     'parameter_declaration : type ID'
     # p[0] = p[1] + ' ' + p[2]
-    p[0] = Node('parameter_declaration_2',[p[1],p[2]])
+    p[0] = Node('parameter_declaration_1',[p[1],p[2]])
 
-def p_parameter_declaration_3(p):
+def p_parameter_declaration_2(p):
     'parameter_declaration : type ID EQUALS assignment_expression'
     # p[0] = p[1] + ' ' + p[2] + ' = ' + p[4]
-    p[0] = Node('parameter_declaration_3',[[p[2],p[1]],p[4]],p[3])
+    p[0] = Node('parameter_declaration_2',[[p[2],p[1]],p[4]],p[3])
 
 # type:
 def p_type_1(p):
@@ -247,7 +253,6 @@ def p_expression_3(p):
 # function_expression:
 def p_function_expression_1(p):
     'function_expression : ID LPAREN parameter_list RPAREN'
-    
     p[0] = Node('function_expression_1',[p[1],p[3]])
 
 # assignment_expression:

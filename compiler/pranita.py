@@ -55,8 +55,6 @@ def relational_expression_5(s, temp, scope):
             temp.code = temp.children[0].code + ' >= ' + temp.children[1].code 
 
 
-
-
 def logical_AND_expression_1(s, temp, scope):
     temp.datatype = temp.children[0].datatype
     temp.code = temp.children[0].code
@@ -134,13 +132,12 @@ def statement_list_2(s, temp, scope):
 	temp.code = temp.children[0].code + ' ' + temp.children[1].code
 
 def parameter_list_1(s, temp, scope):
-	temp.datatype = 'void'
+	temp.datatype = [temp.children[0].datatype]
 	temp.code = temp.children[0].code
 
 def parameter_list_2(s, temp, scope):
-	temp.datatype = 'void'
+	temp.datatype = temp.children[0].datatype+[temp.children[1].datatype]
 	temp.code = temp.children[0].code + ', ' + temp.children[1].code
-
 
 def return_statement_1(s, temp, scope):
 	temp.datatype = 'void'

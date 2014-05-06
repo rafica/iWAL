@@ -1,13 +1,14 @@
-int func(int i, int j) {
-	int a;
+int func(int a, int b) {
+	int x;
+	x = x+1;
 }
 
-string s;
 int x;
-int y = 1;
-boolean z;
-z = (2<3)&&(3<4);
-y = 2 + 3;
-x = y;
-int a;
-func(a, x);
+int y;
+x = func(x, y);
+repeat(1) {
+	repeat(1) {
+		y = y+1;
+	}
+	x = x+1;
+}

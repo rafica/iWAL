@@ -1,12 +1,17 @@
+
 #iteration_statement
 def iteration_statement_1(s, temp, scope):
-        i = 1
-        while(('loop'+i) in s[scope]):
-                i=i+1
+        i = scope
+##        temp_flag = check_type_loop(scope, s, 'loop'+str(i))
+##        while(temp_flag[0]==1):
+##                i=i+1
+##                temp_flag = check_type_loop(scope, s, 'loop'+str(i))
         #loopi is the variable name to use.
-        temp.code = 'for (int loop' + i + ' = 0; loop' + i + ' <' + temp.children[0].code + ' ; loop' + i + '++){\n' + temp.children[1].code + '\n}'
+        temp.code = 'for (int loop' + str(i) + ' = 0; loop' + str(i) + ' <' + temp.children[0].code + ' ; loop' + str(i) + '++){\n' + temp.children[1].code + '\n}\n'
         temp.datatype = 'void'
-        s[scope]['loop'+i] = ['int']
+        if not scope in s:
+                s[scope] = {}
+        s[scope]['loop'+str(i)] = ['int']
         if(temp.children[0].datatype!='int'):
                 print 'type of '+ temp.children[0].type+' must be int!'
 
@@ -113,78 +118,8 @@ def expression_statement_2(s, temp, scope):
     temp.datatype = 'void'
     temp.code = ';\n'  
 
-# function_expression
-
-##def function_expression_1(s, temp, scope):
-##    # 'function_expression : ID LPAREN parameter_list RPAREN'
-##    # p[0] = Node('function_expression_1',[p[1],p[3]])
-##    temp.datatype = s[scope][temp.children[0]][1]	#Assign the return type of function to the data type of temp.
-##    temp.code = temp.children[0] + '(' + temp.children[1].code + ');'
-##    if(temp.children[0].type not in s[scope]):
-##    	print 'Function undefined!'
-##        temp.code = 'ERROR ERROR ERROR'
-##    elif(s[scope][temp.children[0]][0]!='function'):
-##    	print 'It\'s not a function!'
-##    	temp.code = 'ERROR ERROR ERROR'
-##    elif(s[scope][temp.children[0]][2]!=len(s[scope][temp.children[0]][3])):
-##    	print 'Function ' + temp.children[0].type + ' accepts '+ s[scope][temp.children[0]][2] + ' arguments. ' + len(s[scope][temp.children[0]][3]) + 'given.'
-##        temp.code = 'ERROR ERROR ERROR'
-##
-##    variables = temp.children[1].code.strip().split(',')
-##    for var in variables:
-##    	[flag, data_type] = check_type(scope, s, )
-##    	if(flag==0):
-##    		print 'Parameter variable ' + var + ' does not exist in scope.'
-##                temp.code = 'ERROR ERROR ERROR'
-
-def function_expression_1(s, temp, scope):
-    # 'function_expression : ID LPAREN parameter_list RPAREN'
-    # p[0] = Node('function_expression_1',[p[1],p[3]])
-    flag = 0
-    xx = scope
-    scope = 1
-    if scope in s:
-            if(temp.children[0] not in s[scope]):
-                print 'Function undefined!'
-                temp.code = 'ERROR ERROR ERROR'
-            elif(s[scope][temp.children[0]][0]!='function'):
-                print 'It\'s not a function!'
-                temp.code = 'ERROR ERROR ERROR'
-            elif(s[scope][temp.children[0]][2]!=len(s[scope][temp.children[0]][3])):
-                print 'Function ' + temp.children[0].type + ' accepts '+ s[scope][temp.children[0]][2] + ' arguments. ' + len(s[scope][temp.children[0]][3]) + 'given.'
-                temp.code = 'ERROR ERROR ERROR'
-            else:
-                    variables = temp.children[1].code.strip().split(',')
-                    if variables[0]=='':
-                        temp.datatype = s[scope][temp.children[0]][1]	#Assign the return type of function to the data type of temp.
-                        temp.code = temp.children[0] + '(' + temp.children[1].code + ');'
-                        return 
-                    for var in variables:
-                        flag_temp = check_type(xx, s, var)
-                        if(flag_temp[0]==0):
-                                print s
-                                print 'Parameter variable ' + var + ' does not exist in scope.', xx
-                                temp.code = 'ERROR ERROR ERROR'
-                                temp.datatype = 'error'
-                                return
-                    temp.datatype = s[scope][temp.children[0]][1]	#Assign the return type of function to the data type of temp.
-                    temp.code = temp.children[0] + '(' + temp.children[1].code + ');'
-    else:
-        print 'Function undefined!'
-        temp.code = 'ERROR ERROR ERROR'
-
-
-
-
 # parameter_declaration:
 def parameter_declaration_1(s, temp, scope):
-    # 'parameter_declaration : primary_expression'
-    # # p[0] = p[1]
-    # p[0] = Node('parameter_declaration_1',[p[1]])
-    temp.datatype = temp.children[0].datatype
-    temp.code = temp.children[0].code
-
-def parameter_declaration_2(s, temp, scope):
     temp.datatype = temp.children[0].datatype
     if scope in s:
         if temp.children[1] in s[scope]:
@@ -199,7 +134,7 @@ def parameter_declaration_2(s, temp, scope):
     temp.code = temp.children[0].code + ' ' +str(temp.children[1])
 
 
-def parameter_declaration_3(s, temp, scope):
+def parameter_declaration_2(s, temp, scope):
     # 'parameter_declaration : type ID EQUALS assignment_expression'
     # # p[0] = p[1] + ' ' + p[2] + ' = ' + p[4]
     # p[0] = Node('parameter_declaration_3',[[p[2],p[1]],p[4]],p[3])
@@ -233,3 +168,8 @@ def check_type(scope, s, var):
                 data_type = s[scope][var][0]
         scope = scope - 1
     return [flag, data_type]
+
+##def check_type_loop(scope, s, var):
+##    ls = s.keys()
+##    max_scope = max(ls)
+##    return check_type(max_scope, s, var)
