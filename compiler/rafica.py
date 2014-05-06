@@ -13,13 +13,13 @@ def getTypeFromSymTable(symTab, t , curr_scope):
 def assignment_expression_1(s, node, scope):
     temp = getTypeFromSymTable(s, node.children[0], scope)
     if not temp:
-        print node.children[0] +' variable is not declared'
+        print 'Line number ', node.lineno, ': ',node.children[0] ,' variable is not declared'
         node.code = "ERROR ERROR ERROR ERROR"
         node.datatype = "error"
     else:
 ##        if not (node.children[1].datatype == s[temp][node.children[0]][0]):
         if not (node.children[1].datatype == temp):
-            print node.children[0] + 'is not '+ node.datatype
+            print 'Line number ', node.lineno, ': ', node.children[0] , 'is not ', node.datatype
             node.code = "ERROR ERROR ERROR ERROR"
             node.datatype = "error"
         else:
@@ -36,7 +36,7 @@ def assignment_expression_3(s, node, scope):
     if node.children[0].datatype != node.children[1].datatype:
         node.code = "ERROR ERROR ERROR ERROR"
         node.datatype = "error"
-        print node.children[0] +' datatypes dont match' + node.children[0].datatype +' and '+ node.children[1].datatype
+        print 'Line number ', node.lineno, ': ', node.children[0],  ' datatypes dont match' + node.children[0].datatype +' and '+ node.children[1].datatype
     else:
         node.code = node.children[0].code + ' = ' + node.children[1].code
         node.datatype = node.children[1].datatype
@@ -69,7 +69,7 @@ def equality_expression_2(s, node, scope):
     else:
         node.code = "ERROR ERROR ERROR ERROR"
         node.datatype = "error"
-        print "datatypes "+ node.children[0].datatype +' and ' + node.children[1].datatype + ' dont match'
+        print "Line number ", node.lineno, ': Datatypes ', node.children[0].datatype ,' and ' , node.children[1].datatype , ' dont match'
     
 def equality_expression_3(s, node, scope):
     if node.children[0].datatype == node.children[1].datatype:
@@ -78,7 +78,7 @@ def equality_expression_3(s, node, scope):
     else:
         node.code = "ERROR ERROR ERROR ERROR"
         node.datatype = "error"
-        print "datatypes "+ node.children[0].datatype +' and ' + node.children[1].datatype + ' dont match'
+        print "Line number ", node.lineno, ': Datatypes ', node.children[0].datatype ,' and ' , node.children[1].datatype , ' dont match'
 
 
 
