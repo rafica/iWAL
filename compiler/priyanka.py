@@ -31,7 +31,7 @@ def logical_OR_expression_2(s, temp, scope):
         temp.datatype = "boolean"
         temp.code = temp.children[0].code +'||'+ temp.children[1].code
     else:
-        print " There was an error during the production of logical OR to logical AND"
+        print 'Line Number ', temp.lineno, ': Data type mismatch. ',temp.children[0].type,' of type ',temp.children[0].datatype,'but ',temp.children[1].type, ' of type ',temp.children[1].datatype,'.'
         temp.datatype = "error"
         temp.code = "error error error"
         
@@ -52,7 +52,7 @@ def equality_expression_2(s, temp, scope):
         temp.datatype = "boolean"
         temp.code = temp.children[0].code + '==' + temp.children[0].code
     else:
-        print "There was an error during the production of Equality Expression equals Relational Expression"
+        print 'Line Number ', temp.lineno, ': Data type mismatch. ',temp.children[0].type,' of type ',temp.children[0].datatype,'but ',temp.children[1].type, ' of type ',temp.children[1].datatype,'.'
         temp.datatype = "error"
         temp.code = "error error error"
 
@@ -61,7 +61,7 @@ def equality_expression_3(s, temp, scope):
         temp.datatype = "boolean"
         temp.code = temp.children[0].code + '!=' + temp.children[0].code
     else:
-        print "There was an error during the production of Equality Expression not equals Relational Expression"
+        print 'Line Number ', temp.lineno, ': Data type mismatch. ',temp.children[0].type,' of type ',temp.children[0].datatype,'but ',temp.children[1].type, ' of type ',temp.children[1].datatype,'.'
         temp.datatype = "error"
         temp.code = "error error error"
     

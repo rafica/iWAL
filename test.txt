@@ -1,5 +1,4 @@
 int func(int a, int b) {
-	int x;
 	string s;
 	x = x+1;
 	return s;

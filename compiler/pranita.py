@@ -15,7 +15,7 @@ def relational_expression_1(s, temp, scope):
 
 def relational_expression_2(s, temp, scope):
         if temp.children[0].datatype != temp.children[1].datatype:
-            print 'Trying to compare ' + temp.children[0].datatype + ' and' + temp.children[1].datatype + '!'
+            print 'Line Number ', temp.lineno, ': Error, trying to compare ' , temp.children[0].datatype , ' and ' , temp.children[1].datatype , '.'
             temp.datatype = 'error'
             temp.code = 'errorerrorerror'
         else:
@@ -26,7 +26,7 @@ def relational_expression_2(s, temp, scope):
 
 def relational_expression_3(s, temp, scope):
         if temp.children[0].datatype != temp.children[1].datatype:
-            print 'Trying to compare ' + temp.children[0].datatype + ' and' + temp.children[1].datatype + '!'
+            print 'Line Number ', temp.lineno, ': Error, trying to compare ' , temp.children[0].datatype , ' and ' , temp.children[1].datatype , '.'
             temp.datatype = 'error'
             temp.code = 'errorerrorerror'
         else:
@@ -37,7 +37,7 @@ def relational_expression_3(s, temp, scope):
 
 def relational_expression_4(s, temp, scope):
         if temp.children[0].datatype != temp.children[1].datatype:
-            print 'Trying to compare ' + temp.children[0].datatype + ' and' + temp.children[1].datatype + '!'
+            print 'Line Number ',temp.lineno,': Error, trying to compare ' , temp.children[0].datatype , ' and ' , temp.children[1].datatype , '.'
             temp.code = 'errorerrorerror'
             temp.datatype = 'error'
         else:
@@ -47,7 +47,7 @@ def relational_expression_4(s, temp, scope):
    
 def relational_expression_5(s, temp, scope):
         if temp.children[0].datatype != temp.children[1].datatype:
-            print 'Trying to compare ' + temp.children[0].datatype + ' and' + temp.children[1].datatype + '!'
+            print 'Line Number ', temp.lineno,': Error, trying to compare ' , temp.children[0].datatype , ' and ' , temp.children[1].datatype, '.'
             temp.datatype = 'error'
             temp.code = 'errorerrorerror'
         else:
@@ -65,7 +65,7 @@ def logical_AND_expression_2(s, temp, scope):
         temp.datatype = temp.children[0].datatype
         temp.code = temp.children[0].code + ' && ' + temp.children[1].code
     else:
-        print 'Trying to AND ' + temp.children[0].datatype + ' and' + temp.children[1].datatype + '!'
+        print 'Line Number ', temp.lineno, ': Error, trying to AND ' + temp.children[0].datatype + ' and ' + temp.children[1].datatype + '.'
         temp.code = 'errorerrorerror'
         temp.datatype = 'error'
         
@@ -82,7 +82,7 @@ def primary_expression_2(s, temp, scope):
 def primary_expression_3(s, temp, scope):
     flag = getTypeFromSymTable(temp.children[0], s, scope)
     if flag == False:
-        print 'Trying to access ' + temp.children[0] + ', but not defined!'
+        print 'Line Number ', temp.lineno, ': Error, trying to access ' , temp.children[0] , ' but it\'s not defined.'
         temp.code = 'errorerrorerror'
         temp.datatype = 'error'
     else:
@@ -106,7 +106,7 @@ def multiplicative_expression_1(s, temp, scope):
 
 def multiplicative_expression_2(s, temp, scope):
     if temp.children[0].datatype != temp.children[1].datatype:
-        print 'Trying to multiply ' + temp.children[0].datatype + ' and' + temp.children[1].datatype + '!'
+        print 'Line Number ', temp.lineno, ': Error, trying to multiply ' , temp.children[0].datatype , ' and' , temp.children[1].datatype + '.'
         temp.datatype = 'error'
         temp.code = 'errorerrorerror'
     else:
@@ -115,7 +115,7 @@ def multiplicative_expression_2(s, temp, scope):
     
 def multiplicative_expression_3(s, temp, scope):
     if temp.children[0].datatype != temp.children[1].datatype:
-        print 'Trying to divide ' + temp.children[0].datatype + ' and' + temp.children[1].datatype + '!'
+        print 'Line Number ',temp.lineno, ': Error, trying to divide ' , temp.children[0].datatype , ' and ' , temp.children[1].datatype , '.'
         temp.datatype = 'error'
         temp.code = 'errorerrorerror'
     else:
@@ -146,5 +146,4 @@ def return_statement_1(s, temp, scope):
 def return_statement_2(s, temp, scope):
 	temp.datatype = temp.children[0].datatype
 	temp.code = 'return ' + temp.children[0].code + ' ;' 
-
 

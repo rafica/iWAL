@@ -13,14 +13,14 @@ def iteration_statement_1(s, temp, scope):
                 s[scope] = {}
         s[scope]['loop'+str(i)] = ['int']
         if(temp.children[0].datatype!='int'):
-                print 'type of '+ temp.children[0].type+' must be int!'
+                print 'Line Number ', temp.lineno, ': Type of ',temp.children[0].type,' must be int.'
 
 def iteration_statement_2(s, temp, scope):
     # 'iteration_statement : UNTIL LPAREN expression RPAREN LBRACE statement_list RBRACE'
     temp.code = 'while (' + temp.children[0].code + '){\n' + temp.children[1].code + '\n}'
     temp.datatype = 'void'
     if(temp.children[0].datatype!='boolean'):
-    	print 'type of '+ temp.children[0].type + 'must be boolean!'
+    	print 'Line Number ', temp.lineno, ': Type of ',temp.children[0].type ,'must be boolean.'
 
 #translation_unit
 def translation_unit_1(s, temp, scope):
@@ -73,7 +73,7 @@ def additive_expression_1(s, temp, scope):
 def additive_expression_2(s, temp, scope):
 	#Check if the datatype of child1 and child2 is same.
 	if(temp.children[0].datatype!=temp.children[1].datatype):
-		print 'Data type mismatch for '+ temp.children[0].type + ' and ' + temp.children[1].type
+		print 'Line Number ', temp.lineno, ': Data type mismatch for ',temp.children[0].type,' and ',temp.children[1].type,'.'
 		temp.code = 'errorerrorerror'
 		temp.datatype = 'error'
 	else:
@@ -83,7 +83,7 @@ def additive_expression_2(s, temp, scope):
 def additive_expression_3(s, temp, scope):
     #Check if the datatype of child1 and child2 is same.
 	if(temp.children[0].datatype!=temp.children[1].datatype):
-		print 'Data type mismatch for '+ temp.children[0].type + ' and ' + temp.children[1].type
+		print 'Line Number ', temp.lineno, ': Data type mismatch for ',temp.children[0].type,' and ',temp.children[1].type,'.'
 		temp.code = 'errorerrorerror'
 		temp.datatype = 'error'		
 	else:
@@ -93,19 +93,19 @@ def additive_expression_3(s, temp, scope):
 # constant:
 def constant_1(s, temp, scope): 
    	if(type(temp.children[0])=='Node'):
-   		print 'Error: '+ temp.children[0] + 'cannot be a Node'
+   		print 'Line Number ', temp.lineno, ': ',temp.children[0],' cannot be a Node.'
    	temp.code = temp.children[0]
    	temp.datatype = 'int'
 
 def constant_2(s, temp, scope):
         if(type(temp.children[0])=='Node'):
-   		print 'Error: '+ temp.children[0] + 'cannot be a Node'
+   		print 'Line Number ', temp.lineno, ': ',temp.children[0],' cannot be a Node.'
    	temp.code = temp.children[0]
    	temp.datatype = 'double'
 
 def constant_3(s, temp, scope):
         if(type(temp.children[0])=='Node'):
-   		print 'Error: '+ temp.children[0] + 'cannot be a Node'
+   		print 'Line Number ', temp.lineno, ': ',temp.children[0],' cannot be a Node.'
    	temp.code = temp.children[0]
    	temp.datatype = 'string'
 
@@ -123,7 +123,7 @@ def parameter_declaration_1(s, temp, scope):
     temp.datatype = temp.children[0].datatype
     if scope in s:
         if temp.children[1] in s[scope]:
-            print 'Variable', temp.children[1], 'is declared again here ...'
+            print 'Line Number ', temp.lineno, ': Variable', temp.children[1], ' is declared again here.'
             temp.code = 'ERROR ERROR ERROR'
             temp.datatype = 'void'
         else:
@@ -141,7 +141,7 @@ def parameter_declaration_2(s, temp, scope):
     temp.datatype = temp.children[0].datatype
     if scope in s:
         if temp.children[1] in s[scope]:
-            print 'Variable', temp.children[1], 'is declared again here ...'
+            print 'Line Number ', temp.lineno, ': Variable', temp.children[1], ' is declared again here.'
         else:
             s[scope][temp.children[1]] = [temp.children[0].datatype]
     else:
@@ -150,7 +150,7 @@ def parameter_declaration_2(s, temp, scope):
         temp.code = ''
 
     if not temp.children[0].datatype == temp.children[2].datatype:
-        print 'Error initializing the variable', temp.children[1], '.. Expecting a', temp.children[0].datatype, ' got', temp.children[2].datatype
+        print 'Line Number ', temp.lineno, ': Cannot initialize ', temp.children[1], '. Expecting a ', temp.children[0].datatype, ' but got a ', temp.children[2].datatype
         temp.code = 'ERROR ERROR ERROR'
         temp.datatype = 'void'
     else:

@@ -2,6 +2,7 @@ import nithin, priyanka, ashima, rafica, pranita
 
 import iyaccer
 
+
 symbol_table = {}
 func_dict = {   "declaration_statement_1" : nithin.declaration_statement_1,
                 "declaration_statement_2" : nithin.declaration_statement_2,
