@@ -43,7 +43,8 @@
 ##        p[0] = p[1] + ' ( ' + p[3] + ' ) '
 
 
-# parameter can be number or a string with common variable naming conventions.
+
+
 # this string is appended to driver variable. hence other variables used in our program shouldnt begin with 'driver'. driver is reserverd word
 
 
@@ -51,6 +52,8 @@
 
 
 # ***************IMPORTANT : TO DO*********************
+# CHECK FOR SYMBOLS OTHER THAN _ , NUMBERS, ALPHABETS IN DRIVERNUMBER IN START FUNCTION
+
 # In tab function, second parameter is integer. I have written functionality for both positive integers and negative integers. positive will jump forward, negative
 #   will jump backwords. But NEGATIVE INTEGERS NOT WORKING IN FUNCTION CALL. ASSIGNING TYPE 'ERROR' INSTEAD OF 'INT' . My guess is some problem with ICONST in lexer
 
@@ -102,8 +105,9 @@ def start_function(s, node, scope, error_flag):
         node.code = 'ERROR ERROR ERROR'
         node.datatype = 'error'    
     else:
+            
         driverNumber = node.children[1].code
-        driverNumber = driverNumber.replace('"',"").strip()
+        driverNumber = driverNumber.replace('"',"").strip() #CHECK FOR SYMBOLS?.,><> ETC AND THROW ERROR"
         #store the driver name in symbol table
         key = 0
         if key in s:
