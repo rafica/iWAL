@@ -205,14 +205,27 @@ def p_selection_statement_2(p):
 
 # declaration_statement:
 def p_declaration_statement_1(p):
-    'declaration_statement : type ID SEMI'
+    'declaration_statement : type ID more_declaration SEMI'
     # p[0] = p[1] + ' ' + p[2] + ' ;'
     p[0] = Node('declaration_statement_1',p.lineno(2), [p[1],p[2]])
 
 def p_declaration_statement_2(p):
-    'declaration_statement : type ID EQUALS assignment_expression SEMI'
+    'declaration_statement : type ID EQUALS assignment_expression more_declaration SEMI'
 ##    p[0] = Node('declaration_statement_2',[p[1],Node('EqualTo',[p[2],p[4]],p[3])])
     p[0] = Node('declaration_statement_2',p.lineno(2), [p[1],p[2],p[4]])
+
+#more_declaration:
+def p_more_declaration_1(p):
+    'more_declaration : COMMA ID more_declaration'
+    pass
+
+def p_more_declaration_2(p):
+    'more_declaration : COMMA ID EQUALS assignment_expression more_declaration'
+    pass
+
+def p_more_declaration_3(p):
+    'more_declaration : empty'
+    pass
 
 # compound_statement:
 def p_compound_statement_1(p):
@@ -477,10 +490,78 @@ def mainYacc():
     result = parser.parse(s)
     return result
 
+def getfunc(s):
+	count = 0
+	flag = 0
+	temp = []
+	for i in s:
+		temp.append(i)
+		if i=='{':
+			count=count+1
+		elif i=='}':
+			count=count-1
+		if count==1:
+			flag=1
+		if flag==1:
+			if count==0:
+				break
+	return ''.join(temp)
+
+def get_all_funcs(s):
+	func_code = []
+	while s[:6]=='public':
+		func_code.append(getfunc(s))
+		s = s.replace(func_code[-1], '').strip('\n')
+	return (('\n'.join(func_code), s))
+
+final_wrapper_class = '''import java.util.Scanner;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+\
+public class Target  {\n'''
+
+final_wrapper_main = '''\npublic static void main(String[] args) {
+        System.setProperty("webdriver.chrome.driver", "/Users/nithin/Desktop/Spring_2014/PLT/project/tools/chromedriver");\n'''
+
 if __name__=="__main__":
     result = mainYacc()
 ##    print result.traverse(1)
     if(syntax_error_flag == 0):
 ##        print syntax_error_flag
         typechecker.postorder(result, 1, 0, 0)
-        print result.code
+        
+        splitCode = get_all_funcs(result.code)
+
+        finalCode = final_wrapper_class + splitCode[0] + final_wrapper_main + splitCode[1] +'\n}\n}'
+        print finalCode
+
+        f = open('Target.java','w')
+        f.write(finalCode)
+        f.close()
+
+        # ## Running the target program generated
+        javaFileName = 'Target'
+
+        # ## Running the target program generated    # javaFileName = 'Target'
+
+        p1 = subprocess.Popen('javac -classpath selenium-server-standalone-2.39.0.jar '+javaFileName+'.java', stdout=subprocess.PIPE, stderr = subprocess.PIPE, shell=True)
+        (output1, err1) = p1.communicate()
+
+        if err1 == '':
+
+            print 'Compiled!..\n'
+
+            p2 = subprocess.Popen('java -cp .:selenium-server-standalone-2.39.0.jar ' + javaFileName, stdout=subprocess.PIPE, stderr = subprocess.PIPE, shell=True)
+            (output2, err2) = p2.communicate()
+
+            if err2 == '':
+                print 'Output:\n', output2
+            else:
+                print 'Error:\n', err2
+
+        else:
+            print 'Compile time error:\n' + err1

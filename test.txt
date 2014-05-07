@@ -1,18 +1,14 @@
 int func(int a, int b) {
+	int x=1;
 	string s;
 	x = x+1;
-	return s;
+	return x;
 }
 
-int x;
-int y;
-x = func(x, y);
-repeat(1) {
-	repeat(1) {
-		y = y+1;
-	}
-	if(x>10) {
-		break;
-	}
-	x = x+1;
+string stringFunc(string a, string b) {
+	int c;
+	return a;
 }
+
+open();
+

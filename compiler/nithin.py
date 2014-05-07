@@ -42,7 +42,7 @@ def function_definition_1(s, temp, scope, type_checking_error_flag):
             if not scope in s:
                 s[scope] = {}
             s[scope][temp.children[1]] = ['function', temp.children[0].datatype, len(temp.children[2].datatype), temp.children[2].datatype]
-            temp.code = 'public static ' + temp.children[0].datatype + ' ' + temp.children[1] + '(' + temp.children[2].code + ') {\n ' + temp.children[3].code  + ' }\n'
+            temp.code = 'public static ' + temp.children[0].code + ' ' + temp.children[1] + '(' + temp.children[2].code + ') {\n ' + temp.children[3].code  + ' }\n'
             temp.datatype = 'void'
 
 def function_definition_2(s, temp, scope, type_checking_error_flag):
@@ -64,7 +64,7 @@ def function_definition_2(s, temp, scope, type_checking_error_flag):
             if not scope in s:
                 s[scope] = {}
             s[scope][temp.children[1]] = ['function', temp.children[0].datatype, len(temp.children[2].datatype), temp.children[2].datatype]
-            temp.code = 'public static ' + temp.children[0].datatype + ' ' + temp.children[1] + '(' + temp.children[2].code + ') { }\n'
+            temp.code = 'public static ' + temp.children[0].code + ' ' + temp.children[1] + '(' + temp.children[2].code + ') { }\n'
             temp.datatype = 'void'
 
 def function_expression_1(s, temp, scope, type_checking_error_flag):
