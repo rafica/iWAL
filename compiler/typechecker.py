@@ -116,7 +116,6 @@ def postorder(root, scope, loopFlag, functionFlag):
             if scope in symbol_table:
                 del symbol_table[scope]
 
-    
             
             
         
