@@ -15,7 +15,7 @@ public static String stringFunc(String a,String b) {
  int c;
  return a ; }
 public static void main(String[] args) {
-        System.setProperty("webdriver.chrome.driver", "/Users/nithin/Desktop/Spring_2014/PLT/project/tools/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "chromedriver");
 int a;
 a=1;
 for (int loop2 = 0; loop2 <10 ; loop2++){

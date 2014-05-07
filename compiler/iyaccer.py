@@ -525,7 +525,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class Target  {\n'''
 
 final_wrapper_main = '''\npublic static void main(String[] args) {
-        System.setProperty("webdriver.chrome.driver", "/Users/nithin/Desktop/Spring_2014/PLT/project/tools/chromedriver");\n'''
+        System.setProperty("webdriver.chrome.driver", "chromedriver");\n'''
 
 if __name__=="__main__":
     result = mainYacc()
