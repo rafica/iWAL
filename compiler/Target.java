@@ -6,21 +6,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 public class Target  {
-public static int func(int a,int b) {
- int x = 1;
- String s;
- x=x + 1;
- return x ; }
-public static String stringFunc(String a,String b) {
- int c;
- return a ; }
+
 public static void main(String[] args) {
         System.setProperty("webdriver.chrome.driver", "chromedriver");
+WebDriver driverrafica = new ChromeDriver();
 int a;
 a=1;
-for (int loop2 = 0; loop2 <10 ; loop2++){
-a=a + 1;
- if(a==5){break ;}
-}
+WebDriver driverrafica1 = new ChromeDriver();
+driverrafica.get( "www.google.com");
+driverrafica.switchTo().activeElement().sendKeys( "username");
+driverrafica.switchTo().activeElement().click();
+ERROR ERROR ERROR;
+driverrafica1.close();
+
 }
 }

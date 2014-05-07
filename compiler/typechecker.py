@@ -1,5 +1,5 @@
 import nithin, priyanka, ashima, rafica, pranita
-
+import intrinsic
 import iyaccer
 
 

@@ -1,4 +1,4 @@
-import intrinsic_functions
+import intrinsic
 
 def check_type(scope, s, var):
     data_type = None
@@ -69,6 +69,31 @@ def function_definition_2(s, temp, scope, type_checking_error_flag):
             temp.datatype = 'void'
 
 def function_expression_1(s, temp, scope, type_checking_error_flag):
+    if temp.children[0]=='start':
+        intrinsic.start_function(s,temp,scope, type_checking_error_flag)
+        return
+    elif temp.children[0]=='close':
+        intrinsic.close_function(s,temp,scope, type_checking_error_flag)
+        return
+    elif temp.children[0]=='open':
+        intrinsic.open_function(s,temp,scope, type_checking_error_flag)
+        return
+    elif temp.children[0]=='input':
+        intrinsic.input_function(s,temp,scope, type_checking_error_flag)
+        return
+    elif temp.children[0]=='inputE':
+        intrinsic.inputE_function(s,temp,scope, type_checking_error_flag)
+        return
+    elif temp.children[0]=='click':
+        intrinsic.click_function(s,temp,scope, type_checking_error_flag)
+        return
+    elif temp.children[0]=='clickE':
+        intrinsic.clickE_function(s,temp,scope, type_checking_error_flag)
+        return
+    elif temp.children[0]=='tab':
+        intrinsic.tab_function(s,temp,scope, type_checking_error_flag)
+        return
+    
     flags = check_type(scope, s, temp.children[0])
     if flags[0]==0:
         print 'Line Number ', temp.lineno, ': Function',temp.children[0] ,'not defined'
@@ -129,11 +154,17 @@ def declaration_statement_2(s, temp, scope, type_checking_error_flag):
         temp.code = temp.children[0].code + ' ' +str(temp.children[1]) + ' = ' + temp.children[2].code + ';\n'
 
 def parameter_declaration_list_1(s, temp, scope, type_checking_error_flag):
-    temp.datatype = [temp.children[0].datatype]
+    if temp.children[0].datatype!='void':
+        temp.datatype = [temp.children[0].datatype]
+    else:
+        temp.datatype = []
     temp.code = temp.children[0].code
 
 def parameter_declaration_list_2(s, temp, scope, type_checking_error_flag):
-    temp.datatype = temp.children[0].datatype + [temp.children[1].datatype]
+    if temp.children[1].datatype!='void':
+        temp.datatype = temp.children[0].datatype + [temp.children[1].datatype]
+    else:
+        temp.datatype = temp.children[0].datatype
     temp.code = temp.children[0].code + ',' + temp.children[1].code
 
 def empty_1(s, temp, scope, type_checking_error_flag):

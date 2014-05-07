@@ -1,21 +1,9 @@
-int func(int a, int b) {
-	int x=1;
-	string s;
-	x = x+1;
-	return x;
-}
-
-string stringFunc(string a, string b) {
-	int c;
-	return a;
-}
-
+start("rafica");
 int a;
 a = 1;
-repeat(10) {
-	a = a+1;
-	if (a==5) {
-	break;
-	}
-}
-
+start("rafica1");
+open("rafica","www.google.com");
+input("rafica","username");
+click("rafica");
+tab("rafica", -1);
+close("rafica1");

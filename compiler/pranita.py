@@ -140,11 +140,17 @@ def statement_list_2(s, temp, scope,type_checking_error_flag):
 	temp.code = temp.children[0].code + ' ' + temp.children[1].code
 
 def parameter_list_1(s, temp, scope,type_checking_error_flag):
-	temp.datatype = [temp.children[0].datatype]
+        if temp.children[0].datatype!='void':
+            temp.datatype = [temp.children[0].datatype]
+        else:
+            temp.datatype = []
 	temp.code = temp.children[0].code
 
 def parameter_list_2(s, temp, scope,type_checking_error_flag):
-	temp.datatype = temp.children[0].datatype+[temp.children[1].datatype]
+        if temp.children[1].datatype!='void':
+            temp.datatype = temp.children[0].datatype+[temp.children[1].datatype]
+        else:
+            temp.datatype = temp.children[0].datatype
 	temp.code = temp.children[0].code + ', ' + temp.children[1].code
 
 def return_statement_1(s, temp, scope,type_checking_error_flag):
