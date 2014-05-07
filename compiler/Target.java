@@ -16,6 +16,11 @@ public static String stringFunc(String a,String b) {
  return a ; }
 public static void main(String[] args) {
         System.setProperty("webdriver.chrome.driver", "/Users/nithin/Desktop/Spring_2014/PLT/project/tools/chromedriver");
-ERROR ERROR ERROR;
+int a;
+a=1;
+for (int loop2 = 0; loop2 <10 ; loop2++){
+a=a + 1;
+ if(a==5){break ;}
+}
 }
 }

@@ -51,7 +51,7 @@ def equality_expression_1(s, temp, scope,type_checking_error_flag):
 def equality_expression_2(s, temp, scope,type_checking_error_flag):
     if temp.children[0].datatype == temp.children[1].datatype:
         temp.datatype = "boolean"
-        temp.code = temp.children[0].code + '==' + temp.children[0].code
+        temp.code = temp.children[0].code + '==' + temp.children[1].code
     else:
         print 'Line Number ', temp.lineno, ': Data type mismatch. ',temp.children[0].type,' of type ',temp.children[0].datatype,'but ',temp.children[1].type, ' of type ',temp.children[1].datatype,'.'
         type_checking_error_flag = 1
@@ -61,7 +61,7 @@ def equality_expression_2(s, temp, scope,type_checking_error_flag):
 def equality_expression_3(s, temp, scope,type_checking_error_flag):
     if temp.children[0].datatype == temp.children[1].datatype:
         temp.datatype = "boolean"
-        temp.code = temp.children[0].code + '!=' + temp.children[0].code
+        temp.code = temp.children[0].code + '!=' + temp.children[1].code
     else:
         print 'Line Number ', temp.lineno, ': Data type mismatch. ',temp.children[0].type,' of type ',temp.children[0].datatype,'but ',temp.children[1].type, ' of type ',temp.children[1].datatype,'.'
         type_checking_error_flag = 1

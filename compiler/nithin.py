@@ -1,3 +1,4 @@
+import intrinsic_functions
 
 def check_type(scope, s, var):
     data_type = None

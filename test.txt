@@ -10,5 +10,12 @@ string stringFunc(string a, string b) {
 	return a;
 }
 
-open();
+int a;
+a = 1;
+repeat(10) {
+	a = a+1;
+	if (a==5) {
+	break;
+	}
+}
 
