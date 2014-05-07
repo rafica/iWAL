@@ -9,15 +9,16 @@ public class Target  {
 
 public static void main(String[] args) {
         System.setProperty("webdriver.chrome.driver", "chromedriver");
-WebDriver driverrafica = new ChromeDriver();
 int a;
-a=1;
-WebDriver driverrafica1 = new ChromeDriver();
-driverrafica.get( "www.google.com");
+a=-11;
+if(a==1){a=1;
+}WebDriver driverrafica = new ChromeDriver();
+WebDriver drivernithin = new ChromeDriver();
+driverrafica.get( "https://www.google.com");
+drivernithin.get( "https://ssol.columbia.edu");
+for(int loop1=0;loop1< 1;loop1++)
+driverrafica.switchTo().activeElement().sendKeys(Keys.TAB);
 driverrafica.switchTo().activeElement().sendKeys( "username");
-driverrafica.switchTo().activeElement().click();
-ERROR ERROR ERROR;
-driverrafica1.close();
 
 }
 }

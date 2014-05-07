@@ -88,7 +88,7 @@ def selection_statement_1(s, node, scope, type_checking_error_flag):
         node.code = "if("+node.children[0].code+"){"+node.children[1].code + "}"
         node.datatype = "boolean"
     else:
-        node.code = 'ERRORERRORERRORERROR'
+        node.code = 'ERROR ERROR ERROR ERROR'
         node.datatype = 'error'
 
 
@@ -97,7 +97,7 @@ def selection_statement_2(s, node, scope, type_checking_error_flag):
         node.code = "if("+node.children[0].code+"){"+node.children[1].code + "}else{"+ node.children[2].code +"}"
         node.datatype = "boolean"
     else:
-        node.code = 'ERRORERRORERRORERROR'
+        node.code = 'ERROR ERROR ERROR ERROR'
         node.datatype = 'error'
 
 def compound_statement_1(s, node, scope, type_checking_error_flag):

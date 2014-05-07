@@ -439,6 +439,11 @@ def p_constant_3(p):
     # p[0] = p[1]
     p[0] = Node('constant_3',p.lineno(1), [p[1]])
 
+def p_constant_4(p):
+    'constant : MINUS ICONST'
+    # p[0] = str(p[1])
+    p[0] = Node('constant_1',p.lineno(1), [p[1]+p[2]])
+
 #reserved:
 def p_reserved_1(p):
     'reserved : ENTER'
@@ -533,35 +538,36 @@ if __name__=="__main__":
     if(syntax_error_flag == 0):
 ##        print syntax_error_flag
         typechecker.postorder(result, 1, 0, 0)
-        
-        splitCode = get_all_funcs(result.code)
 
-        finalCode = final_wrapper_class + splitCode[0] + final_wrapper_main + splitCode[1] +'\n}\n}'
-        print finalCode
+        if not 'ERROR ERROR ERROR' in result.code:
+            splitCode = get_all_funcs(result.code)
 
-        f = open('Target.java','w')
-        f.write(finalCode)
-        f.close()
+            finalCode = final_wrapper_class + splitCode[0] + final_wrapper_main + splitCode[1] +'\n}\n}'
+            print finalCode
 
-        # ## Running the target program generated
-        javaFileName = 'Target'
+            f = open('Target.java','w')
+            f.write(finalCode)
+            f.close()
 
-        # ## Running the target program generated    # javaFileName = 'Target'
+            # ## Running the target program generated
+            javaFileName = 'Target'
 
-        p1 = subprocess.Popen('javac -classpath selenium-server-standalone-2.39.0.jar '+javaFileName+'.java', stdout=subprocess.PIPE, stderr = subprocess.PIPE, shell=True)
-        (output1, err1) = p1.communicate()
+            # ## Running the target program generated    # javaFileName = 'Target'
 
-        if err1 == '':
+            p1 = subprocess.Popen('javac -classpath selenium-server-standalone-2.39.0.jar '+javaFileName+'.java', stdout=subprocess.PIPE, stderr = subprocess.PIPE, shell=True)
+            (output1, err1) = p1.communicate()
 
-            print 'Compiled!..\n'
+            if err1 == '':
 
-            p2 = subprocess.Popen('java -cp .:selenium-server-standalone-2.39.0.jar ' + javaFileName, stdout=subprocess.PIPE, stderr = subprocess.PIPE, shell=True)
-            (output2, err2) = p2.communicate()
+                print 'Compiled!..\n'
 
-            if err2 == '':
-                print 'Output:\n', output2
+                p2 = subprocess.Popen('java -cp .:selenium-server-standalone-2.39.0.jar ' + javaFileName, stdout=subprocess.PIPE, stderr = subprocess.PIPE, shell=True)
+                (output2, err2) = p2.communicate()
+
+                if err2 == '':
+                    print 'Output:\n', output2
+                else:
+                    print 'Error:\n', err2
+
             else:
-                print 'Error:\n', err2
-
-        else:
-            print 'Compile time error:\n' + err1
+                print 'Compile time error:\n' + err1

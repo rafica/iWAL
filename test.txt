@@ -1,9 +1,13 @@
-start("rafica");
 int a;
-a = 1;
-start("rafica1");
-open("rafica","www.google.com");
+a = -11;
+if(a == 1) {
+	a = 1;
+}
+start("rafica");
+start("nithin");
+open("rafica","https://www.google.com");
+open("nithin","https://ssol.columbia.edu");
+tab("rafica", 1);
 input("rafica","username");
-click("rafica");
-tab("rafica", -1);
-close("rafica1");
+/* close("rafica");
+close("nithin"); */

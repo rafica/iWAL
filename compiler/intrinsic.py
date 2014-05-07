@@ -302,8 +302,8 @@ def clickE_function(s, node, scope, error_flag):
 
 def tab_function(s, node, scope, error_flag):
     param = node.children[1].code.split(',')
-    print "DEBUG PRINTS. REMOVE AFTER DEBUGGING"
-    print "datatype list for tab- DEBUG THIS!!!! error instead of int for negative integers ",node.children[1].datatype
+##    print "DEBUG PRINTS. REMOVE AFTER DEBUGGING"
+##    print "datatype list for tab- DEBUG THIS!!!! error instead of int for negative integers ",node.children[1].datatype
     if len(node.children[1].datatype)!=2 or len(param)!=2:
         print "Line Number ", node.lineno, ": Inbuilt function 'tab' takes 2 parameters, ",len(node.children[1].datatype)," given"
         tab_syntax() #print the syntax
@@ -340,7 +340,7 @@ def tab_function(s, node, scope, error_flag):
             node.datatype ='error'
 
 def tab_syntax():
-    print "Syntax of tab : tab(browser_id, jump_times); "
+    print "\nSyntax of tab : tab(browser_id, jump_times); "
     print "--'browser_id'"
     print "   * is the unique name given to browser"
     print "   * is of string type"
@@ -351,14 +351,14 @@ def tab_syntax():
     print "   * is of integer type"
 
 def close_syntax():
-    print "Syntax of close : close(browser_id, URL); "
+    print "\nSyntax of close : close(browser_id, URL); "
     print "--'browser_id'"
     print "   * is the unique name given to browser"
     print "   * can have letters, digits, dollar signs, or underscore characters"
     print "   * is of string type"
 
 def open_syntax():
-    print "Syntax of open : open(browser_id, URL); "
+    print "\nSyntax of open : open(browser_id, URL); "
     print "--'browser_id'"
     print "   * is the unique name given to browser"
     print "   * can have letters, digits, dollar signs, or underscore characters"
@@ -368,21 +368,21 @@ def open_syntax():
     print "   * is of string type"
 
 def start_syntax():
-    print "Syntax of start : start(browser_id); "
+    print "\nSyntax of start : start(browser_id); "
     print "--'browser_id'"
     print "   * is the unique name given to browser"
     print "   * can have letters, digits, dollar signs, or underscore characters"
     print "   * is of string type"
      
 def click_syntax():
-    print "Syntax of click : click(browser_id); "
+    print "\nSyntax of click : click(browser_id); "
     print "--'browser_id'"
     print "   * is the unique name given to browser"
     print "   * is of string type"
     print "   * can have letters, digits, dollar signs, or underscore characters"
 
 def clickE_syntax():
-    print "Syntax of clickE : clickE(browser_id, element_name); "
+    print "\nSyntax of clickE : clickE(browser_id, element_name); "
     print "--'browser_id'"
     print "   * is the unique name given to browser"
     print "   * is of string type"
@@ -392,7 +392,7 @@ def clickE_syntax():
     print "   * is of string type"
     
 def input_syntax():
-    print "Syntax of input : input(browser_id, input_text); "
+    print "\nSyntax of input : input(browser_id, input_text); "
     print "--'browser_id'"
     print "   * is the unique name given to browser"
     print "   * is of string type"
@@ -403,7 +403,7 @@ def input_syntax():
 
 
 def inputE_syntax():
-    print "Syntax of inputE : inputE(browser_id, element_name, input_text); "
+    print "\nSyntax of inputE : inputE(browser_id, element_name, input_text); "
     print "--'browser_id'"
     print "   * is the unique name given to browser"
     print "   * is of string type"
