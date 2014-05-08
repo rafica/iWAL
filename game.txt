@@ -1,0 +1,8 @@
+start("driver1");
+open("driver1","http://www.brainbashers.com/10seconds.asp");
+
+repeat(2000) {
+
+clickE("driver1","clickhere");
+
+}

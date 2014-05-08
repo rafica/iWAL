@@ -1,0 +1,9 @@
+start("driver1");
+open("driver1","https://ssol.columbia.edu");
+tab("driver1", 1);
+input("driver1","aa3470");
+string s = passwordinput();
+tab("driver1", 1);
+input("driver1",s);
+tab("driver1", 1);
+click("driver1");
