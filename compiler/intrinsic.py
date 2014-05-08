@@ -395,11 +395,9 @@ def print_function(s, node, scope, error_flag):
     parameter_list = []
     for row in csv_reader:            
         parameter_list = row
-    print parameter_list
     for i in range(len(parameter_list)):
         if i == len(parameter_list)-1:
             if node.children[1].datatype[i].replace('"','')=='string':
-                print 'yes'
                 string = parameter_list[i].strip()
                 if string.startswith('"') and string.endswith('"'):
                     string = string[1:-1]
@@ -408,7 +406,6 @@ def print_function(s, node, scope, error_flag):
                 node.code = node.code + "String.valueOf("+ str(parameter_list[i])+")"
         else:
             if node.children[1].datatype[i].replace('"','')=='string':
-                print 'yes'
                 string = parameter_list[i].strip()
                 if string.startswith('"') and string.endswith('"'):
                     string = string[1:-1]

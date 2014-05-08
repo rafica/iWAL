@@ -99,6 +99,10 @@ def function_expression_1(s, temp, scope, type_checking_error_flag):
     elif temp.children[0]=='passwordinput':
         intrinsic.passwordinput_function(s,temp,scope, type_checking_error_flag)
         return
+    elif temp.children[0]=='print':
+        intrinsic.print_function(s, temp, scope,  type_checking_error_flag)
+        return
+    
     flags = check_type(scope, s, temp.children[0])
     if flags[0]==0:
         print 'Line Number ', temp.lineno, ': Function',temp.children[0] ,'not defined'
