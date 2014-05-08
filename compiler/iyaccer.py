@@ -205,14 +205,25 @@ def p_selection_statement_2(p):
 
 # declaration_statement:
 def p_declaration_statement_1(p):
-    'declaration_statement : type ID more_declaration SEMI'
+    'declaration_statement : type ID SEMI'
     # p[0] = p[1] + ' ' + p[2] + ' ;'
     p[0] = Node('declaration_statement_1',p.lineno(2), [p[1],p[2]])
+    
+### declaration_statement:
+##def p_declaration_statement_1(p):
+##    'declaration_statement : type ID more_declaration SEMI'
+##    # p[0] = p[1] + ' ' + p[2] + ' ;'
+##    p[0] = Node('declaration_statement_1',p.lineno(2), [p[1],p[2]])
 
 def p_declaration_statement_2(p):
-    'declaration_statement : type ID EQUALS assignment_expression more_declaration SEMI'
+    'declaration_statement : type ID EQUALS assignment_expression SEMI'
 ##    p[0] = Node('declaration_statement_2',[p[1],Node('EqualTo',[p[2],p[4]],p[3])])
     p[0] = Node('declaration_statement_2',p.lineno(2), [p[1],p[2],p[4]])
+    
+##def p_declaration_statement_2(p):
+##    'declaration_statement : type ID EQUALS assignment_expression more_declaration SEMI'
+####    p[0] = Node('declaration_statement_2',[p[1],Node('EqualTo',[p[2],p[4]],p[3])])
+##    p[0] = Node('declaration_statement_2',p.lineno(2), [p[1],p[2],p[4]])
 
 #more_declaration:
 def p_more_declaration_1(p):
@@ -270,6 +281,7 @@ def p_function_expression_1(p):
     'function_expression : ID LPAREN parameter_list RPAREN'
     p[0] = Node('function_expression_1',p.lineno(1), [p[1],p[3]])
 
+
 # assignment_expression:
 def p_assignment_expression_1(p):
     'assignment_expression : ID EQUALS assignment_expression'
@@ -289,6 +301,7 @@ def p_assignment_expression_2(p):
 def p_assignment_expression_4(p):
     'assignment_expression : function_expression'
     p[0] = Node('assignment_expression_4',-1, [p[1]])
+
 
 # logical_OR_expression:
 def p_logical_OR_expression_1(p):
@@ -483,7 +496,8 @@ def p_empty(p):
 def p_error(p):
     global syntax_error_flag
     syntax_error_flag = 1
-    print "Syntax error around line number %d  at token %s " % (p.lineno, p.value) 
+    print 'SYNTAX ERROR'
+    #print "Syntax error around line number %d  at token %s " % (p.lineno, p.value) 
 
 
 def mainYacc():
@@ -520,7 +534,7 @@ def get_all_funcs(s):
 	return (('\n'.join(func_code), s))
 
 final_wrapper_class = '''import java.util.Scanner;
-
+import java.io.Console;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;

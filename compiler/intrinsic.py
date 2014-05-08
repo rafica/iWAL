@@ -338,6 +338,58 @@ def tab_function(s, node, scope, error_flag):
             print "Line Number ",node.lineno, ": Browser with the id '",driverNumber,"' does not exist"
             node.code = "ERROR ERROR ERROR"
             node.datatype ='error'
+            
+def userinput_function(s, node, scope, error_flag):
+    node.type = 'userinput_function'
+    if(len(node.children[1].datatype)!=1):
+        print "Line Number ", node.lineno, ": Inbuilt function 'userinput' takes 1 parameters, ",len(node.children[1].datatype)," given"
+        userinput_syntax() #print the syntax
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    elif(node.children[1].datatype[0]!='string'):
+        print "Line Number ", node.lineno, ": Parameter of Inbuilt function 'userinput' should be a 'string', '",node.children[1].datatype[0],"' given"
+        userinput_syntax() #print the syntax
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    else:
+        returntype = node.children[1].code.replace('"','')
+        node.datatype = returntype
+        if(returntype == "string"):
+            node.code = 'new Scanner(System.in).next()'
+        elif(returntype == "int"):
+            node.code = 'new Scanner(System.in).nextInt()'
+            print node.code
+        elif(returntype == "float"):
+            node.code = 'new Scanner(System.in).nextFloat()'
+        else:
+            print "Line Number ", node.lineno, ": only int, float, string allowed as a parameter"
+            userinput_syntax() #print the syntax
+            node.code = 'ERROR ERROR ERROR'
+            node.datatype = 'error'
+
+def passwordinput_function(s, node, scope, error_flag):
+    node.type = 'passwordinput_function'
+    if(len(node.children[1].datatype)!=0):
+        print "Line Number ", node.lineno, ": Inbuilt function 'passwordinput' takes no parameters, ",len(node.children[1].datatype)," given"
+        passwordinput_syntax() #print the syntax
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+
+    else:
+        node.datatype = "string"
+        node.code = 'new String(System.console().readPassword())'
+        
+
+def userinput_syntax():
+    print "\nSyntax of userinput : userinput(return_type); "
+    print "--'return_type'"
+    print "   * is the return type which the user needs to specify."
+
+def passwordinput_syntax():
+    print "\nSyntax of passwordinput : passwordinput(); "
+    print "--'return_type'"
+    print "   * is the return type which is string."
+
 
 def tab_syntax():
     print "\nSyntax of tab : tab(browser_id, jump_times); "

@@ -112,7 +112,7 @@ def multiplicative_expression_1(s, temp, scope,type_checking_error_flag):
 
 def multiplicative_expression_2(s, temp, scope,type_checking_error_flag):
     if temp.children[0].datatype != temp.children[1].datatype:
-        print 'Line Number ', temp.lineno, ': Error, trying to multiply ' , temp.children[0].datatype , ' and' , temp.children[1].datatype + '.'
+        print 'Line Number ', temp.lineno, ': Error, trying to multiply ' , temp.children[0].datatype , ' and ' , temp.children[1].datatype + '.'
         type_checking_error_flag = 1
         temp.datatype = 'error'
         temp.code = 'errorerrorerror'

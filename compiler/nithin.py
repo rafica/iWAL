@@ -93,7 +93,12 @@ def function_expression_1(s, temp, scope, type_checking_error_flag):
     elif temp.children[0]=='tab':
         intrinsic.tab_function(s,temp,scope, type_checking_error_flag)
         return
-    
+    elif temp.children[0]=='userinput':
+        intrinsic.userinput_function(s,temp,scope, type_checking_error_flag)
+        return
+    elif temp.children[0]=='passwordinput':
+        intrinsic.passwordinput_function(s,temp,scope, type_checking_error_flag)
+        return
     flags = check_type(scope, s, temp.children[0])
     if flags[0]==0:
         print 'Line Number ', temp.lineno, ': Function',temp.children[0] ,'not defined'
@@ -151,6 +156,7 @@ def declaration_statement_2(s, temp, scope, type_checking_error_flag):
     else:
         temp.dataype = temp.children[0].datatype
 ##        print temp.children[1],  temp.children[2].code,  temp.children[2].type
+       
         temp.code = temp.children[0].code + ' ' +str(temp.children[1]) + ' = ' + temp.children[2].code + ';\n'
 
 def parameter_declaration_list_1(s, temp, scope, type_checking_error_flag):

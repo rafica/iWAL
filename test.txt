@@ -1,13 +1,1 @@
-int a;
-a = -11;
-if(a == 1) {
-	a = 1;
-}
-start("rafica");
-start("nithin");
-open("rafica","https://www.google.com");
-open("nithin","https://ssol.columbia.edu");
-tab("rafica", 1);
-input("rafica","username");
-/* close("rafica");
-close("nithin"); */
+string s = passwordinput();
