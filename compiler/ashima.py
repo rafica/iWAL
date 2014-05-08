@@ -1,3 +1,5 @@
+plus_operands_allowed={'int','double','string'}
+minus_operands_allowed={'int','double'}
 
 #iteration_statement
 def iteration_statement_1(s, temp, scope,type_checking_error_flag):
@@ -27,7 +29,7 @@ def iteration_statement_2(s, temp, scope,type_checking_error_flag):
 #translation_unit
 def translation_unit_1(s, temp, scope,type_checking_error_flag):
 	temp.code = temp.children[0].code
-	temp.datatype = temp.children[0].datatype	
+	temp.datatype = temp.children[0].datatype
 
 def translation_unit_2(s, temp, scope,type_checking_error_flag):
 	temp.code = temp.children[0].code + temp.children[1].code
@@ -74,7 +76,12 @@ def additive_expression_1(s, temp, scope,type_checking_error_flag):
 
 def additive_expression_2(s, temp, scope,type_checking_error_flag):
 	#Check if the datatype of child1 and child2 is same.
-	if(temp.children[0].datatype!=temp.children[1].datatype):
+        #Check if the datatype of left and right operand is acceptable for operator +.
+        if(temp.children[0].datatype not in plus_operands_allowed or temp.children[1].datatype not in plus_operands_allowed):
+                print 'Error: Trying to add ',temp.children[0].datatype,' and ',temp.children[1].datatype
+                temp.code = 'errorerrorerror'
+		temp.datatype = 'error'
+	elif(temp.children[0].datatype!=temp.children[1].datatype):
 		print 'Line Number ', temp.lineno, ': Data type mismatch. Left operand is ',temp.children[0].datatype,' and right operand is ',temp.children[1].datatype,'.'
                 type_checking_error_flag = 1
 		temp.code = 'errorerrorerror'
@@ -85,11 +92,15 @@ def additive_expression_2(s, temp, scope,type_checking_error_flag):
 
 def additive_expression_3(s, temp, scope,type_checking_error_flag):
     #Check if the datatype of child1 and child2 is same.
-	if(temp.children[0].datatype!=temp.children[1].datatype):
+        if(temp.children[0].datatype not in minus_operands_allowed or temp.children[1].datatype not in minus_operands_allowed):
+                print 'Error: Trying to subtract ',temp.children[1].datatype,' from ',temp.children[0].datatype
+                temp.code = 'errorerrorerror'
+		temp.datatype = 'error'
+	elif(temp.children[0].datatype!=temp.children[1].datatype):
 		print 'Line Number ', temp.lineno, ': Data type mismatch. Left operand is ',temp.children[0].datatype,' and right operand is ',temp.children[1].datatype,'.'
                 type_checking_error_flag = 1
 		temp.code = 'errorerrorerror'
-		temp.datatype = 'error'		
+		temp.datatype = 'error'
 	else:
 		temp.code = temp.children[0].code + ' - ' + temp.children[1].code
 		temp.datatype = temp.children[0].datatype

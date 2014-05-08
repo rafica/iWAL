@@ -1,3 +1,7 @@
+mult_operands_allowed={'int','double'}
+div_operands_allowed={'int','double'}
+lt_gt_le_ge_operands_allowed={'int','double'}
+
 def getTypeFromSymTable(t, symTab, curr_scope):
     flag = False
     while curr_scope > 0:
@@ -14,7 +18,11 @@ def relational_expression_1(s, temp, scope,type_checking_error_flag):
     temp.code = temp.children[0].code
 
 def relational_expression_2(s, temp, scope,type_checking_error_flag):
-        if temp.children[0].datatype != temp.children[1].datatype:
+        if(temp.children[0].datatype not in lt_gt_le_ge_operands_allowed or temp.children[0].datatype not in lt_gt_le_ge_operands_allowed):
+            print 'Error: Trying to use < operator for ',temp.children[0].datatype,' and ',temp.children[1].datatype
+            temp.code = 'errorerrorerror'
+            temp.datatype = 'error'
+        elif temp.children[0].datatype != temp.children[1].datatype:
             print 'Line Number ', temp.lineno, ': Error, trying to compare ' , temp.children[0].datatype , ' and ' , temp.children[1].datatype , '.'
             type_checking_error_flag = 1
             temp.datatype = 'error'
@@ -24,9 +32,12 @@ def relational_expression_2(s, temp, scope,type_checking_error_flag):
             temp.code = temp.children[0].code + ' < ' + temp.children[1].code 
 
 
-
 def relational_expression_3(s, temp, scope,type_checking_error_flag):
-        if temp.children[0].datatype != temp.children[1].datatype:
+        if(temp.children[0].datatype not in lt_gt_le_ge_operands_allowed or temp.children[0].datatype not in lt_gt_le_ge_operands_allowed):
+            print 'Error: Trying to use > operator for ',temp.children[0].datatype,' and ',temp.children[1].datatype
+            temp.code = 'errorerrorerror'
+            temp.datatype = 'error'
+        elif temp.children[0].datatype != temp.children[1].datatype:
             print 'Line Number ', temp.lineno, ': Error, trying to compare ' , temp.children[0].datatype , ' and ' , temp.children[1].datatype , '.'
             type_checking_error_flag = 1
             temp.datatype = 'error'
@@ -38,7 +49,11 @@ def relational_expression_3(s, temp, scope,type_checking_error_flag):
    
 
 def relational_expression_4(s, temp, scope,type_checking_error_flag):
-        if temp.children[0].datatype != temp.children[1].datatype:
+        if(temp.children[0].datatype not in lt_gt_le_ge_operands_allowed or temp.children[0].datatype not in lt_gt_le_ge_operands_allowed):
+            print 'Error: Trying to use <= operator for ',temp.children[0].datatype,' and ',temp.children[1].datatype
+            temp.code = 'errorerrorerror'
+            temp.datatype = 'error'
+        elif temp.children[0].datatype != temp.children[1].datatype:
             print 'Line Number ',temp.lineno,': Error, trying to compare ' , temp.children[0].datatype , ' and ' , temp.children[1].datatype , '.'
             type_checking_error_flag = 1
             temp.code = 'errorerrorerror'
@@ -49,7 +64,11 @@ def relational_expression_4(s, temp, scope,type_checking_error_flag):
 
    
 def relational_expression_5(s, temp, scope,type_checking_error_flag):
-        if temp.children[0].datatype != temp.children[1].datatype:
+        if(temp.children[0].datatype not in lt_gt_le_ge_operands_allowed or temp.children[0].datatype not in lt_gt_le_ge_operands_allowed):
+            print 'Error: Trying to use >= operator for ',temp.children[0].datatype,' and ',temp.children[1].datatype
+            temp.code = 'errorerrorerror'
+            temp.datatype = 'error'
+        elif temp.children[0].datatype != temp.children[1].datatype:
             print 'Line Number ', temp.lineno,': Error, trying to compare ' , temp.children[0].datatype , ' and ' , temp.children[1].datatype, '.'
             type_checking_error_flag = 1
             temp.datatype = 'error'
@@ -111,7 +130,11 @@ def multiplicative_expression_1(s, temp, scope,type_checking_error_flag):
     
 
 def multiplicative_expression_2(s, temp, scope,type_checking_error_flag):
-    if temp.children[0].datatype != temp.children[1].datatype:
+    if(temp.children[0].datatype not in mult_operands_allowed or temp.children[1].datatype not in mult_operands_allowed):
+        print 'Error: Trying to multiply ',temp.children[0].datatype,' and ',temp.children[1].datatype
+        temp.code = 'errorerrorerror'
+    	temp.datatype = 'error'
+    elif (temp.children[0].datatype != temp.children[1].datatype):
         print 'Line Number ', temp.lineno, ': Error, trying to multiply ' , temp.children[0].datatype , ' and ' , temp.children[1].datatype + '.'
         type_checking_error_flag = 1
         temp.datatype = 'error'
@@ -121,7 +144,11 @@ def multiplicative_expression_2(s, temp, scope,type_checking_error_flag):
         temp.code = temp.children[0].code + ' * ' + temp.children[1].code 
     
 def multiplicative_expression_3(s, temp, scope,type_checking_error_flag):
-    if temp.children[0].datatype != temp.children[1].datatype:
+    if(temp.children[0].datatype not in div_operands_allowed or temp.children[1].datatype not in div_operands_allowed):
+        print 'Error: Trying to divide ',temp.children[0].datatype,' by ',temp.children[1].datatype
+        temp.code = 'errorerrorerror'
+    	temp.datatype = 'error'
+    elif temp.children[0].datatype != temp.children[1].datatype:
         print 'Line Number ',temp.lineno, ': Error, trying to divide ' , temp.children[0].datatype , ' and ' , temp.children[1].datatype , '.'
         type_checking_error_flag = 1
         temp.datatype = 'error'

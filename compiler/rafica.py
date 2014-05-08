@@ -56,49 +56,49 @@ def external_declaration_2(s, node, scope, type_checking_error_flag):
     node.datatype = node.children[0].datatype
 
 
-def equality_expression_1(s, node, scope, type_checking_error_flag):
-    node.code = node.children[0].code
-    node.datatype = node.children[0].datatype
-
-
-def equality_expression_2(s, node, scope, type_checking_error_flag):
-    if node.children[0].datatype == node.children[1].datatype:
-        node.code = node.children[0].code+ '==' + node.children[1].code
-        node.datatype = "boolean"
-    else:
-        node.code = "ERROR ERROR ERROR ERROR"
-        node.datatype = "error"
-        print "Line number ", node.lineno, ': Datatypes ', node.children[0].datatype ,' and ' , node.children[1].datatype , ' dont match'
-        type_checking_error_flag = 1
-    
-def equality_expression_3(s, node, scope, type_checking_error_flag):
-    if node.children[0].datatype == node.children[1].datatype:
-        node.code = node.children[0].code+ '!=' + node.children[1].code
-        node.datatype = "boolean"
-    else:
-        node.code = "ERROR ERROR ERROR ERROR"
-        node.datatype = "error"
-        print "Line number ", node.lineno, ': Datatypes ', node.children[0].datatype ,' and ' , node.children[1].datatype , ' dont match'
-        type_checking_error_flag = 1
+##def equality_expression_1(s, node, scope, type_checking_error_flag):
+##    node.code = node.children[0].code
+##    node.datatype = node.children[0].datatype
+##
+##
+##def equality_expression_2(s, node, scope, type_checking_error_flag):
+##    if node.children[0].datatype == node.children[1].datatype:
+##        node.code = node.children[0].code+ '==' + node.children[1].code
+##        node.datatype = "boolean"
+##    else:
+##        node.code = "ERROR ERROR ERROR ERROR"
+##        node.datatype = "error"
+##        print "Line number ", node.lineno, ': Datatypes ', node.children[0].datatype ,' and ' , node.children[1].datatype , ' dont match'
+##        type_checking_error_flag = 1
+##    
+##def equality_expression_3(s, node, scope, type_checking_error_flag):
+##    if node.children[0].datatype == node.children[1].datatype:
+##        node.code = node.children[0].code+ '!=' + node.children[1].code
+##        node.datatype = "boolean"
+##    else:
+##        node.code = "ERROR ERROR ERROR ERROR"
+##        node.datatype = "error"
+##        print "Line number ", node.lineno, ': Datatypes ', node.children[0].datatype ,' and ' , node.children[1].datatype , ' dont match'
+##        type_checking_error_flag = 1
 
 
 
 def selection_statement_1(s, node, scope, type_checking_error_flag):
-    if node.children[0].datatype=="boolean":
-        node.code = "if("+node.children[0].code+"){"+node.children[1].code + "}"
-        node.datatype = "boolean"
-    else:
-        node.code = 'ERROR ERROR ERROR ERROR'
-        node.datatype = 'error'
+        if node.children[0].datatype=="boolean":
+                node.code = "if("+node.children[0].code+"){\n"+node.children[1].code + "\n}"
+                node.datatype = "boolean"
+        else:
+                node.code = 'ERROR ERROR ERROR ERROR'
+                node.datatype = 'error'
 
 
 def selection_statement_2(s, node, scope, type_checking_error_flag):
-    if node.children[0].datatype=="boolean":
-        node.code = "if("+node.children[0].code+"){"+node.children[1].code + "}else{"+ node.children[2].code +"}"
-        node.datatype = "boolean"
-    else:
-        node.code = 'ERROR ERROR ERROR ERROR'
-        node.datatype = 'error'
+            if node.children[0].datatype=="boolean":
+                node.code = "if("+node.children[0].code+"){"+node.children[1].code + "}else{"+ node.children[2].code +"}"
+                node.datatype = "boolean"
+            else:
+                node.code = 'ERROR ERROR ERROR ERROR'
+                node.datatype = 'error'
 
 def compound_statement_1(s, node, scope, type_checking_error_flag):
         node.code = "{}"
