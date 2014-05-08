@@ -5,29 +5,37 @@ import pprint
 
 # Reserved words
 reserved = (
-    'BREAK', 'CHAR', 'CONST', 'CONTINUE', 'DEFAULT', 'DOUBLE',
-    'ELSE', 'IF', 'INT','RETURN', 'VOID', 'KEY',
-    'STRING', 'ENTER', 'REPEAT', 'UNTIL', 'BOOLEAN', 'TRUE', 'FALSE'
+    'AUTO', 'BREAK', 'CASE', 'CHAR', 'CONST', 'CONTINUE', 'DEFAULT', 'DO', 'DOUBLE',
+    'ELSE', 'ENUM', 'EXTERN', 'FLOAT', 'FOR', 'GOTO', 'IF', 'INT', 'LONG', 'REGISTER',
+    'RETURN', 'SHORT', 'SIGNED', 'SIZEOF', 'STATIC', 'STRUCT', 'SWITCH', 'TYPEDEF',
+    'UNION', 'UNSIGNED', 'VOID', 'VOLATILE', 'WHILE', 'KEY', 'STRING', 'ENTER', 'REPEAT', 'UNTIL', 'BOOLEAN'
     )
 
 tokens = reserved + (
     # Literals (identifier, integer constant, float constant, string constant, char const)
     'ID', 'TYPEID', 'ICONST', 'FCONST', 'SCONST', 'CCONST',
 
-    # Operators (+,-,*,/,|, &, ||, &&, !, <, <=, >, >=, ==, !=)
-    'PLUS', 'MINUS', 'TIMES', 'DIVIDE',
-    'OR', 'AND',
+    # Operators (+,-,*,/,%,|,&,~,^,<<,>>, ||, &&, !, <, <=, >, >=, ==, !=)
+    'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'MOD',
+    'OR', 'AND', 'NOT', 'XOR', 'LSHIFT', 'RSHIFT',
     'LOR', 'LAND', 'LNOT',
     'LT', 'LE', 'GT', 'GE', 'EQ', 'NE',
     
-    # Assignment (=)
-    'EQUALS',
-    
+    # Assignment (=, *=, /=, %=, +=, -=, <<=, >>=, &=, ^=, |=)
+    'EQUALS', 'TIMESEQUAL', 'DIVEQUAL', 'MODEQUAL', 'PLUSEQUAL', 'MINUSEQUAL',
+    'LSHIFTEQUAL','RSHIFTEQUAL', 'ANDEQUAL', 'XOREQUAL', 'OREQUAL',
+
+    # Increment/decrement (++,--)
+    'PLUSPLUS', 'MINUSMINUS',
+
     # Delimeters ( ) [ ] { } , . ; :
     'LPAREN', 'RPAREN',
     'LBRACKET', 'RBRACKET',
     'LBRACE', 'RBRACE',
-    'COMMA', 'SEMI', 'COLON'
+    'COMMA', 'PERIOD', 'SEMI', 'COLON',
+
+    # Ellipsis (...)
+    'ELLIPSIS',
     )
 
 # Completely ignored characters
@@ -41,7 +49,6 @@ def t_NEWLINE(t):
 # Compute column.
 # input is the input text string
 # token is a token instance
-
 def find_column(input, token):
     last_cr = input.rfind('\n',0,token.lexpos)
     if last_cr < 0:
@@ -54,9 +61,13 @@ t_PLUS             = r'\+'
 t_MINUS            = r'-'
 t_TIMES            = r'\*'
 t_DIVIDE           = r'/'
+t_MOD              = r'%'
 t_OR               = r'\|'
 t_AND              = r'&'
 t_NOT              = r'~'
+t_XOR              = r'\^'
+t_LSHIFT           = r'<<'
+t_RSHIFT           = r'>>'
 t_LOR              = r'\|\|'
 t_LAND             = r'&&'
 t_LNOT             = r'!'
@@ -70,6 +81,20 @@ t_NE               = r'!='
 # Assignment operators
 
 t_EQUALS           = r'='
+t_TIMESEQUAL       = r'\*='
+t_DIVEQUAL         = r'/='
+t_MODEQUAL         = r'%='
+t_PLUSEQUAL        = r'\+='
+t_MINUSEQUAL       = r'-='
+t_LSHIFTEQUAL      = r'<<='
+t_RSHIFTEQUAL      = r'>>='
+t_ANDEQUAL         = r'&='
+t_OREQUAL          = r'\|='
+t_XOREQUAL         = r'^='
+
+# Increment/decrement
+t_PLUSPLUS         = r'\+\+'
+t_MINUSMINUS       = r'--'
 
 # Delimeters
 t_LPAREN           = r'\('
@@ -79,8 +104,10 @@ t_RBRACKET         = r'\]'
 t_LBRACE           = r'\{'
 t_RBRACE           = r'\}'
 t_COMMA            = r','
+t_PERIOD           = r'\.'
 t_SEMI             = r';'
 t_COLON            = r':'
+t_ELLIPSIS         = r'\.\.\.'
 
 # Identifiers and reserved words
 
@@ -124,7 +151,6 @@ def t_error(t):
 def mainLex():
     lexer = lex.lex(optimize=1)
 
-##lexer = lex.lex()
 
 ## For testing LEX
 ##f=open('test.txt')
