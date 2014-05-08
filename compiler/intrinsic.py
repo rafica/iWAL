@@ -63,6 +63,11 @@
 #   selenium to do that. If element is not present, we have to catch that and display it to the user
 #**********************************************************
 
+
+from csv import reader
+from cStringIO import StringIO
+
+
 def close_function(s, node, scope, error_flag):
     if len(node.children[1].datatype)!= 1:
         print "Line Number ", node.lineno, ": Inbuilt function 'close' takes 1 parameter, ",len(node.children[1].datatype)," given"
@@ -378,8 +383,43 @@ def passwordinput_function(s, node, scope, error_flag):
     else:
         node.datatype = "string"
         node.code = 'new String(System.console().readPassword())'
-        
 
+def print_function(s, node, scope, error_flag):
+    params = node.children[1].code
+    quote_flag = 0
+    node.code = 'System.out.println('
+
+    file_like_object = StringIO(params)
+    csv_reader = reader(file_like_object, quotechar = '"')
+    
+    parameter_list = []
+    for row in csv_reader:            
+        parameter_list = row
+    print parameter_list
+    for i in range(len(parameter_list)):
+        if i == len(parameter_list)-1:
+            if node.children[1].datatype[i].replace('"','')=='string':
+                print 'yes'
+                string = parameter_list[i].strip()
+                if string.startswith('"') and string.endswith('"'):
+                    string = string[1:-1]
+                node.code = node.code + '"'+ string + '"'
+            else:
+                node.code = node.code + "String.valueOf("+ str(parameter_list[i])+")"
+        else:
+            if node.children[1].datatype[i].replace('"','')=='string':
+                print 'yes'
+                string = parameter_list[i].strip()
+                if string.startswith('"') and string.endswith('"'):
+                    string = string[1:-1]
+                
+                node.code = node.code + '"'+ string +'"+'
+            else:
+                node.code = node.code + "String.valueOf("+ str(parameter_list[i])+")" + '+'
+    node.code = node.code + ")"
+    node.type = 'void'
+                       
+        
 def userinput_syntax():
     print "\nSyntax of userinput : userinput(return_type); "
     print "--'return_type'"
