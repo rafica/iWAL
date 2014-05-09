@@ -1,3 +1,10 @@
+boolean x = true;
+boolean y = false;
+int x = -1;
+y = !y;
+if(y) {
+	int a = 1;
+}
 start("a");
 open("a","https://www.google.com");
 tab("a",1);

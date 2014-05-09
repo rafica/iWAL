@@ -457,6 +457,22 @@ def p_constant_4(p):
     # p[0] = str(p[1])
     p[0] = Node('constant_1',p.lineno(1), [p[1]+p[2]])
 
+def p_constant_5(p):
+    'constant : TRUE'
+    p[0] = Node('constant_5',p.lineno(1), [p[1]])
+
+def p_constant_6(p):
+    'constant : FALSE'
+    p[0] = Node('constant_5',p.lineno(1), [p[1]])
+
+def p_constant_7(p):
+    'constant : LNOT TRUE'
+    p[0] = Node('constant_5',p.lineno(1), [p[1]+p[2]])
+
+def p_constant_8(p):
+    'constant : LNOT FALSE'
+    p[0] = Node('constant_5',p.lineno(1), [p[1]+p[2]])
+
 #reserved:
 def p_reserved_1(p):
     'reserved : ENTER'
@@ -496,8 +512,8 @@ def p_empty(p):
 def p_error(p):
     global syntax_error_flag
     syntax_error_flag = 1
-    print 'SYNTAX ERROR'
-    #print "Syntax error around line number %d  at token %s " % (p.lineno, p.value) 
+##    print 'SYNTAX ERROR'
+    print "Syntax error around line number %d  at token %s " % (p.lineno, p.value) 
 
 
 def mainYacc():

@@ -127,6 +127,13 @@ def constant_3(s, temp, scope,type_checking_error_flag):
    	temp.code = temp.children[0]
    	temp.datatype = 'string'
 
+def constant_5(s, temp, scope,type_checking_error_flag):
+        if(type(temp.children[0])=='Node'):
+   		print 'Line Number ', temp.lineno, ': ',temp.children[0],' cannot be a Node.'
+   		type_checking_error_flag = 1
+   	temp.code = temp.children[0]
+   	temp.datatype = 'boolean'
+
 # expression_statement:
 def expression_statement_1(s, temp, scope,type_checking_error_flag):
     temp.datatype = temp.children[0].datatype
