@@ -289,12 +289,12 @@ def p_assignment_expression_1(p):
     p[0] = Node('assignment_expression_1',p.lineno(1), [p[1],p[3]],p[2])
 
 def p_assignment_expression_3(p):
-    'assignment_expression : logical_OR_expression EQUALS assignment_expression'
+    'assignment_expression : logical_NOT_expression EQUALS assignment_expression'
     # p[0] = p[1] + ' = ' + p[3]
     p[0] = Node('assignment_expression_3',p.lineno(2), [p[1],p[3]],p[2])
 
 def p_assignment_expression_2(p):
-    'assignment_expression : logical_OR_expression'
+    'assignment_expression : logical_NOT_expression'
     # p[0] = p[1]
     p[0] = Node('assignment_expression_2',-1, [p[1]])
 
@@ -302,6 +302,14 @@ def p_assignment_expression_4(p):
     'assignment_expression : function_expression'
     p[0] = Node('assignment_expression_4',-1, [p[1]])
 
+# logical_NOT_expression:
+def p_logical_NOT_expression_1(p):
+    'logical_NOT_expression : logical_OR_expression'
+    p[0] = Node('logical_NOT_expression_1',-1, [p[1]])
+    
+def p_logical_NOT_expression_2(p):
+    'logical_NOT_expression : LNOT logical_OR_expression'
+    p[0] = Node('logical_NOT_expression_2',-1, [p[2]])
 
 # logical_OR_expression:
 def p_logical_OR_expression_1(p):
@@ -465,13 +473,13 @@ def p_constant_6(p):
     'constant : FALSE'
     p[0] = Node('constant_5',p.lineno(1), [p[1]])
 
-def p_constant_7(p):
-    'constant : LNOT TRUE'
-    p[0] = Node('constant_5',p.lineno(1), [p[1]+p[2]])
-
-def p_constant_8(p):
-    'constant : LNOT FALSE'
-    p[0] = Node('constant_5',p.lineno(1), [p[1]+p[2]])
+##def p_constant_7(p):
+##    'constant : LNOT TRUE'
+##    p[0] = Node('constant_5',p.lineno(1), [p[1]+p[2]])
+##
+##def p_constant_8(p):
+##    'constant : LNOT FALSE'
+##    p[0] = Node('constant_5',p.lineno(1), [p[1]+p[2]])
 
 #reserved:
 def p_reserved_1(p):
@@ -514,7 +522,6 @@ def p_error(p):
     syntax_error_flag = 1
 ##    print 'SYNTAX ERROR'
     print "Syntax error around line number %d  at token %s " % (p.lineno, p.value) 
-
 
 def mainYacc():
     mainLex()

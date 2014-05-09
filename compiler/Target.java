@@ -11,7 +11,9 @@ public static void main(String[] args) {
         System.setProperty("webdriver.chrome.driver", "chromedriver");
 boolean x = true;
 boolean y = false;
-if(x && y){
+int x = -1;
+y=!y;
+if(y){
 int a = 1;
 
 }WebDriver drivera = new ChromeDriver();

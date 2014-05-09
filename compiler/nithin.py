@@ -131,37 +131,42 @@ def declaration_statement_1(s, temp, scope, type_checking_error_flag):
     if scope in s:
         if temp.children[1] in s[scope]:
             print 'Line Number ', temp.lineno, ': Variable', temp.children[1], ' is already declared'
+            temp.code = 'ERROR ERROR ERROR'
             type_checking_error_flag = 1
         else:
             s[scope][temp.children[1]] = [temp.children[0].datatype]
+            temp.code = temp.children[0].code + ' ' +str(temp.children[1]) + ';\n'
     else:
         s[scope] = {}
         s[scope][temp.children[1]] = [temp.children[0].datatype]
 
-    temp.code = temp.children[0].code + ' ' +str(temp.children[1]) + ';\n'
+        temp.code = temp.children[0].code + ' ' +str(temp.children[1]) + ';\n'
 
 def declaration_statement_2(s, temp, scope, type_checking_error_flag):
+    t_flag = 0
     if scope in s:
         if temp.children[1] in s[scope]:
             print 'Line Number ',temp.lineno, ': Variable ', temp.children[1], ' is already declared'
             type_checking_error_flag = 1
             temp.code = 'ERROR ERROR ERROR'
+            t_flag = 1
         else:
             s[scope][temp.children[1]] = [temp.children[0].datatype]
     else:
         s[scope] = {}
         s[scope][temp.children[1]] = [temp.children[0].datatype]
 
-    if not temp.children[0].datatype == temp.children[2].datatype:
-        print 'Line Number ', temp.lineno, ': Error initializing the variable', temp.children[1], '.. Expecting a', temp.children[0].datatype, ' got', temp.children[2].datatype
-        type_checking_error_flag = 1
-        temp.code = 'ERROR ERROR ERROR'
-        temp.datatype = 'void'
-    else:
-        temp.dataype = temp.children[0].datatype
-##        print temp.children[1],  temp.children[2].code,  temp.children[2].type
-       
-        temp.code = temp.children[0].code + ' ' +str(temp.children[1]) + ' = ' + temp.children[2].code + ';\n'
+    if not t_flag:
+        if not temp.children[0].datatype == temp.children[2].datatype:
+            print 'Line Number ', temp.lineno, ': Error initializing the variable', temp.children[1], '.. Expecting a', temp.children[0].datatype, ' got', temp.children[2].datatype
+            type_checking_error_flag = 1
+            temp.code = 'ERROR ERROR ERROR'
+            temp.datatype = 'void'
+        else:
+            temp.dataype = temp.children[0].datatype
+    ##        print temp.children[1],  temp.children[2].code,  temp.children[2].type
+           
+            temp.code = temp.children[0].code + ' ' +str(temp.children[1]) + ' = ' + temp.children[2].code + ';\n'
 
 def parameter_declaration_list_1(s, temp, scope, type_checking_error_flag):
     if temp.children[0].datatype!='void':
