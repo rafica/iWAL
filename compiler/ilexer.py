@@ -123,6 +123,7 @@ def t_error(t):
 
 def mainLex():
     lexer = lex.lex(optimize=1)
+    return
 
 ##lexer = lex.lex()
 
