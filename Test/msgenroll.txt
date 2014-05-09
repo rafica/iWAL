@@ -1,0 +1,18 @@
+start("driver1");
+open("driver1","https://ssol.columbia.edu");
+tab("driver1", 1);
+input("driver1","pd2438");
+string s = passwordinput();
+tab("driver1", 1);
+input("driver1",s);
+tab("driver1", 1);
+click("driver1");
+
+tab("driver1", 21);
+click("driver1");
+tab("driver1", 36);
+input("driver1", "646");
+input("driver1", "462");
+input("driver1", "1606");
+tab("driver1", 2);
+click("driver1");
