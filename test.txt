@@ -1,1 +1,5 @@
+start("a");
+open("a","https://www.google.com");
+tab("a",1);
+input("a", "Search Query");
 print("hello, world",1.0);

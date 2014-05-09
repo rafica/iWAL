@@ -2,57 +2,19 @@ Created by PLY version 3.4 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    VOID
-    LBRACKET
-    LONG
-    ELLIPSIS
-    ENUM
-    PERIOD
-    MINUSEQUAL
-    TIMESEQUAL
-    OR
-    SHORT
-    RSHIFTEQUAL
-    STATIC
-    SIZEOF
-    UNSIGNED
-    UNION
-    COLON
-    FOR
-    PLUSPLUS
-    AND
-    TYPEID
-    SIGNED
-    NOT
-    OREQUAL
-    MOD
-    RSHIFT
-    DEFAULT
-    WHILE
-    DIVEQUAL
-    EXTERN
-    CASE
-    REGISTER
-    MODEQUAL
-    SWITCH
-    PLUSEQUAL
-    VOLATILE
-    ANDEQUAL
-    DO
     LNOT
     CONST
-    LSHIFT
-    GOTO
+    DEFAULT
+    VOID
+    TRUE
+    COLON
     CCONST
-    TYPEDEF
-    XOR
-    AUTO
-    MINUSMINUS
-    STRUCT
-    FLOAT
-    XOREQUAL
-    LSHIFTEQUAL
+    AND
+    TYPEID
+    FALSE
     RBRACKET
+    LBRACKET
+    OR
 
 Grammar
 
@@ -142,11 +104,8 @@ Rule 81    empty -> <empty>
 Terminals, with rules where they appear
 
 AND                  : 
-ANDEQUAL             : 
-AUTO                 : 
 BOOLEAN              : 18
 BREAK                : 79
-CASE                 : 
 CCONST               : 
 CHAR                 : 15
 COLON                : 
@@ -154,22 +113,15 @@ COMMA                : 8 10 33 34
 CONST                : 
 CONTINUE             : 80
 DEFAULT              : 
-DIVEQUAL             : 
 DIVIDE               : 64
-DO                   : 
 DOUBLE               : 14
-ELLIPSIS             : 
 ELSE                 : 30
 ENTER                : 76
-ENUM                 : 
 EQ                   : 52
 EQUALS               : 12 32 34 43 44
-EXTERN               : 
+FALSE                : 
 FCONST               : 73
-FLOAT                : 
-FOR                  : 
 GE                   : 58
-GOTO                 : 
 GT                   : 56
 ICONST               : 72 75
 ID                   : 5 6 11 12 31 32 33 34 42 43 69
@@ -181,54 +133,26 @@ LBRACE               : 5 6 27 28 29 30 30 36 37
 LBRACKET             : 
 LE                   : 57
 LNOT                 : 
-LONG                 : 
 LOR                  : 48
 LPAREN               : 5 6 27 28 29 30 41 42 67
-LSHIFT               : 
-LSHIFTEQUAL          : 
 LT                   : 55
 MINUS                : 61 75
-MINUSEQUAL           : 
-MINUSMINUS           : 
-MOD                  : 
-MODEQUAL             : 
 NE                   : 53
-NOT                  : 
 OR                   : 
-OREQUAL              : 
-PERIOD               : 
 PLUS                 : 60
-PLUSEQUAL            : 
-PLUSPLUS             : 
 RBRACE               : 5 6 27 28 29 30 30 36 37
 RBRACKET             : 
-REGISTER             : 
 REPEAT               : 27
 RETURN               : 77 78
 RPAREN               : 5 6 27 28 29 30 41 42 67
-RSHIFT               : 
-RSHIFTEQUAL          : 
 SCONST               : 74
 SEMI                 : 31 32 38 39 77 78 79 80
-SHORT                : 
-SIGNED               : 
-SIZEOF               : 
-STATIC               : 
 STRING               : 16
-STRUCT               : 
-SWITCH               : 
 TIMES                : 63
-TIMESEQUAL           : 
-TYPEDEF              : 
+TRUE                 : 
 TYPEID               : 
-UNION                : 
-UNSIGNED             : 
 UNTIL                : 28
 VOID                 : 
-VOLATILE             : 
-WHILE                : 
-XOR                  : 
-XOREQUAL             : 
 error                : 
 
 Nonterminals, with rules where they appear
