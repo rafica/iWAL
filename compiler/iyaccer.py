@@ -139,6 +139,10 @@ def p_type_6(p):
     'type : BOOLEAN'
     p[0] = Node('type_6',p.lineno(1), [p[1]])
 
+def p_type_7(p):
+    'type : VOID'
+    p[0] = Node('type_7',p.lineno(1), [p[1]])
+
 ##################### Add more types here #############
 
 # statement:
@@ -580,10 +584,12 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 \
-public class Target  {\n'''
+public class Target  {
+WebElement element; \nBufferedWriter out; \nActions builder;\n'''
 
-final_wrapper_main = '''\npublic static void main(String[] args) {
+final_wrapper_main = '''\npublic static void main(String[] args) throws Exception {
         System.setProperty("webdriver.chrome.driver", "chromedriver");\n'''
 
 if __name__=="__main__":
