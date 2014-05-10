@@ -554,7 +554,12 @@ def writeToFile_function(s, node, scope, error_flag):
         node.code = node.code + 'out.close()'
     
 def writeToFile_syntax():
-    pass
+    print "\nSyntax of writeToFile : writeToFile(file_path,string_to_write); "
+    print "--'file_path'"
+    print "   * is the path of the file to which you want to write"
+    print "--'string_to_write'"
+    print "   * is the string which you want to write to the file"
+
 
 
 def userInput_syntax():
