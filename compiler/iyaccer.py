@@ -40,6 +40,7 @@ class Node(object):
         return s
 
 syntax_error_flag = 0
+
 # translation_unit:
 def p_translation_unit_1(p):
     'translation_unit : external_declaration'
@@ -556,6 +557,12 @@ def get_all_funcs(s):
 		s = s.replace(func_code[-1], '').strip('\n')
 	return (('\n'.join(func_code), s))
 
+def final_function_check(s):
+    if 'public static' in s:
+        print 'Format of the program is not as specified. All the function definitions should be at the beginning of the program. \nFunction definitions\n *\n *\n *\n *\n *\n *\nRest of the code\n *\n *\n *\n *\n *\n *\n'
+        return 1
+    return 0
+
 final_wrapper_class = '''import java.util.Scanner;
 import java.io.Console;
 import org.openqa.selenium.By;
@@ -574,17 +581,19 @@ if __name__=="__main__":
 ##    print result.traverse(1)
     if(syntax_error_flag == 0):
 ##        print syntax_error_flag
-        typechecker.postorder(result, 1, 0, 0)
+        sym_table = typechecker.postorder(result, 1, 0, 0)
+##        print sym_table
 
         if not 'ERROR ERROR ERROR' in result.code:
             splitCode = get_all_funcs(result.code)
+            
+            if not final_function_check(splitCode[1]):
+                finalCode = final_wrapper_class + splitCode[0] + final_wrapper_main + splitCode[1] +'\n}\n}'
+                print finalCode
 
-            finalCode = final_wrapper_class + splitCode[0] + final_wrapper_main + splitCode[1] +'\n}\n}'
-            print finalCode
-
-            f = open('Target.java','w')
-            f.write(finalCode)
-            f.close()
+                f = open('Target.java','w')
+                f.write(finalCode)
+                f.close()
 
             # ## Running the target program generated
 ##            javaFileName = 'Target'

@@ -24,7 +24,29 @@ def get_parameters(param_list):
             temp.append(param_list[i][0])
     return temp
 
+def check_format(s, temp, scope, type_checking_error_flag):
+    t_flag = 0
+    if 1 in s:
+        for i in s[1].items():
+            if not i[1][0] == 'function':
+                print 'Line Number ',temp.lineno,': Format of the program is not as specified. All the function definitions should be at the beginning of the program. Check function definition for', temp.children[1] 
+                t_flag = 1
+                temp.code = 'ERROR ERROR ERROR'
+                temp.datatype = 'error'
+                break
+    return t_flag
+
+def check_return(s, temp, scope, return_type):
+    if not return_type == 'void':
+        if not 'return' in temp.code:
+            print 'Line Number ',temp.lineno,': Function definition error - No return statement for ', return_type
+            temp.code = 'ERROR ERROR ERROR'
+            temp.datatype = 'error'
+
 def function_definition_1(s, temp, scope, type_checking_error_flag):
+##    t_flag = check_format(s, temp, scope, type_checking_error_flag)
+##    if t_flag:
+##        return
     scope = scope - 1
     if not scope == 1:
         print 'Line Number ',temp.lineno,': Function definition error - Out of scope bounds'
@@ -45,8 +67,12 @@ def function_definition_1(s, temp, scope, type_checking_error_flag):
             s[scope][temp.children[1]] = ['function', temp.children[0].datatype, len(temp.children[2].datatype), temp.children[2].datatype]
             temp.code = 'public static ' + temp.children[0].code + ' ' + temp.children[1] + '(' + temp.children[2].code + ') {\n ' + temp.children[3].code  + ' }\n'
             temp.datatype = 'void'
+            check_return(s, temp, scope, temp.children[0].datatype)
 
 def function_definition_2(s, temp, scope, type_checking_error_flag):
+##    t_flag = check_format(s, temp, scope, type_checking_error_flag)
+##    if t_flag:
+##        return
     scope = scope - 1
     if not scope == 1:
         print 'Line Number ',temp.lineno,': Function definition error - Out of scope bounds'
