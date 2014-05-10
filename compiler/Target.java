@@ -15,22 +15,19 @@ static Actions builder;
 
 public static void main(String[] args) throws Exception {
         System.setProperty("webdriver.chrome.driver", "chromedriver");
-WebDriver drivera = new ChromeDriver();
-drivera.get( "https://www.surveymonkey.com/s/5WD55L2");
-for(int loopa1=0;loopa1< 1;loopa1++)
-drivera.switchTo().activeElement().sendKeys(Keys.TAB);
-String s = new Scanner(System.in).next();
-drivera.switchTo().activeElement().sendKeys( s);
-for(int loopa1=0;loopa1< 1;loopa1++)
-drivera.switchTo().activeElement().sendKeys(Keys.TAB);
-s=new Scanner(System.in).next();
-drivera.switchTo().activeElement().sendKeys( s);
-for (int loop2 = 0; loop2 <7 ; loop2++){
-for(int loopa2=0;loopa2< 1;loopa2++)
-drivera.switchTo().activeElement().sendKeys(Keys.TAB);
- drivera.switchTo().activeElement().sendKeys( "This is the text to be filled ...");
-
-}
+WebDriver driverdriver1 = new ChromeDriver();
+driverdriver1.get( "https://ssol.columbia.edu");
+for(int loopdriver11=0;loopdriver11< 1;loopdriver11++)
+driverdriver1.switchTo().activeElement().sendKeys(Keys.TAB);
+driverdriver1.switchTo().activeElement().sendKeys( "pd2438");
+String s = new String(System.console().readPassword());
+for(int loopdriver11=0;loopdriver11< 1;loopdriver11++)
+driverdriver1.switchTo().activeElement().sendKeys(Keys.TAB);
+driverdriver1.switchTo().activeElement().sendKeys( s);
+for(int loopdriver11=0;loopdriver11< 1;loopdriver11++)
+driverdriver1.switchTo().activeElement().sendKeys(Keys.TAB);
+Thread.sleep(1000);
+driverdriver1.switchTo().activeElement().click();
 
 }
 }

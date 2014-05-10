@@ -140,6 +140,9 @@ def function_expression_1(s, temp, scope, type_checking_error_flag):
     elif temp.children[0]=='writeToFile':
         intrinsic.writeToFile_function(s,temp,scope, type_checking_error_flag)
         return
+    elif temp.children[0]=='sleep':
+        intrinsic.sleep_function(s,temp,scope, type_checking_error_flag)
+        return
     
     flags = check_type(scope, s, temp.children[0])
     if flags[0]==0:
