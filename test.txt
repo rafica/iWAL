@@ -1,3 +1,6 @@
+
+key k = up;
+
 start("a");
 open("a", "https://www.surveymonkey.com/s/5TKSLBH");
 tab("a", 1);

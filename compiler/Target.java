@@ -15,6 +15,7 @@ static Actions builder;
 
 public static void main(String[] args) throws Exception {
         System.setProperty("webdriver.chrome.driver", "chromedriver");
+key k = up;
 WebDriver drivera = new ChromeDriver();
 drivera.get( "https://www.surveymonkey.com/s/5TKSLBH");
 for(int loopa1=0;loopa1< 1;loopa1++)

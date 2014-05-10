@@ -496,6 +496,22 @@ def p_reserved_2(p):
     'reserved : SPACE'
     p[0] = Node('reserved_1',p.lineno(1), [p[1]])
 
+def p_reserved_3(p):
+    'reserved : UP'
+    p[0] = Node('reserved_1',p.lineno(1), [p[1]])
+
+def p_reserved_4(p):
+    'reserved : DOWN'
+    p[0] = Node('reserved_1',p.lineno(1), [p[1]])
+
+def p_reserved_5(p):
+    'reserved : LEFT'
+    p[0] = Node('reserved_1',p.lineno(1), [p[1]])
+
+def p_reserved_6(p):
+    'reserved : RIGHT'
+    p[0] = Node('reserved_1',p.lineno(1), [p[1]])
+
 ############################ Fill all the KEYtypes here
 
 # return_statement:
