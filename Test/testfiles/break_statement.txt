@@ -19,8 +19,9 @@ translation_unit_1
  | | | | | | | | | | | | | |relational_expression_1
  | | | | | | | | | | | | | | |additive_expression_1
  | | | | | | | | | | | | | | | |multiplicative_expression_1
- | | | | | | | | | | | | | | | | |primary_expression_5
- | | | | | | | | | | | | | | | | | |empty_1
+ | | | | | | | | | | | | | | | | |primary_expression_2
+ | | | | | | | | | | | | | | | | | |constant_1
+ | | | | | | | | | | | | | | | | | | |1
  | | | | | |statement_4
  | | | | | | |selection_statement_2
  | | | | | | | |expression_1
@@ -38,8 +39,9 @@ translation_unit_1
  | | | | | | | | | | | | | | | | | | |i
  | | | | | | | | | | | | | | |additive_expression_1
  | | | | | | | | | | | | | | | |multiplicative_expression_1
- | | | | | | | | | | | | | | | | |primary_expression_5
- | | | | | | | | | | | | | | | | | |empty_1
+ | | | | | | | | | | | | | | | | |primary_expression_2
+ | | | | | | | | | | | | | | | | | |constant_1
+ | | | | | | | | | | | | | | | | | | |3
  | | | | | | | |statement_list_1
  | | | | | | | | |statement_7
  | | | | | | | | | |break_statement_1
@@ -64,8 +66,9 @@ translation_unit_1
  | | | | | | | | | | | | | | | | | | | | | |primary_expression_3
  | | | | | | | | | | | | | | | | | | | | | | |i
  | | | | | | | | | | | | | | | | | | | |multiplicative_expression_1
- | | | | | | | | | | | | | | | | | | | | |primary_expression_5
- | | | | | | | | | | | | | | | | | | | | | |empty_1
+ | | | | | | | | | | | | | | | | | | | | |primary_expression_2
+ | | | | | | | | | | | | | | | | | | | | | |constant_1
+ | | | | | | | | | | | | | | | | | | | | | | |1
  | | | | |statement_1
  | | | | | |expression_statement_1
  | | | | | | |expression_1

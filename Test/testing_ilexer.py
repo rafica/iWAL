@@ -4,7 +4,7 @@ import sys
 from cStringIO import StringIO
 from itertools import izip
 
-sys.path.append('..')
+sys.path.append('../compiler')
 import ilexer
 
 class Testing_iLexer(unittest.TestCase):

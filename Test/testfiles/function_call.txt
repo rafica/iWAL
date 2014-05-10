@@ -46,5 +46,6 @@ translation_unit_2
  | | | | | | | | | | | | | |relational_expression_1
  | | | | | | | | | | | | | | |additive_expression_1
  | | | | | | | | | | | | | | | |multiplicative_expression_1
- | | | | | | | | | | | | | | | | |primary_expression_5
- | | | | | | | | | | | | | | | | | |empty_1
+ | | | | | | | | | | | | | | | | |primary_expression_2
+ | | | | | | | | | | | | | | | | | |constant_1
+ | | | | | | | | | | | | | | | | | | |5
