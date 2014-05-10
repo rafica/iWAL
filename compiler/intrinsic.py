@@ -305,10 +305,68 @@ def clickE_function(s, node, scope, error_flag):
 
 
 
+def clickLink_function(s, node, scope, error_flag):
+    param = node.children[1].code.split(',')
+    
+    if len(node.children[1].datatype)!=2 or len(param)!=2:
+        print "Line Number ", node.lineno, ": Inbuilt function 'clicklink' takes 2 parameters, ",len(node.children[1].datatype)," given"
+        clicklink_syntax() #print the syntax
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    elif node.children[1].datatype[0]!='string':
+        print "Line Number ", node.lineno, ": First parameter of Inbuilt function 'clicklink' should be a 'string', '",node.children[1].datatype[0],"' given"
+        clicklink_syntax() #print the syntax
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    elif node.children[1].datatype[1]!='string':
+        print "Line Number ", node.lineno, ": Second parameter of Inbuilt function 'clicklink' should be a 'string', '",node.children[1].datatype[1],"' given"
+        clicklink_syntax() #print the syntax
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    else:
+        driverNumber = param[0]
+        element_name = param[1]
+        driverNumber = driverNumber.replace('"',"").strip()
+        key = 0
+        if key in s and 'start' in s[key] and driverNumber in s[key]['start']:
+            node.code = 'driver'+str(driverNumber)+'.findElement(By.linkText('+element_name+')).click()'  #NOT SURE IF JAVA CODE IS CORRECT.
+            node.datatype = 'void'
+
+        else:
+            print "Line Number ",node.lineno, ": Browser with the id '",driverNumber,"' does not exist"
+            node.code = "ERROR ERROR ERROR"
+            node.datatype ='error'
+
+
+            
+def getPageText_function(s, node, scope, error_flag):
+    param = node.children[1].code.split(',')
+    if len(node.children[1].datatype)!=1 or len(param)!=1:
+        print "Line Number ", node.lineno, ": Inbuilt function 'getPageText' takes 1 parameters, ",len(node.children[1].datatype)," given"
+        getPageText_syntax() #print the syntax
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    elif node.children[1].datatype[0]!='string':
+        print "Line Number ", node.lineno, ": First parameter of Inbuilt function 'getPageText' should be a 'string', '",node.children[1].datatype[0],"' given"
+        getPageText_syntax() #print the syntax
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+
+    else:
+        driverNumber = param[0]
+        driverNumber = driverNumber.replace('"',"").strip()
+        key = 0
+        if key in s and 'start' in s[key] and driverNumber in s[key]['start']:
+            node.code = 'driver'+str(driverNumber)+'.findElement(By.xpath("//body")).getText()'
+            node.datatype = 'string'
+        else:
+            print "Line Number ",node.lineno, ": Browser with the id '",driverNumber,"' does not exist"
+            node.code = "ERROR ERROR ERROR"
+            node.datatype ='error'
+
+    
 def tab_function(s, node, scope, error_flag):
     param = node.children[1].code.split(',')
-##    print "DEBUG PRINTS. REMOVE AFTER DEBUGGING"
-##    print "datatype list for tab- DEBUG THIS!!!! error instead of int for negative integers ",node.children[1].datatype
     if len(node.children[1].datatype)!=2 or len(param)!=2:
         print "Line Number ", node.lineno, ": Inbuilt function 'tab' takes 2 parameters, ",len(node.children[1].datatype)," given"
         tab_syntax() #print the syntax
@@ -337,14 +395,58 @@ def tab_function(s, node, scope, error_flag):
             else:
                 node.code ="Actions builder = new Actions(driver"+str(driverNumber)+");\n"
                 node.code = node.code + "for(int loop"+str(scope)+"=0;loop"+str(scope)+"<"+str(int(jump_number)*-1)+";loop"+str(scope)+"++)\n"
-                node.code = node.code + "builder.keyDown(Keys.SHIFT).sendKeys(Keys.TAB).build().perform()"
+                node.code = node.code + "builder.keyDown(Keys.SHIFT).sendKeys(Keys.TAB).keyUp(Keys.SHIFT).build().perform()"
                 node.datatype = 'void'
         else:
             print "Line Number ",node.lineno, ": Browser with the id '",driverNumber,"' does not exist"
             node.code = "ERROR ERROR ERROR"
             node.datatype ='error'
-            
-def userinput_function(s, node, scope, error_flag):
+
+def tabE_function(s, node, scope, error_flag):
+    param = node.children[1].code.split(',')
+    if len(node.children[1].datatype)!=3 or len(param)!=3:
+        print "Line Number ", node.lineno, ": Inbuilt function 'tabE' takes 3 parameters, ",len(node.children[1].datatype)," given"
+        tabE_syntax() #print the syntax
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    elif node.children[1].datatype[0]!='string':
+        print "Line Number ", node.lineno, ": First parameter of Inbuilt function 'tabE' should be a 'string', '",node.children[1].datatype[0],"' given"
+        tabE_syntax() #print the syntax
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    elif node.children[1].datatype[1]!='string':
+        print "Line Number ", node.lineno, ": Second parameter of Inbuilt function 'tabE' should be a 'string', '",node.children[1].datatype[1],"' given"
+        tabE_syntax() #print the syntax
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    elif node.children[1].datatype[1]!='int':
+        print "Line Number ", node.lineno, ": Third parameter of Inbuilt function 'tabE' should be a 'int', '",node.children[1].datatype[1],"' given"
+        tabE_syntax() #print the syntax
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    else:
+        driverNumber = param[0]
+        jump_number = param[1]
+        driverNumber = driverNumber.replace('"',"").strip()
+        key = 0
+        if key in s and 'start' in s[key] and driverNumber in s[key]['start']:
+            if int(jump_number)>0:
+                node.code = "for(int loop"+str(scope)+"=0;loop"+str(scope)+"<"+str(jump_number)+";loop"+str(scope)+"++)\n"
+                node.code = node.code + 'driver'+str(driverNumber)+'.switchTo().activeElement().sendKeys(Keys.TAB)'
+                node.datatype = 'void'
+            else:
+                node.code ="Actions builder = new Actions(driver"+str(driverNumber)+");\n"
+                node.code = node.code + "for(int loop"+str(scope)+"=0;loop"+str(scope)+"<"+str(int(jump_number)*-1)+";loop"+str(scope)+"++)\n"
+                node.code = node.code + "builder.keyDown(Keys.SHIFT).sendKeys(Keys.TAB).keyUp(Keys.SHIFT).build().perform()"
+                node.datatype = 'void'
+        else:
+            print "Line Number ",node.lineno, ": Browser with the id '",driverNumber,"' does not exist"
+            node.code = "ERROR ERROR ERROR"
+            node.datatype ='error'
+
+
+
+def userInput_function(s, node, scope, error_flag):
     node.type = 'userinput_function'
     if(len(node.children[1].datatype)!=1):
         print "Line Number ", node.lineno, ": Inbuilt function 'userinput' takes 1 parameters, ",len(node.children[1].datatype)," given"
@@ -372,7 +474,7 @@ def userinput_function(s, node, scope, error_flag):
             node.code = 'ERROR ERROR ERROR'
             node.datatype = 'error'
 
-def passwordinput_function(s, node, scope, error_flag):
+def passwordInput_function(s, node, scope, error_flag):
     node.type = 'passwordinput_function'
     if(len(node.children[1].datatype)!=0):
         print "Line Number ", node.lineno, ": Inbuilt function 'passwordinput' takes no parameters, ",len(node.children[1].datatype)," given"
@@ -417,16 +519,34 @@ def print_function(s, node, scope, error_flag):
     node.type = 'void'
                        
         
-def userinput_syntax():
-    print "\nSyntax of userinput : userinput(return_type); "
-    print "--'return_type'"
-    print "   * is the return type which the user needs to specify."
+def userInput_syntax():
+    print "\nSyntax of userInput : userInput(input_datatype); "
+    print "--'input_datatype'"
+    print "   * is the datatype of the input"
+    
 
-def passwordinput_syntax():
-    print "\nSyntax of passwordinput : passwordinput(); "
-    print "--'return_type'"
-    print "   * is the return type which is string."
+def passwordInput_syntax():
+    print "\nSyntax of passwordInput : passwordInput(); "
 
+def getPageText_syntax():
+    print "\nSyntax of getPageText_syntax : getPageText_syntax(browser_id); "
+    print "--'browser_id'"
+    print "   * is the unique name given to browser"
+    print "   * is of string type"
+    
+def tabE_syntax():
+    print "\nSyntax of tabE : tabE(browser_id, element_name, jump_times); "
+    print "--'browser_id'"
+    print "   * is the unique name given to browser"
+    print "   * is of string type"
+    print "   * can have letters, digits, dollar signs, or underscore characters"
+    print "--'element_name'"
+    print "   * is the name of the text box element"
+    print "   * is of string type"
+    print "--'jump_times'"
+    print "   * if positive, it is the number of times Tab key has to be pressed"
+    print "   * if negative, it is the number of times Shift+Tab key has to be pressed"    #<------TRIED SOMETHING NEW. NOT SURE IF IT WILL WORK. TEST IT
+    print "   * is of integer type"
 
 def tab_syntax():
     print "\nSyntax of tab : tab(browser_id, jump_times); "
@@ -479,6 +599,18 @@ def clickE_syntax():
     print "--'element_name'"
     print "   * is the name of the text box element"
     print "   * is of string type"
+
+
+def clicklink_syntax():
+    print "\nSyntax of clicklink : clickE(browser_id, link_text); "
+    print "--'browser_id'"
+    print "   * is the unique name given to browser"
+    print "   * is of string type"
+    print "   * can have letters, digits, dollar signs, or underscore characters"
+    print "--'link_text'"
+    print "   * is the text of the link"
+    print "   * is of string type"
+
     
 def input_syntax():
     print "\nSyntax of input : input(browser_id, input_text); "
