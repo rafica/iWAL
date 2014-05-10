@@ -78,4 +78,118 @@ Rule 60    relational_expression -> relational_expression LE additive_expression
 Rule 61    relational_expression -> relational_expression GE additive_expression
 Rule 62    additive_expression -> multiplicative_expression
 Rule 63    additive_expression -> additive_expression PLUS multiplicative_expression
-Rule 64    additive_expression -> additive_expression MINUS mu
+Rule 64    additive_expression -> additive_expression MINUS multiplicative_expression
+Rule 65    multiplicative_expression -> primary_expression
+Rule 66    multiplicative_expression -> multiplicative_expression TIMES primary_expression
+Rule 67    multiplicative_expression -> multiplicative_expression DIVIDE primary_expression
+Rule 68    statement_list -> statement
+Rule 69    statement_list -> statement_list statement
+Rule 70    primary_expression -> LPAREN expression RPAREN
+Rule 71    primary_expression -> constant
+Rule 72    primary_expression -> ID
+Rule 73    primary_expression -> reserved
+Rule 74    primary_expression -> empty
+Rule 75    constant -> ICONST
+Rule 76    constant -> FCONST
+Rule 77    constant -> SCONST
+Rule 78    constant -> MINUS ICONST
+Rule 79    constant -> TRUE
+Rule 80    constant -> FALSE
+Rule 81    reserved -> ENTER
+Rule 82    reserved -> SPACE
+Rule 83    return_statement -> RETURN SEMI
+Rule 84    return_statement -> RETURN expression SEMI
+Rule 85    break_statement -> BREAK SEMI
+Rule 86    continue_statement -> CONTINUE SEMI
+Rule 87    empty -> <empty>
+
+Terminals, with rules where they appear
+
+AND                  : 
+BOOLEAN              : 18
+BREAK                : 85
+CCONST               : 
+CHAR                 : 15
+COLON                : 
+COMMA                : 8 10 34 35
+CONST                : 
+CONTINUE             : 86
+DEFAULT              : 
+DIVIDE               : 67
+DOUBLE               : 14
+ELSE                 : 31
+ENTER                : 81
+EQ                   : 55
+EQUALS               : 12 33 35 44 45
+FALSE                : 80
+FCONST               : 76
+GE                   : 61
+GT                   : 59
+ICONST               : 75 78
+ID                   : 5 6 11 12 32 33 34 35 43 44 72
+IF                   : 30 31
+INT                  : 13
+KEY                  : 17
+LAND                 : 53
+LBRACE               : 5 6 28 29 30 31 31 37 38
+LBRACKET             : 
+LE                   : 60
+LNOT                 : 49
+LOR                  : 51
+LPAREN               : 5 6 28 29 30 31 42 43 70
+LT                   : 58
+MINUS                : 64 78
+NE                   : 56
+OR                   : 
+PLUS                 : 63
+RBRACE               : 5 6 28 29 30 31 31 37 38
+RBRACKET             : 
+REPEAT               : 28
+RETURN               : 83 84
+RPAREN               : 5 6 28 29 30 31 42 43 70
+SCONST               : 77
+SEMI                 : 32 33 39 40 83 84 85 86
+STRING               : 16
+TIMES                : 66
+TRUE                 : 79
+TYPEID               : 
+UNTIL                : 29
+VOID                 : 19
+error                : 
+
+Nonterminals, with rules where they appear
+
+SPACE                : 82
+additive_expression  : 57 58 59 60 61 63 64
+assignment_expression : 12 33 35 41 44 45
+break_statement      : 26
+compound_statement   : 21
+constant             : 71
+continue_statement   : 27
+declaration_statement : 22
+empty                : 36 74
+equality_expression  : 52 53 55 56
+expression           : 7 8 28 29 30 31 39 42 70 84
+expression_statement : 20
+external_declaration : 1 2
+function_definition  : 3
+function_expression  : 47
+iteration_statement  : 24
+logical_AND_expression : 50 51 53
+logical_NOT_expression : 45 46
+logical_OR_expression : 48 49 51
+more_declaration     : 34 35
+multiplicative_expression : 62 63 64 66 67
+parameter_declaration : 9 10
+parameter_declaration_list : 5 6 10
+parameter_list       : 8 43
+primary_expression   : 65 66 67
+relational_expression : 54 55 56 58 59 60 61
+reserved             : 73
+return_statement     : 25
+selection_statement  : 23
+statement            : 4 68 69
+statement_list       : 5 28 29 30 31 31 38 69
+translation_unit     : 2 0
+type                 : 5 6 11 12 32 33
+
