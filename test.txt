@@ -1,14 +1,14 @@
 start("a");
 open("a","https://www.surveymonkey.com/s/5WD55L2");
-tab("a", 1);
+tabE("a", "text_652332469_0", 1);
 string s = userInput("string");
 input("a", s);
 tab("a", 1);
 s = userInput("string");
 input("a", s);
-/*
+
 repeat(7) {
 	tab("a", 1);
 	input("a", "This is the text to be filled ...");
-} */
+}
 /* print("hello, world",1.0); */

@@ -389,7 +389,7 @@ def tab_function(s, node, scope, error_flag):
         key = 0
         if key in s and 'start' in s[key] and driverNumber in s[key]['start']:
             if int(jump_number)>0:
-                node.code = "for(int loop"+str(scope)+"=0;loop"+str(scope)+"<"+str(jump_number)+";loop"+str(scope)+"++)\n"
+                node.code = "for(int loop"+str(driverNumber)+str(scope)+"=0;loop"+str(driverNumber)+str(scope)+"<"+str(jump_number)+";loop"+str(driverNumber)+str(scope)+"++)\n"
                 node.code = node.code + 'driver'+str(driverNumber)+'.switchTo().activeElement().sendKeys(Keys.TAB)'
                 node.datatype = 'void'
             else:
