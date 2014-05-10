@@ -120,10 +120,10 @@ def p_type_2(p):
     # p[0] = p[1]
     p[0] = Node('type_2',p.lineno(1), [p[1]])
 
-def p_type_3(p):
-    'type : CHAR'
-    # p[0] = p[1]
-    p[0] = Node('type_3',p.lineno(1), [p[1]])
+##def p_type_3(p):
+##    'type : CHAR'
+##    # p[0] = p[1]
+##    p[0] = Node('type_3',p.lineno(1), [p[1]])
 
 def p_type_4(p):
     'type : STRING'
@@ -231,17 +231,17 @@ def p_declaration_statement_2(p):
 ##    p[0] = Node('declaration_statement_2',p.lineno(2), [p[1],p[2],p[4]])
 
 #more_declaration:
-def p_more_declaration_1(p):
-    'more_declaration : COMMA ID more_declaration'
-    pass
-
-def p_more_declaration_2(p):
-    'more_declaration : COMMA ID EQUALS assignment_expression more_declaration'
-    pass
-
-def p_more_declaration_3(p):
-    'more_declaration : empty'
-    pass
+##def p_more_declaration_1(p):
+##    'more_declaration : COMMA ID more_declaration'
+##    pass
+##
+##def p_more_declaration_2(p):
+##    'more_declaration : COMMA ID EQUALS assignment_expression more_declaration'
+##    pass
+##
+##def p_more_declaration_3(p):
+##    'more_declaration : empty'
+##    pass
 
 # compound_statement:
 def p_compound_statement_1(p):

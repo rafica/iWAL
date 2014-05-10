@@ -1,6 +1,6 @@
 import intrinsic
 
-allowed = ['arrow_down', 'arrow_up', 'arrow_left', 'arrow_right']
+##allowed = ['arrow_down', 'arrow_up', 'arrow_left', 'arrow_right']
 
 def check_type(scope, s, var):
     data_type = None

@@ -5,29 +5,27 @@ import pprint
 
 # Reserved words
 reserved = (
-    'BREAK', 'CHAR', 'CONST', 'CONTINUE', 'DEFAULT', 'DOUBLE',
+    'BREAK', 'CONTINUE', 'DOUBLE',
     'ELSE', 'IF', 'INT','RETURN', 'VOID', 'KEY',
     'STRING', 'REPEAT', 'UNTIL', 'BOOLEAN', 'TRUE', 'FALSE', 'UNDEFINEDTYPE'
     )
 
 tokens = reserved + (
     # Literals (identifier, integer constant, float constant, string constant, char const)
-    'ID', 'TYPEID', 'ICONST', 'FCONST', 'SCONST', 'CCONST',
+    'ID', 'ICONST', 'FCONST', 'SCONST',
 
-    # Operators (+,-,*,/,|, &, ||, &&, !, <, <=, >, >=, ==, !=)
+    # Operators (+,-,*,/, ||, &&, !, <, <=, >, >=, ==, !=)
     'PLUS', 'MINUS', 'TIMES', 'DIVIDE',
-    'OR', 'AND',
     'LOR', 'LAND', 'LNOT',
     'LT', 'LE', 'GT', 'GE', 'EQ', 'NE',
     
     # Assignment (=)
     'EQUALS',
     
-    # Delimeters ( ) [ ] { } , . ; :
+    # Delimeters ( ) { } , . ; 
     'LPAREN', 'RPAREN',
-    'LBRACKET', 'RBRACKET',
     'LBRACE', 'RBRACE',
-    'COMMA', 'SEMI', 'COLON'
+    'COMMA', 'SEMI'
     )
 
 # Completely ignored characters
