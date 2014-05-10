@@ -18,7 +18,6 @@ def assignment_expression_1(s, node, scope, type_checking_error_flag):
         node.code = "ERROR ERROR ERROR ERROR"
         node.datatype = "error"
     else:
-##        if not (node.children[1].datatype == s[temp][node.children[0]][0]):
         if not (node.children[1].datatype == temp):
             print 'Line number ', node.lineno, ': ', node.children[0] , 'is not ', node.datatype
             type_checking_error_flag = 1
@@ -54,33 +53,6 @@ def external_declaration_1(s, node, scope, type_checking_error_flag):
 def external_declaration_2(s, node, scope, type_checking_error_flag):
     node.code = node.children[0].code
     node.datatype = node.children[0].datatype
-
-
-##def equality_expression_1(s, node, scope, type_checking_error_flag):
-##    node.code = node.children[0].code
-##    node.datatype = node.children[0].datatype
-##
-##
-##def equality_expression_2(s, node, scope, type_checking_error_flag):
-##    if node.children[0].datatype == node.children[1].datatype:
-##        node.code = node.children[0].code+ '==' + node.children[1].code
-##        node.datatype = "boolean"
-##    else:
-##        node.code = "ERROR ERROR ERROR ERROR"
-##        node.datatype = "error"
-##        print "Line number ", node.lineno, ': Datatypes ', node.children[0].datatype ,' and ' , node.children[1].datatype , ' dont match'
-##        type_checking_error_flag = 1
-##    
-##def equality_expression_3(s, node, scope, type_checking_error_flag):
-##    if node.children[0].datatype == node.children[1].datatype:
-##        node.code = node.children[0].code+ '!=' + node.children[1].code
-##        node.datatype = "boolean"
-##    else:
-##        node.code = "ERROR ERROR ERROR ERROR"
-##        node.datatype = "error"
-##        print "Line number ", node.lineno, ': Datatypes ', node.children[0].datatype ,' and ' , node.children[1].datatype , ' dont match'
-##        type_checking_error_flag = 1
-
 
 
 def selection_statement_1(s, node, scope, type_checking_error_flag):

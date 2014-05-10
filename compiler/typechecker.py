@@ -124,7 +124,6 @@ def postorder(root, scope, loopFlag, functionFlag):
             loopFlag = 1
         elif root.type in functions:
             functionFlag = 1
-##            functionID = (type_dict[root.children[0].type], root.children[1])
             functionID = type_dict[root.children[0].type]
         
         for i in root.children:

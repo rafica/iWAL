@@ -1,7 +1,5 @@
 import intrinsic
 
-##allowed = ['arrow_down', 'arrow_up', 'arrow_left', 'arrow_right']
-
 def check_type(scope, s, var):
     data_type = None
     flag = 0
@@ -46,9 +44,6 @@ def check_return(s, temp, scope, return_type):
             temp.datatype = 'error'
 
 def function_definition_1(s, temp, scope, type_checking_error_flag):
-##    t_flag = check_format(s, temp, scope, type_checking_error_flag)
-##    if t_flag:
-##        return
     scope = scope - 1
     if not scope == 1:
         print 'Line Number ',temp.lineno,': Function definition error - Out of scope bounds'
@@ -72,9 +67,6 @@ def function_definition_1(s, temp, scope, type_checking_error_flag):
             check_return(s, temp, scope, temp.children[0].datatype)
 
 def function_definition_2(s, temp, scope, type_checking_error_flag):
-##    t_flag = check_format(s, temp, scope, type_checking_error_flag)
-##    if t_flag:
-##        return
     scope = scope - 1
     if not scope == 1:
         print 'Line Number ',temp.lineno,': Function definition error - Out of scope bounds'
@@ -188,7 +180,6 @@ def declaration_statement_1(s, temp, scope, type_checking_error_flag):
     else:
         s[scope] = {}
         s[scope][temp.children[1]] = [temp.children[0].datatype]
-##        if not temp.children[1].strip() in allowed:
         if not temp.children[0].code=='removethisline':
             temp.code = temp.children[0].code + ' ' +str(temp.children[1]) + ';\n'
         else:
@@ -217,7 +208,6 @@ def declaration_statement_2(s, temp, scope, type_checking_error_flag):
         else:
             print temp.children[1].strip() 
             temp.dataype = temp.children[0].datatype
-    ##        print temp.children[1],  temp.children[2].code,  temp.children[2].type
            
             temp.code = temp.children[0].code + ' ' +str(temp.children[1]) + ' = ' + temp.children[2].code + ';\n'
 

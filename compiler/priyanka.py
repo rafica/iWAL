@@ -46,7 +46,6 @@ def logical_NOT_expression_2(s, temp, scope,type_checking_error_flag):
 def logical_OR_expression_1(s, temp, scope,type_checking_error_flag):
     temp.datatype = temp.children[0].datatype
     temp.code = temp.children[0].code
-##    print 'inside logical_OR_expression_1  ',temp.code
 
 def logical_OR_expression_2(s, temp, scope,type_checking_error_flag):
     if temp.children[0].datatype == "boolean" and temp.children[1].datatype == "boolean":

@@ -1,56 +1,3 @@
-##
-##    if (p[1]=='start' or p[1]=='close' or p[1]=='click') and not p[3]=='':
-##        print 'In line number',p.lineno(2),'...',p[1],'does not take any arguments'
-##        errorFlag = 1
-##
-##    elif (p[1]=='input' or p[1]=='clickE' or p[1]=='tab') and (not len(param)==1 or param[0]==''):
-##        print 'In line number',p.lineno(2),'...',p[1],'takes 1 argument'
-##        param = ['"error"']
-##        errorFlag = 1
-##
-##    elif (not len(param)==2 or param[0]=='') and (p[1]=='inputE'):                                                  ## If your function needs exactly 2 parameters append it here
-##        print 'In line number',p.lineno(2),'...',p[1],'takes 2 arguments'
-##        param = ['"error1"', '"error2"']
-##        errorFlag = 1
-##
-##    if p[1]=='start':
-##        driverNumber+=1
-##        p[0] = 'WebDriver driver'+ str(driverNumber) +' = new ChromeDriver()'
-##            
-##    elif p[1]=='open':                      ###################  JAVA will handle the error for this ; errors can be : 1) URL might not be a string, 2) Mutiple parameters might be passed.
-##        p[0] = 'driver'+ str(driverNumber) +'.get('+p[3]+')'
-##
-##    elif p[1]=='close':
-##        p[0] = 'driver'+ str(driverNumber) +'.close()'
-##        driverNumber = driverNumber - 1
-##
-##    elif p[1]=='input':
-##       p[0] = 'driver'+ str(driverNumber) +'.switchTo().activeElement().sendKeys('+param[0]+')'
-##       
-##    elif p[1]=='inputE':
-##       p[0] = 'driver'+ str(driverNumber) +'.findElement(By.name('+param[1]+')).sendKeys('+param[0]+')'
-##       
-##    elif p[1]=='click':
-##        p[0] = 'driver'+str(driverNumber) + '.switchTo().activeElement().click()'
-##
-##    elif p[1] == 'clickE':
-##        p[0] = 'driver'+str(driverNumber)+'.findElement(By.name('+p[3]+'))'
-##
-##    elif p[1] == 'tab':
-##        p[0] = 'driver'+str(driverNumber)+'.switchTo().activeElement().sendKeys(Keys.TAB)'
-##        
-##    else:
-##        p[0] = p[1] + ' ( ' + p[3] + ' ) '
-
-
-
-
-# this string is appended to driver variable. hence other variables used in our program shouldnt begin with 'driver'. driver is reserverd word
-
-
-
-
-
 # ***************IMPORTANT : TO DO*********************
 # CHECK FOR SYMBOLS OTHER THAN _ , NUMBERS, ALPHABETS IN DRIVERNUMBER IN START FUNCTION
 
@@ -238,13 +185,6 @@ def inputE_function(s, node, scope, error_flag):
             node.code = "ERROR ERROR ERROR"
             node.datatype ='error'
 
-##    elif p[1]=='click':
-##        p[0] = 'driver'+str(driverNumber) + '.switchTo().activeElement().click()'
-##
-##    elif p[1] == 'clickE':
-##        p[0] = 'driver'+str(driverNumber)+'.findElement(By.name('+p[3]+'))'
-
-
 def click_function(s, node, scope, error_flag):
     param = node.children[1].code.split(',')
     
@@ -329,7 +269,7 @@ def clickLink_function(s, node, scope, error_flag):
         driverNumber = driverNumber.replace('"',"").strip()
         key = 0
         if key in s and 'start' in s[key] and driverNumber in s[key]['start']:
-            node.code = 'driver'+str(driverNumber)+'.findElement(By.linkText('+element_name+')).click()'  #NOT SURE IF JAVA CODE IS CORRECT.
+            node.code = 'driver'+str(driverNumber)+'.findElement(By.linkText('+element_name+')).click()' 
             node.datatype = 'void'
 
         else:
@@ -512,16 +452,12 @@ def print_function(s, node, scope, error_flag):
         elif i == len(parameter_list)-1:
             if node.children[1].datatype[i].replace('"','')=='string':
                 string = parameter_list[i].strip()
-                #if string.startswith('"') and string.endswith('"'):
-                #    string = string[1:-1]
                 node.code = node.code + string 
             else:
                 node.code = node.code + "String.valueOf("+ str(parameter_list[i])+")" 
         else:
             if node.children[1].datatype[i].replace('"','')=='string':
                 string = parameter_list[i].strip()
-                #if string.startswith('"') and string.endswith('"'):
-                #    string = string[1:-1]
                 
                 node.code = node.code + string + '+'
             else:
@@ -567,8 +503,6 @@ def sleep_function(s, node, scope, error_flag):
     else:
             
         sleepTime = node.children[1].code
-        #driverNumber = driverNumber.replace('"',"").strip() #CHECK FOR SYMBOLS?.,><> ETC AND THROW ERROR"
-        #store the driver name in symbol table
         
         node.code = 'Thread.sleep('+sleepTime+')'     
         node.datatype = 'void'

@@ -4,11 +4,6 @@ minus_operands_allowed={'int','double'}
 #iteration_statement
 def iteration_statement_1(s, temp, scope,type_checking_error_flag):
         i = scope
-##        temp_flag = check_type_loop(scope, s, 'loop'+str(i))
-##        while(temp_flag[0]==1):
-##                i=i+1
-##                temp_flag = check_type_loop(scope, s, 'loop'+str(i))
-        #loopi is the variable name to use.
         temp.code = 'for (int loop' + str(i) + ' = 0; loop' + str(i) + ' <' + temp.children[0].code + ' ; loop' + str(i) + '++){\n' + temp.children[1].code + '\n}\n'
         temp.datatype = 'void'
         if not scope in s:
@@ -161,9 +156,6 @@ def parameter_declaration_1(s, temp, scope,type_checking_error_flag):
 
 
 def parameter_declaration_2(s, temp, scope,type_checking_error_flag):
-    # 'parameter_declaration : type ID EQUALS assignment_expression'
-    # # p[0] = p[1] + ' ' + p[2] + ' = ' + p[4]
-    # p[0] = Node('parameter_declaration_3',[[p[2],p[1]],p[4]],p[3])
     temp.datatype = temp.children[0].datatype
     if scope in s:
         if temp.children[1] in s[scope]:
@@ -195,8 +187,3 @@ def check_type(scope, s, var):
                 data_type = s[scope][var][0]
         scope = scope - 1
     return [flag, data_type]
-
-##def check_type_loop(scope, s, var):
-##    ls = s.keys()
-##    max_scope = max(ls)
-##    return check_type(max_scope, s, var)

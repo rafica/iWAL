@@ -67,13 +67,11 @@ def p_external_declaration_2(p):
 def p_function_definition_1(p):
     'function_definition : type ID LPAREN parameter_declaration_list RPAREN LBRACE statement_list RBRACE'
     # p[0] = p[1]+' '+p[2]+' ( '+p[4]+ ' ) { '+p[7]+' }'
-##    p[0] = Node('function_definition_1', [p[1],p[4],p[7]],p[2])
     p[0] = Node('function_definition_1', p.lineno(2), [p[1],p[2],p[4],p[7]])
 
 def p_function_definition_2(p):
     'function_definition : type ID LPAREN parameter_declaration_list RPAREN LBRACE RBRACE'
     # p[0] = p[1]+' '+p[2]+' ( '+p[4]+ ' ) { }'
-##    p[0] = Node('function_definition_2',[p[1],p[4]],p[2])
     p[0] = Node('function_definition_2', p.lineno(2), [p[1],p[2],p[4]])
 
 # parameter_list:
@@ -120,17 +118,12 @@ def p_type_2(p):
     # p[0] = p[1]
     p[0] = Node('type_2',p.lineno(1), [p[1]])
 
-##def p_type_3(p):
-##    'type : CHAR'
-##    # p[0] = p[1]
-##    p[0] = Node('type_3',p.lineno(1), [p[1]])
-
 def p_type_4(p):
     'type : STRING'
-    # p[0] = 'String'       #CHECK..
+    # p[0] = 'String'     
     p[0] = Node('type_4',p.lineno(1), [p[1]])
 
-def p_type_5(p):        #Optional..can remove.
+def p_type_5(p):        
     'type : KEY'
     # p[0] = p[1]
     p[0] = Node('type_5',p.lineno(1), [p[1]])
@@ -142,8 +135,6 @@ def p_type_6(p):
 def p_type_7(p):
     'type : VOID'
     p[0] = Node('type_7',p.lineno(1), [p[1]])
-
-##################### Add more types here #############
 
 # statement:
 def p_statement_1(p):
@@ -189,7 +180,6 @@ def p_statement_8(p):
 def p_iteration_statement_1(p):
     'iteration_statement : REPEAT LPAREN expression RPAREN LBRACE statement_list RBRACE'
     ## p[0] = 'repeat ( ' + p[3] + ' ) { ' + p[6] + ' }'
-    # p[0] = 'for(int repeatNumber'+str(repeatNumber)+'=0, repeatNumber'+str(repeatNumber)+'<'+p[3]+', repeatNumber'+str(repeatNumber)+'++) { '+p[6]+'}'
     p[0] = Node('iteration_statement_1',p.lineno(1), [p[3],p[6]])
 
 def p_iteration_statement_2(p):
@@ -213,35 +203,11 @@ def p_declaration_statement_1(p):
     'declaration_statement : type ID SEMI'
     # p[0] = p[1] + ' ' + p[2] + ' ;'
     p[0] = Node('declaration_statement_1',p.lineno(2), [p[1],p[2]])
-    
-### declaration_statement:
-##def p_declaration_statement_1(p):
-##    'declaration_statement : type ID more_declaration SEMI'
-##    # p[0] = p[1] + ' ' + p[2] + ' ;'
-##    p[0] = Node('declaration_statement_1',p.lineno(2), [p[1],p[2]])
 
 def p_declaration_statement_2(p):
     'declaration_statement : type ID EQUALS assignment_expression SEMI'
 ##    p[0] = Node('declaration_statement_2',[p[1],Node('EqualTo',[p[2],p[4]],p[3])])
     p[0] = Node('declaration_statement_2',p.lineno(2), [p[1],p[2],p[4]])
-    
-##def p_declaration_statement_2(p):
-##    'declaration_statement : type ID EQUALS assignment_expression more_declaration SEMI'
-####    p[0] = Node('declaration_statement_2',[p[1],Node('EqualTo',[p[2],p[4]],p[3])])
-##    p[0] = Node('declaration_statement_2',p.lineno(2), [p[1],p[2],p[4]])
-
-#more_declaration:
-##def p_more_declaration_1(p):
-##    'more_declaration : COMMA ID more_declaration'
-##    pass
-##
-##def p_more_declaration_2(p):
-##    'more_declaration : COMMA ID EQUALS assignment_expression more_declaration'
-##    pass
-##
-##def p_more_declaration_3(p):
-##    'more_declaration : empty'
-##    pass
 
 # compound_statement:
 def p_compound_statement_1(p):
@@ -270,11 +236,6 @@ def p_expression_1(p):
     'expression : assignment_expression'
     # p[0] = p[1]
     p[0] = Node('expression_1',-1, [p[1]])
-
-##def p_expression_2(p):
-##    'expression : function_expression'
-##    # p[0] = p[1]
-##    p[0] = Node('expression_2',[p[1]])
 
 def p_expression_3(p):
     'expression : LPAREN expression RPAREN'
@@ -421,7 +382,7 @@ def p_statement_list_1(p):
 def p_statement_list_2(p):
     'statement_list : statement_list statement'
     # p[0] = p[1] + ' ' + p[2]
-    p[0] = Node('statement_list_2',-1, [p[1],p[2]])        #CHECK
+    p[0] = Node('statement_list_2',-1, [p[1],p[2]])        
 
 # primary-expression:
 def p_primary_expression_1(p):
@@ -478,46 +439,11 @@ def p_constant_6(p):
     'constant : FALSE'
     p[0] = Node('constant_5',p.lineno(1), [p[1]])
 
-##def p_constant_7(p):
-##    'constant : LNOT TRUE'
-##    p[0] = Node('constant_5',p.lineno(1), [p[1]+p[2]])
-##
-##def p_constant_8(p):
-##    'constant : LNOT FALSE'
-##    p[0] = Node('constant_5',p.lineno(1), [p[1]+p[2]])
-
-#reserved:
-##def p_reserved_1(p):
-##    'reserved : ENTER'
-##    # p[0] = p[1]
-##    p[0] = Node('reserved_1',p.lineno(1), [p[1]])
-
 def p_reserved_1(p):
     'reserved : UNDEFINEDTYPE'
     # p[0] = p[1]
     p[0] = Node('reserved_1',p.lineno(1), [p[1]])
 
-##def p_reserved_2(p):
-##    'reserved : SPACE'
-##    p[0] = Node('reserved_1',p.lineno(1), [p[1]])
-
-##def p_reserved_3(p):
-##    'reserved : ARROW_UP'
-##    p[0] = Node('reserved_1',p.lineno(1), [p[1]])
-##
-##def p_reserved_4(p):
-##    'reserved : ARROW_DOWN'
-##    p[0] = Node('reserved_1',p.lineno(1), [p[1]])
-##
-##def p_reserved_5(p):
-##    'reserved : ARROW_LEFT'
-##    p[0] = Node('reserved_1',p.lineno(1), [p[1]])
-##
-##def p_reserved_6(p):
-##    'reserved : ARROW_RIGHT'
-##    p[0] = Node('reserved_1',p.lineno(1), [p[1]])
-
-############################ Fill all the KEYtypes here
 
 # return_statement:
 def p_return_statement_1(p):
@@ -634,26 +560,3 @@ if __name__=="__main__":
                 f = open('Target.java','w')
                 f.write(finalCode)
                 f.close()
-
-            # ## Running the target program generated
-##            javaFileName = 'Target'
-##
-##            # ## Running the target program generated    # javaFileName = 'Target'
-##
-##            p1 = subprocess.Popen('javac -classpath selenium-server-standalone-2.39.0.jar '+javaFileName+'.java', stdout=subprocess.PIPE, stderr = subprocess.PIPE, shell=True)
-##            (output1, err1) = p1.communicate()
-##
-##            if err1 == '':
-##
-##                print 'Compiled!..\n'
-##
-##                p2 = subprocess.Popen('java -cp .:selenium-server-standalone-2.39.0.jar ' + javaFileName, stdout=subprocess.PIPE, stderr = subprocess.PIPE, shell=True)
-##                (output2, err2) = p2.communicate()
-##
-##                if err2 == '':
-##                    print 'Output:\n', output2
-##                else:
-##                    print 'Error:\n', err2
-##
-##            else:
-##                print 'Compile time error:\n' + err1
