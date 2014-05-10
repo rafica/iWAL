@@ -579,6 +579,8 @@ def final_function_check(s):
     return 0
 
 final_wrapper_class = '''import java.util.Scanner;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.Console;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -588,7 +590,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 \
 public class Target  {
-WebElement element; \nBufferedWriter out; \nActions builder;\n'''
+static WebElement element; \nstatic BufferedWriter out; \nstatic Actions builder;\n'''
 
 final_wrapper_main = '''\npublic static void main(String[] args) throws Exception {
         System.setProperty("webdriver.chrome.driver", "chromedriver");\n'''

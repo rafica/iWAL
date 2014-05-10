@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.Console;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -7,33 +9,22 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 public class Target  {
-WebElement element; 
-BufferedWriter out; 
-Actions builder;
-public static int func1(int a) {
- String s = "string";
- int b = 2;
- a=a + 1;
- return a ; }
-public static void func2(int a) {
- a=a + 1;
- }
-public static int func3(int a) {
- a=a + 1;
- return a ; }
+static WebElement element; 
+static BufferedWriter out; 
+static Actions builder;
+
 public static void main(String[] args) throws Exception {
         System.setProperty("webdriver.chrome.driver", "chromedriver");
-key k = space;
-boolean x = true;
-boolean y = false;
-y=!y;
-if(y){
-int a = 1;
-
-}WebDriver drivera = new ChromeDriver();
-drivera.get( "https://www.google.com");
+WebDriver drivera = new ChromeDriver();
+drivera.get( "https://www.surveymonkey.com/s/5WD55L2");
 for(int loop1=0;loop1< 1;loop1++)
 drivera.switchTo().activeElement().sendKeys(Keys.TAB);
-drivera.switchTo().activeElement().sendKeys( "Search Query");
+String s = new Scanner(System.in).next();
+drivera.switchTo().activeElement().sendKeys( s);
+for(int loop1=0;loop1< 1;loop1++)
+drivera.switchTo().activeElement().sendKeys(Keys.TAB);
+s=new Scanner(System.in).next();
+drivera.switchTo().activeElement().sendKeys( s);
+
 }
 }
