@@ -394,7 +394,7 @@ def tab_function(s, node, scope, error_flag):
                 node.datatype = 'void'
             else:
                 node.code ="Actions builder = new Actions(driver"+str(driverNumber)+");\n"
-                node.code = node.code + "for(int loop"+str(scope)+"=0;loop"+str(scope)+"<"+str(int(jump_number)*-1)+";loop"+str(scope)+"++)\n"
+                node.code = node.code + "for(int loop"+str(driverNumber)+str(scope)+"=0;loop"+str(driverNumber)+str(scope)+"<"+str(int(jump_number)*-1)+";loop"+str(driverNumber)+str(scope)+"++)\n"
                 node.code = node.code + "builder.keyDown(Keys.SHIFT).sendKeys(Keys.TAB).keyUp(Keys.SHIFT).build().perform()"
                 node.datatype = 'void'
         else:
@@ -426,22 +426,22 @@ def tabE_function(s, node, scope, error_flag):
         node.datatype = 'error'
     else:
         driverNumber = param[0]
-        jump_number = param[1]
-        element_name = param[2]
+        jump_number = param[2]
+        element_name = param[1]
         driverNumber = driverNumber.replace('"',"").strip()
         key = 0
         if key in s and 'start' in s[key] and driverNumber in s[key]['start']:
             if int(jump_number)>0:
                 node.code = "element = driver"+str(driverNumber)+".findElement(By.name("+element_name+"));\n"
-                node.code = "for(int loop"+str(scope)+"=0;loop"+str(scope)+"<"+str(jump_number)+";loop"+str(scope)+"++){\n"
+                node.code = node.code + "for(int loop"+str(driverNumber)+str(scope)+"=0;loop"+str(driverNumber)+str(scope)+"<"+str(jump_number)+";loop"+str(driverNumber)+str(scope)+"++){\n"
                 node.code = node.code + "element.sendKeys(Keys.TAB);"
                 node.code = node.code + 'element = driver'+str(driverNumber)+'.switchTo().activeElement();}'
                 node.datatype = 'void'
             else:
                 node.code ="builder = new Actions(driver"+str(driverNumber)+");\n"
-                node.code = node.code + "new Actions(driver).moveToElement(driver"+str(driverNumber)+".findElement(By.name("+element_name+"))).perform()";
-                node.code = node.code + "for(int loop"+str(scope)+"=0;loop"+str(scope)+"<"+str(int(jump_number)*-1)+";loop"+str(scope)+"++)\n"
-                node.code = node.code + "builder.keyDown(Keys.SHIFT).sendKeys(Keys.TAB).keyUp(Keys.SHIFT).build().perform()"
+                node.code = node.code + "new Actions(driver"+str(driverNumber)+").moveToElement(driver"+str(driverNumber)+".findElement(By.name("+element_name+"))).perform();\n";
+                node.code = node.code + "for(int loop"+str(driverNumber)+str(scope)+"=0;loop"+str(driverNumber)+str(scope)+"<"+str(int(jump_number)*-1)+";loop"+str(driverNumber)+str(scope)+"++)\n{"
+                node.code = node.code + "builder.keyDown(Keys.SHIFT).sendKeys(Keys.TAB).keyUp(Keys.SHIFT).build().perform();}"
                 node.datatype = 'void'
         else:
             print "Line Number ",node.lineno, ": Browser with the id '",driverNumber,"' does not exist"
@@ -494,6 +494,8 @@ def print_function(s, node, scope, error_flag):
     quote_flag = 0
     node.code = 'System.out.println('
 
+    if params[0] == '"':
+        quote_flag = 1
     file_like_object = StringIO(params)
     csv_reader = reader(file_like_object, quotechar = '"')
     
@@ -501,30 +503,36 @@ def print_function(s, node, scope, error_flag):
     for row in csv_reader:            
         parameter_list = row
     for i in range(len(parameter_list)):
-        if i == len(parameter_list)-1:
+        if i == 0 and quote_flag == 1:
+            string = parameter_list[i].strip()
+            string = '"'+string+'"'
+            if i != len(parameter_list) - 1:
+                string = string + '+'
+            node.code = node.code + string
+        elif i == len(parameter_list)-1:
             if node.children[1].datatype[i].replace('"','')=='string':
                 string = parameter_list[i].strip()
                 #if string.startswith('"') and string.endswith('"'):
                 #    string = string[1:-1]
                 node.code = node.code + string 
             else:
-                node.code = node.code + "String.valueOf("+ str(parameter_list[i])+")"
+                node.code = node.code + "String.valueOf("+ str(parameter_list[i])+")" 
         else:
             if node.children[1].datatype[i].replace('"','')=='string':
                 string = parameter_list[i].strip()
                 #if string.startswith('"') and string.endswith('"'):
                 #    string = string[1:-1]
                 
-                node.code = node.code + string 
+                node.code = node.code + string + '+'
             else:
                 node.code = node.code + "String.valueOf("+ str(parameter_list[i])+")" + '+'
     node.code = node.code + ")"
     node.type = 'void'
                        
-def writeToFilefunction(s, node, scope, error_flag):
+def writeToFile_function(s, node, scope, error_flag):
     param = node.children[1].code.split(',')
     node.type = 'writeToFile_function'
-    if(len(node.children[1].datatype)!=1):
+    if(len(node.children[1].datatype)!=2):
         print "Line Number ", node.lineno, ": Inbuilt function 'writeToFile' takes 2 parameters, ",len(node.children[1].datatype)," given"
         writeToFile_syntax() #print the syntax
         node.code = 'ERROR ERROR ERROR'
@@ -542,9 +550,13 @@ def writeToFilefunction(s, node, scope, error_flag):
     else:
         path = param[0]
         text = param[1]
-        node.code = 'out = new BufferedWriter(new FileWriter('+'path'+')).write('+text+');\n'
-        node.code = node.code + 'out.close();'
+        node.code = 'out = new BufferedWriter(new FileWriter('+path+'));\nout.write('+text+');\n'
+        node.code = node.code + 'out.close()'
     
+def writeToFile_syntax():
+    pass
+
+
 def userInput_syntax():
     print "\nSyntax of userInput : userInput(input_datatype); "
     print "--'input_datatype'"
