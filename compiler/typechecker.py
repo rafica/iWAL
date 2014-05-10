@@ -1,7 +1,7 @@
 import nithin, priyanka, ashima, rafica, pranita
 import intrinsic
 import iyaccer
-
+import sys
 
 symbol_table = {}
 func_dict = {   "declaration_statement_1" : nithin.declaration_statement_1,
@@ -140,6 +140,8 @@ def postorder(root, scope, loopFlag, functionFlag):
                 if not root.datatype == functionID:
                     root.code = 'ERROR ERROR ERROR'
                     root.datatype = 'error'
-                    print 'Line Number ', root.lineno, ': Error in the return statement, Expected', functionID, 'found', root.datatype 
+                    print 'Line Number ', root.lineno, ': Error in the return statement, Expected', functionID, 'found', root.datatype
+        if 'ERROR ERROR ERROR' in root.code:
+            sys.exit(0)
     return symbol_table
 

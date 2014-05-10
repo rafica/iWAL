@@ -6,7 +6,7 @@ int func1(int a){
 	return a;
 }
 
-void func2(int a){
+int func2(int a){
 	a = a+1;
 }
 
