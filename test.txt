@@ -14,12 +14,14 @@ int func3(int a){
 	return a;
 }
 
+key k = space;
 boolean x = true;
 boolean y = false;
 y = !y;
 if(y) {
 	int a = 1;
 }
+
 start("a");
 open("a","https://www.google.com");
 tab("a",1);

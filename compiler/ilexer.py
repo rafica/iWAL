@@ -7,7 +7,7 @@ import pprint
 reserved = (
     'BREAK', 'CHAR', 'CONST', 'CONTINUE', 'DEFAULT', 'DOUBLE',
     'ELSE', 'IF', 'INT','RETURN', 'VOID', 'KEY',
-    'STRING', 'ENTER', 'REPEAT', 'UNTIL', 'BOOLEAN', 'TRUE', 'FALSE'
+    'STRING', 'ENTER', 'REPEAT', 'UNTIL', 'BOOLEAN', 'TRUE', 'FALSE', 'SPACE'
     )
 
 tokens = reserved + (

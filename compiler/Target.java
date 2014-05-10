@@ -19,6 +19,7 @@ public static int func3(int a) {
  return a ; }
 public static void main(String[] args) {
         System.setProperty("webdriver.chrome.driver", "chromedriver");
+key k = space;
 boolean x = true;
 boolean y = false;
 y=!y;

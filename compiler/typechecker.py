@@ -81,7 +81,8 @@ func_dict = {   "declaration_statement_1" : nithin.declaration_statement_1,
                 "parameter_declaration_list_1" : nithin.parameter_declaration_list_1,
                 "parameter_declaration_list_2" : nithin.parameter_declaration_list_2,
                 "iteration_statement_1" : ashima.iteration_statement_1,
-                "iteration_statement_2" : ashima.iteration_statement_2
+                "iteration_statement_2" : ashima.iteration_statement_2,
+                "reserved_1" : nithin.reserved_1
              }
 
 type_dict = {"type_1" : 'int',

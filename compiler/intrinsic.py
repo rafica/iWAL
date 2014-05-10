@@ -364,7 +364,7 @@ def getPageText_function(s, node, scope, error_flag):
             node.code = "ERROR ERROR ERROR"
             node.datatype ='error'
             
-'driver'+str(driverNumber)+'.findElement(By.name('+element_name+'))
+##'driver'+str(driverNumber)+'.findElement(By.name('+element_name+'))
     
 def tab_function(s, node, scope, error_flag):
     param = node.children[1].code.split(',')

@@ -488,6 +488,10 @@ def p_reserved_1(p):
     # p[0] = p[1]
     p[0] = Node('reserved_1',p.lineno(1), [p[1]])
 
+def p_reserved_2(p):
+    'reserved : SPACE'
+    p[0] = Node('reserved_1',p.lineno(1), [p[1]])
+
 ############################ Fill all the KEYtypes here
 
 # return_statement:
@@ -532,6 +536,12 @@ def mainYacc():
     f.close()
     result = parser.parse(s)
     return result
+
+def testingYacc():
+    print 'inside testingYacc'
+    mainLex()
+    parser = yacc.yacc(method='LALR')
+    return parser
 
 def getfunc(s):
 	count = 0

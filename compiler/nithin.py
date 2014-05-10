@@ -223,3 +223,7 @@ def parameter_declaration_list_2(s, temp, scope, type_checking_error_flag):
 def empty_1(s, temp, scope, type_checking_error_flag):
     temp.code = ''
     temp.datatype = 'void'
+
+def reserved_1(s, temp, scope, type_checking_error_flag):
+    temp.code = temp.children[0]
+    temp.datatype = 'key'
