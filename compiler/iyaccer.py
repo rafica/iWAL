@@ -544,6 +544,7 @@ def mainYacc():
 def testingYacc():
     print 'inside testingYacc'
     mainLex()
+    print 'No error in Lex'
     parser = yacc.yacc(method='LALR')
     return parser
 

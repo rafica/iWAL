@@ -4,7 +4,6 @@ Unused terminals:
 
     CONST
     DEFAULT
-    VOID
     COLON
     CCONST
     AND
@@ -34,48 +33,49 @@ Rule 15    type -> CHAR
 Rule 16    type -> STRING
 Rule 17    type -> KEY
 Rule 18    type -> BOOLEAN
-Rule 19    statement -> expression_statement
-Rule 20    statement -> compound_statement
-Rule 21    statement -> declaration_statement
-Rule 22    statement -> selection_statement
-Rule 23    statement -> iteration_statement
-Rule 24    statement -> return_statement
-Rule 25    statement -> break_statement
-Rule 26    statement -> continue_statement
-Rule 27    iteration_statement -> REPEAT LPAREN expression RPAREN LBRACE statement_list RBRACE
-Rule 28    iteration_statement -> UNTIL LPAREN expression RPAREN LBRACE statement_list RBRACE
-Rule 29    selection_statement -> IF LPAREN expression RPAREN LBRACE statement_list RBRACE
-Rule 30    selection_statement -> IF LPAREN expression RPAREN LBRACE statement_list RBRACE ELSE LBRACE statement_list RBRACE
-Rule 31    declaration_statement -> type ID SEMI
-Rule 32    declaration_statement -> type ID EQUALS assignment_expression SEMI
-Rule 33    more_declaration -> COMMA ID more_declaration
-Rule 34    more_declaration -> COMMA ID EQUALS assignment_expression more_declaration
-Rule 35    more_declaration -> empty
-Rule 36    compound_statement -> LBRACE RBRACE
-Rule 37    compound_statement -> LBRACE statement_list RBRACE
-Rule 38    expression_statement -> expression SEMI
-Rule 39    expression_statement -> SEMI
-Rule 40    expression -> assignment_expression
-Rule 41    expression -> LPAREN expression RPAREN
-Rule 42    function_expression -> ID LPAREN parameter_list RPAREN
-Rule 43    assignment_expression -> ID EQUALS assignment_expression
-Rule 44    assignment_expression -> logical_NOT_expression EQUALS assignment_expression
-Rule 45    assignment_expression -> logical_NOT_expression
-Rule 46    assignment_expression -> function_expression
-Rule 47    logical_NOT_expression -> logical_OR_expression
-Rule 48    logical_NOT_expression -> LNOT logical_OR_expression
-Rule 49    logical_OR_expression -> logical_AND_expression
-Rule 50    logical_OR_expression -> logical_OR_expression LOR logical_AND_expression
-Rule 51    logical_AND_expression -> equality_expression
-Rule 52    logical_AND_expression -> logical_AND_expression LAND equality_expression
-Rule 53    equality_expression -> relational_expression
-Rule 54    equality_expression -> equality_expression EQ relational_expression
-Rule 55    equality_expression -> equality_expression NE relational_expression
-Rule 56    relational_expression -> additive_expression
-Rule 57    relational_expression -> relational_expression LT additive_expression
-Rule 58    relational_expression -> relational_expression GT additive_expression
-Rule 59    relational_expression -> relational_expression LE additive_expression
-Rule 60    relational_expression -> relational_expression GE additive_expression
-Rule 61    additive_expression -> multiplicative_expression
-Rule 62    additive_expression -> additive_expression PLUS multiplicative_expression
-Rule 63    additive_expression -> additive_expression MINUS multiplicative_ex
+Rule 19    type -> VOID
+Rule 20    statement -> expression_statement
+Rule 21    statement -> compound_statement
+Rule 22    statement -> declaration_statement
+Rule 23    statement -> selection_statement
+Rule 24    statement -> iteration_statement
+Rule 25    statement -> return_statement
+Rule 26    statement -> break_statement
+Rule 27    statement -> continue_statement
+Rule 28    iteration_statement -> REPEAT LPAREN expression RPAREN LBRACE statement_list RBRACE
+Rule 29    iteration_statement -> UNTIL LPAREN expression RPAREN LBRACE statement_list RBRACE
+Rule 30    selection_statement -> IF LPAREN expression RPAREN LBRACE statement_list RBRACE
+Rule 31    selection_statement -> IF LPAREN expression RPAREN LBRACE statement_list RBRACE ELSE LBRACE statement_list RBRACE
+Rule 32    declaration_statement -> type ID SEMI
+Rule 33    declaration_statement -> type ID EQUALS assignment_expression SEMI
+Rule 34    more_declaration -> COMMA ID more_declaration
+Rule 35    more_declaration -> COMMA ID EQUALS assignment_expression more_declaration
+Rule 36    more_declaration -> empty
+Rule 37    compound_statement -> LBRACE RBRACE
+Rule 38    compound_statement -> LBRACE statement_list RBRACE
+Rule 39    expression_statement -> expression SEMI
+Rule 40    expression_statement -> SEMI
+Rule 41    expression -> assignment_expression
+Rule 42    expression -> LPAREN expression RPAREN
+Rule 43    function_expression -> ID LPAREN parameter_list RPAREN
+Rule 44    assignment_expression -> ID EQUALS assignment_expression
+Rule 45    assignment_expression -> logical_NOT_expression EQUALS assignment_expression
+Rule 46    assignment_expression -> logical_NOT_expression
+Rule 47    assignment_expression -> function_expression
+Rule 48    logical_NOT_expression -> logical_OR_expression
+Rule 49    logical_NOT_expression -> LNOT logical_OR_expression
+Rule 50    logical_OR_expression -> logical_AND_expression
+Rule 51    logical_OR_expression -> logical_OR_expression LOR logical_AND_expression
+Rule 52    logical_AND_expression -> equality_expression
+Rule 53    logical_AND_expression -> logical_AND_expression LAND equality_expression
+Rule 54    equality_expression -> relational_expression
+Rule 55    equality_expression -> equality_expression EQ relational_expression
+Rule 56    equality_expression -> equality_expression NE relational_expression
+Rule 57    relational_expression -> additive_expression
+Rule 58    relational_expression -> relational_expression LT additive_expression
+Rule 59    relational_expression -> relational_expression GT additive_expression
+Rule 60    relational_expression -> relational_expression LE additive_expression
+Rule 61    relational_expression -> relational_expression GE additive_expression
+Rule 62    additive_expression -> multiplicative_expression
+Rule 63    additive_expression -> additive_expression PLUS multiplicative_expression
+Rule 64    additive_expression -> additive_expression MINUS mu
