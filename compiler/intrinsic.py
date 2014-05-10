@@ -363,7 +363,8 @@ def getPageText_function(s, node, scope, error_flag):
             print "Line Number ",node.lineno, ": Browser with the id '",driverNumber,"' does not exist"
             node.code = "ERROR ERROR ERROR"
             node.datatype ='error'
-
+            
+'driver'+str(driverNumber)+'.findElement(By.name('+element_name+'))
     
 def tab_function(s, node, scope, error_flag):
     param = node.children[1].code.split(',')
@@ -427,15 +428,19 @@ def tabE_function(s, node, scope, error_flag):
     else:
         driverNumber = param[0]
         jump_number = param[1]
+        element_name = param[2]
         driverNumber = driverNumber.replace('"',"").strip()
         key = 0
         if key in s and 'start' in s[key] and driverNumber in s[key]['start']:
             if int(jump_number)>0:
-                node.code = "for(int loop"+str(scope)+"=0;loop"+str(scope)+"<"+str(jump_number)+";loop"+str(scope)+"++)\n"
-                node.code = node.code + 'driver'+str(driverNumber)+'.switchTo().activeElement().sendKeys(Keys.TAB)'
+                node.code = "WebElement element = driver"+str(driverNumber)+".findElement(By.name("+element_name+"));\n"
+                node.code = "for(int loop"+str(scope)+"=0;loop"+str(scope)+"<"+str(jump_number)+";loop"+str(scope)+"++){\n"
+                node.code = node.code + "element.sendKeys(Keys.TAB);"
+                node.code = node.code + 'element = driver'+str(driverNumber)+'.switchTo().activeElement();}'
                 node.datatype = 'void'
             else:
                 node.code ="Actions builder = new Actions(driver"+str(driverNumber)+");\n"
+                node.code = node.code + "new Actions(driver).moveToElement(driver"+str(driverNumber)+".findElement(By.name("+element_name+"))).perform()";
                 node.code = node.code + "for(int loop"+str(scope)+"=0;loop"+str(scope)+"<"+str(int(jump_number)*-1)+";loop"+str(scope)+"++)\n"
                 node.code = node.code + "builder.keyDown(Keys.SHIFT).sendKeys(Keys.TAB).keyUp(Keys.SHIFT).build().perform()"
                 node.datatype = 'void'
