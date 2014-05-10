@@ -1,6 +1,21 @@
+<<<<<<< HEAD
 
 key k = up;
 
+=======
+<<<<<<< HEAD
+start("driver1");
+open("driver1","https://ssol.columbia.edu");
+tab("driver1",1);
+input("driver1","pd2438");
+string s = passwordInput();
+tab("driver1", 1);
+input("driver1",s);
+tab("driver1", 1);
+sleep(1000);
+click("driver1");
+=======
+>>>>>>> FETCH_HEAD
 start("a");
 open("a", "https://www.surveymonkey.com/s/5TKSLBH");
 tab("a", 1);
@@ -8,3 +23,4 @@ input("a", "ajfskjbdkjbnskvjbs");
 tab("a", 1);
 click("a");
 tab("a", 1);
+>>>>>>> FETCH_HEAD

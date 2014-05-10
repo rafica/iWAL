@@ -552,6 +552,30 @@ def writeToFile_function(s, node, scope, error_flag):
         text = param[1]
         node.code = 'out = new BufferedWriter(new FileWriter('+path+'));\nout.write('+text+');\n'
         node.code = node.code + 'out.close()'
+
+
+
+
+def sleep_function(s, node, scope, error_flag):
+    if len(node.children[1].datatype)!= 1:
+        print "Line Number ", node.lineno, ": Inbuilt function 'sleep' takes 1 parameter, ",len(node.children[1].datatype)," given"
+        start_syntax()
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    elif node.children[1].datatype[0]!='int':
+        print "Line Number ", node.lineno, ": First parameter of Inbuilt function 'sleep' should be a 'int', '",node.children[1].datatype[0],"' given"
+        sleep_syntax()
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'    
+    else:
+            
+        sleepTime = node.children[1].code
+        #driverNumber = driverNumber.replace('"',"").strip() #CHECK FOR SYMBOLS?.,><> ETC AND THROW ERROR"
+        #store the driver name in symbol table
+        
+        node.code = 'Thread.sleep('+sleepTime+')'     
+        node.datatype = 'void'
+
     
 def writeToFile_syntax():
     print "\nSyntax of writeToFile : writeToFile(file_path,string_to_write); "
@@ -625,7 +649,12 @@ def start_syntax():
     print "   * is the unique name given to browser"
     print "   * can have letters, digits, dollar signs, or underscore characters"
     print "   * is of string type"
-     
+
+def sleep_syntax():
+    print "\nSyntax of sleep : sleep(sleep_time); "
+    print "--'sleep_time'"
+    print "   * is the time for which you want your current thread (program) to sleep"
+    
 def click_syntax():
     print "\nSyntax of click : click(browser_id); "
     print "--'browser_id'"
