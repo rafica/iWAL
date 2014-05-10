@@ -25,6 +25,20 @@ def type_6(s, temp, scope,type_checking_error_flag):
     temp.code = "boolean"
     temp.datatype = "boolean" 
 
+def logical_NOT_expression_1(s, temp, scope,type_checking_error_flag):
+    temp.datatype = temp.children[0].datatype
+    temp.code = temp.children[0].code
+
+def logical_NOT_expression_2(s, temp, scope,type_checking_error_flag):
+    if temp.children[0].datatype == "boolean":
+        temp.datatype = "boolean"
+        temp.code = '!'+ temp.children[0].code
+    else:
+        print 'Line Number ', temp.lineno, ': Boolean type needed, but ',temp.children[0].type,' is of type ',temp.children[0].datatype
+        type_checking_error_flag = 1
+        temp.datatype = "error"
+        temp.code = "error error error"
+
 def logical_OR_expression_1(s, temp, scope,type_checking_error_flag):
     temp.datatype = temp.children[0].datatype
     temp.code = temp.children[0].code

@@ -9,7 +9,14 @@ public class Target  {
 
 public static void main(String[] args) {
         System.setProperty("webdriver.chrome.driver", "chromedriver");
-WebDriver drivera = new ChromeDriver();
+boolean x = true;
+boolean y = false;
+int x = -1;
+y=!y;
+if(y){
+int a = 1;
+
+}WebDriver drivera = new ChromeDriver();
 drivera.get( "https://www.google.com");
 for(int loop1=0;loop1< 1;loop1++)
 drivera.switchTo().activeElement().sendKeys(Keys.TAB);
