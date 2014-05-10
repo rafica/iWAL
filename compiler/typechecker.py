@@ -30,6 +30,7 @@ func_dict = {   "declaration_statement_1" : nithin.declaration_statement_1,
                 "type_4" : priyanka.type_4,
                 "type_5" : priyanka.type_5,
                 "type_6" : priyanka.type_6,
+                "type_7" : priyanka.type_7,
                 "logical_NOT_expression_1" : priyanka.logical_NOT_expression_1,
                 "logical_NOT_expression_2" : priyanka.logical_NOT_expression_2,
                 "logical_OR_expression_1" : priyanka.logical_OR_expression_1,
@@ -90,7 +91,8 @@ type_dict = {"type_1" : 'int',
              "type_3" : 'char',
              "type_4" : 'string',
              "type_5" : 'key',
-             "type_6" : 'boolean'
+             "type_6" : 'boolean',
+             "type_7" : 'void'
              }
 
 scope_incrementers = ['function_definition_1', 'function_definition_2', 'iteration_statement_1', 'iteration_statement_2', 'selection_statement_1', 'selection_statement_2']

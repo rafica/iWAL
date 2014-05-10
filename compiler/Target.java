@@ -5,19 +5,23 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 public class Target  {
+WebElement element; 
+BufferedWriter out; 
+Actions builder;
 public static int func1(int a) {
  String s = "string";
  int b = 2;
  a=a + 1;
  return a ; }
-public static int func2(int a) {
+public static void func2(int a) {
  a=a + 1;
- return a ; }
+ }
 public static int func3(int a) {
  a=a + 1;
  return a ; }
-public static void main(String[] args) {
+public static void main(String[] args) throws Exception {
         System.setProperty("webdriver.chrome.driver", "chromedriver");
 key k = space;
 boolean x = true;

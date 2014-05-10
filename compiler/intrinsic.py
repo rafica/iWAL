@@ -364,7 +364,6 @@ def getPageText_function(s, node, scope, error_flag):
             node.code = "ERROR ERROR ERROR"
             node.datatype ='error'
             
-##'driver'+str(driverNumber)+'.findElement(By.name('+element_name+'))
     
 def tab_function(s, node, scope, error_flag):
     param = node.children[1].code.split(',')
@@ -420,7 +419,7 @@ def tabE_function(s, node, scope, error_flag):
         tabE_syntax() #print the syntax
         node.code = 'ERROR ERROR ERROR'
         node.datatype = 'error'
-    elif node.children[1].datatype[1]!='int':
+    elif node.children[1].datatype[2]!='int':
         print "Line Number ", node.lineno, ": Third parameter of Inbuilt function 'tabE' should be a 'int', '",node.children[1].datatype[1],"' given"
         tabE_syntax() #print the syntax
         node.code = 'ERROR ERROR ERROR'
@@ -433,13 +432,13 @@ def tabE_function(s, node, scope, error_flag):
         key = 0
         if key in s and 'start' in s[key] and driverNumber in s[key]['start']:
             if int(jump_number)>0:
-                node.code = "WebElement element = driver"+str(driverNumber)+".findElement(By.name("+element_name+"));\n"
+                node.code = "element = driver"+str(driverNumber)+".findElement(By.name("+element_name+"));\n"
                 node.code = "for(int loop"+str(scope)+"=0;loop"+str(scope)+"<"+str(jump_number)+";loop"+str(scope)+"++){\n"
                 node.code = node.code + "element.sendKeys(Keys.TAB);"
                 node.code = node.code + 'element = driver'+str(driverNumber)+'.switchTo().activeElement();}'
                 node.datatype = 'void'
             else:
-                node.code ="Actions builder = new Actions(driver"+str(driverNumber)+");\n"
+                node.code ="builder = new Actions(driver"+str(driverNumber)+");\n"
                 node.code = node.code + "new Actions(driver).moveToElement(driver"+str(driverNumber)+".findElement(By.name("+element_name+"))).perform()";
                 node.code = node.code + "for(int loop"+str(scope)+"=0;loop"+str(scope)+"<"+str(int(jump_number)*-1)+";loop"+str(scope)+"++)\n"
                 node.code = node.code + "builder.keyDown(Keys.SHIFT).sendKeys(Keys.TAB).keyUp(Keys.SHIFT).build().perform()"
@@ -454,13 +453,13 @@ def tabE_function(s, node, scope, error_flag):
 def userInput_function(s, node, scope, error_flag):
     node.type = 'userinput_function'
     if(len(node.children[1].datatype)!=1):
-        print "Line Number ", node.lineno, ": Inbuilt function 'userinput' takes 1 parameters, ",len(node.children[1].datatype)," given"
-        userinput_syntax() #print the syntax
+        print "Line Number ", node.lineno, ": Inbuilt function 'userInput' takes 1 parameters, ",len(node.children[1].datatype)," given"
+        userInput_syntax() #print the syntax
         node.code = 'ERROR ERROR ERROR'
         node.datatype = 'error'
     elif(node.children[1].datatype[0]!='string'):
-        print "Line Number ", node.lineno, ": Parameter of Inbuilt function 'userinput' should be a 'string', '",node.children[1].datatype[0],"' given"
-        userinput_syntax() #print the syntax
+        print "Line Number ", node.lineno, ": Parameter of Inbuilt function 'userInput' should be a 'string', '",node.children[1].datatype[0],"' given"
+        userInput_syntax() #print the syntax
         node.code = 'ERROR ERROR ERROR'
         node.datatype = 'error'
     else:
@@ -470,12 +469,11 @@ def userInput_function(s, node, scope, error_flag):
             node.code = 'new Scanner(System.in).next()'
         elif(returntype == "int"):
             node.code = 'new Scanner(System.in).nextInt()'
-            print node.code
         elif(returntype == "float"):
             node.code = 'new Scanner(System.in).nextFloat()'
         else:
             print "Line Number ", node.lineno, ": only int, float, string allowed as a parameter"
-            userinput_syntax() #print the syntax
+            userInput_syntax() #print the syntax
             node.code = 'ERROR ERROR ERROR'
             node.datatype = 'error'
 
@@ -483,7 +481,7 @@ def passwordInput_function(s, node, scope, error_flag):
     node.type = 'passwordinput_function'
     if(len(node.children[1].datatype)!=0):
         print "Line Number ", node.lineno, ": Inbuilt function 'passwordinput' takes no parameters, ",len(node.children[1].datatype)," given"
-        passwordinput_syntax() #print the syntax
+        passwordInput_syntax() #print the syntax
         node.code = 'ERROR ERROR ERROR'
         node.datatype = 'error'
 
@@ -506,24 +504,47 @@ def print_function(s, node, scope, error_flag):
         if i == len(parameter_list)-1:
             if node.children[1].datatype[i].replace('"','')=='string':
                 string = parameter_list[i].strip()
-                if string.startswith('"') and string.endswith('"'):
-                    string = string[1:-1]
-                node.code = node.code + '"'+ string + '"'
+                #if string.startswith('"') and string.endswith('"'):
+                #    string = string[1:-1]
+                node.code = node.code + string 
             else:
                 node.code = node.code + "String.valueOf("+ str(parameter_list[i])+")"
         else:
             if node.children[1].datatype[i].replace('"','')=='string':
                 string = parameter_list[i].strip()
-                if string.startswith('"') and string.endswith('"'):
-                    string = string[1:-1]
+                #if string.startswith('"') and string.endswith('"'):
+                #    string = string[1:-1]
                 
-                node.code = node.code + '"'+ string +'"+'
+                node.code = node.code + string 
             else:
                 node.code = node.code + "String.valueOf("+ str(parameter_list[i])+")" + '+'
     node.code = node.code + ")"
     node.type = 'void'
                        
-        
+def writeToFilefunction(s, node, scope, error_flag):
+    param = node.children[1].code.split(',')
+    node.type = 'writeToFile_function'
+    if(len(node.children[1].datatype)!=1):
+        print "Line Number ", node.lineno, ": Inbuilt function 'writeToFile' takes 2 parameters, ",len(node.children[1].datatype)," given"
+        writeToFile_syntax() #print the syntax
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    elif(node.children[1].datatype[0]!='string'):
+        print "Line Number ", node.lineno, ": Parameter of Inbuilt function 'writeToFile' should be a 'string', '",node.children[1].datatype[0],"' given"
+        writeToFile_syntax() #print the syntax
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    elif(node.children[1].datatype[0]!='string'):
+        print "Line Number ", node.lineno, ": Parameter of Inbuilt function 'writeToFile' should be a 'string', '",node.children[1].datatype[0],"' given"
+        writeToFile_syntax() #print the syntax
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    else:
+        path = param[0]
+        text = param[1]
+        node.code = 'out = new BufferedWriter(new FileWriter('+'path'+')).write('+text+');\n'
+        node.code = node.code + 'out.close();'
+    
 def userInput_syntax():
     print "\nSyntax of userInput : userInput(input_datatype); "
     print "--'input_datatype'"

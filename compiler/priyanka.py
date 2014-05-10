@@ -25,6 +25,10 @@ def type_6(s, temp, scope,type_checking_error_flag):
     temp.code = "boolean"
     temp.datatype = "boolean" 
 
+def type_7(s, temp, scope,type_checking_error_flag):
+    temp.code = "void"
+    temp.datatype = "void"
+
 def logical_NOT_expression_1(s, temp, scope,type_checking_error_flag):
     temp.datatype = temp.children[0].datatype
     temp.code = temp.children[0].code
