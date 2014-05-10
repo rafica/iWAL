@@ -18,7 +18,7 @@ def type_4(s, temp, scope,type_checking_error_flag):
     temp.datatype = "string"        
 
 def type_5(s, temp, scope,type_checking_error_flag):
-    temp.code = "key"
+    temp.code = "removethisline"
     temp.datatype = "key"   
 
 def type_6(s, temp, scope,type_checking_error_flag):

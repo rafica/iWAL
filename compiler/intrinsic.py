@@ -553,13 +553,10 @@ def writeToFile_function(s, node, scope, error_flag):
         node.code = 'out = new BufferedWriter(new FileWriter('+path+'));\nout.write('+text+');\n'
         node.code = node.code + 'out.close()'
 
-
-
-
 def sleep_function(s, node, scope, error_flag):
     if len(node.children[1].datatype)!= 1:
         print "Line Number ", node.lineno, ": Inbuilt function 'sleep' takes 1 parameter, ",len(node.children[1].datatype)," given"
-        start_syntax()
+##        start_syntax()
         node.code = 'ERROR ERROR ERROR'
         node.datatype = 'error'
     elif node.children[1].datatype[0]!='int':
@@ -576,6 +573,30 @@ def sleep_function(s, node, scope, error_flag):
         node.code = 'Thread.sleep('+sleepTime+')'     
         node.datatype = 'void'
 
+def tap_function(s, node, scope, error_flag):
+    param = node.children[1].code.split(',')
+    if len(node.children[1].datatype)!=2 or len(param)!=2:
+        print "Line Number ", node.lineno, ": Inbuilt function 'tap' takes 2 parameters, ",len(node.children[1].datatype)," given"
+##        tab_syntax() #print the syntax
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    elif node.children[1].datatype[0]!='string':
+        print "Line Number ", node.lineno, ": First parameter of Inbuilt function 'tap' should be a 'string', '",node.children[1].datatype[0],"' given"
+##        tab_syntax() #print the syntax
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    elif node.children[1].datatype[1]!='key':
+        print "Line Number ", node.lineno, ": Second parameter of Inbuilt function 'tap' should be a 'key', '",node.children[1].datatype[1],"' given"
+##        tab_syntax() #print the syntax
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    else:
+        driverNumber = param[0]
+        key = param[1].strip()
+        driverNumber = driverNumber.replace('"',"").strip()
+        key = key.upper()
+        node.code = 'driver'+str(driverNumber)+'.switchTo().activeElement().sendKeys(Keys.'+key+')'
+        node.datatype = 'void'
     
 def writeToFile_syntax():
     print "\nSyntax of writeToFile : writeToFile(file_path,string_to_write); "
@@ -583,8 +604,6 @@ def writeToFile_syntax():
     print "   * is the path of the file to which you want to write"
     print "--'string_to_write'"
     print "   * is the string which you want to write to the file"
-
-
 
 def userInput_syntax():
     print "\nSyntax of userInput : userInput(input_datatype); "

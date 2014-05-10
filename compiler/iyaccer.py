@@ -487,30 +487,35 @@ def p_constant_6(p):
 ##    p[0] = Node('constant_5',p.lineno(1), [p[1]+p[2]])
 
 #reserved:
+##def p_reserved_1(p):
+##    'reserved : ENTER'
+##    # p[0] = p[1]
+##    p[0] = Node('reserved_1',p.lineno(1), [p[1]])
+
 def p_reserved_1(p):
-    'reserved : ENTER'
+    'reserved : UNDEFINEDTYPE'
     # p[0] = p[1]
     p[0] = Node('reserved_1',p.lineno(1), [p[1]])
 
-def p_reserved_2(p):
-    'reserved : SPACE'
-    p[0] = Node('reserved_1',p.lineno(1), [p[1]])
+##def p_reserved_2(p):
+##    'reserved : SPACE'
+##    p[0] = Node('reserved_1',p.lineno(1), [p[1]])
 
-def p_reserved_3(p):
-    'reserved : UP'
-    p[0] = Node('reserved_1',p.lineno(1), [p[1]])
-
-def p_reserved_4(p):
-    'reserved : DOWN'
-    p[0] = Node('reserved_1',p.lineno(1), [p[1]])
-
-def p_reserved_5(p):
-    'reserved : LEFT'
-    p[0] = Node('reserved_1',p.lineno(1), [p[1]])
-
-def p_reserved_6(p):
-    'reserved : RIGHT'
-    p[0] = Node('reserved_1',p.lineno(1), [p[1]])
+##def p_reserved_3(p):
+##    'reserved : ARROW_UP'
+##    p[0] = Node('reserved_1',p.lineno(1), [p[1]])
+##
+##def p_reserved_4(p):
+##    'reserved : ARROW_DOWN'
+##    p[0] = Node('reserved_1',p.lineno(1), [p[1]])
+##
+##def p_reserved_5(p):
+##    'reserved : ARROW_LEFT'
+##    p[0] = Node('reserved_1',p.lineno(1), [p[1]])
+##
+##def p_reserved_6(p):
+##    'reserved : ARROW_RIGHT'
+##    p[0] = Node('reserved_1',p.lineno(1), [p[1]])
 
 ############################ Fill all the KEYtypes here
 

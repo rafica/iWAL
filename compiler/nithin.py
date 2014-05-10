@@ -1,5 +1,7 @@
 import intrinsic
 
+allowed = ['arrow_down', 'arrow_up', 'arrow_left', 'arrow_right']
+
 def check_type(scope, s, var):
     data_type = None
     flag = 0
@@ -143,6 +145,9 @@ def function_expression_1(s, temp, scope, type_checking_error_flag):
     elif temp.children[0]=='sleep':
         intrinsic.sleep_function(s,temp,scope, type_checking_error_flag)
         return
+    elif temp.children[0]=='tap':
+        intrinsic.tap_function(s,temp,scope, type_checking_error_flag)
+        return
     
     flags = check_type(scope, s, temp.children[0])
     if flags[0]==0:
@@ -176,12 +181,18 @@ def declaration_statement_1(s, temp, scope, type_checking_error_flag):
             type_checking_error_flag = 1
         else:
             s[scope][temp.children[1]] = [temp.children[0].datatype]
-            temp.code = temp.children[0].code + ' ' +str(temp.children[1]) + ';\n'
+            if not temp.children[0].code=='removethisline':
+                temp.code = temp.children[0].code + ' ' +str(temp.children[1]) + ';\n'
+            else:
+                temp.code = ''
     else:
         s[scope] = {}
         s[scope][temp.children[1]] = [temp.children[0].datatype]
-
-        temp.code = temp.children[0].code + ' ' +str(temp.children[1]) + ';\n'
+##        if not temp.children[1].strip() in allowed:
+        if not temp.children[0].code=='removethisline':
+            temp.code = temp.children[0].code + ' ' +str(temp.children[1]) + ';\n'
+        else:
+            temp.code = ''
 
 def declaration_statement_2(s, temp, scope, type_checking_error_flag):
     t_flag = 0
@@ -204,6 +215,7 @@ def declaration_statement_2(s, temp, scope, type_checking_error_flag):
             temp.code = 'ERROR ERROR ERROR'
             temp.datatype = 'void'
         else:
+            print temp.children[1].strip() 
             temp.dataype = temp.children[0].datatype
     ##        print temp.children[1],  temp.children[2].code,  temp.children[2].type
            
@@ -228,5 +240,5 @@ def empty_1(s, temp, scope, type_checking_error_flag):
     temp.datatype = 'void'
 
 def reserved_1(s, temp, scope, type_checking_error_flag):
-    temp.code = temp.children[0]
+    temp.code = ''
     temp.datatype = 'key'
