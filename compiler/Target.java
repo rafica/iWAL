@@ -15,11 +15,16 @@ static Actions builder;
 
 public static void main(String[] args) throws Exception {
         System.setProperty("webdriver.chrome.driver", "chromedriver");
-int x = 5;
-for (int loop2 = 0; loop2 <x ; loop2++){
-System.out.println("Hey ...");
-
-}
+WebDriver drivera = new ChromeDriver();
+drivera.get( "https://www.surveymonkey.com/s/5TKSLBH");
+for(int loopa1=0;loopa1< 1;loopa1++)
+drivera.switchTo().activeElement().sendKeys(Keys.TAB);
+drivera.switchTo().activeElement().sendKeys( "ajfskjbdkjbnskvjbs");
+for(int loopa1=0;loopa1< 1;loopa1++)
+drivera.switchTo().activeElement().sendKeys(Keys.TAB);
+drivera.switchTo().activeElement().click();
+for(int loopa1=0;loopa1< 1;loopa1++)
+drivera.switchTo().activeElement().sendKeys(Keys.TAB);
 
 }
 }
