@@ -84,6 +84,14 @@ func_dict = {   "declaration_statement_1" : nithin.declaration_statement_1,
                 "iteration_statement_2" : ashima.iteration_statement_2
              }
 
+type_dict = {"type_1" : 'int',
+             "type_2" : 'double',
+             "type_3" : 'char',
+             "type_4" : 'string',
+             "type_5" : 'key',
+             "type_6" : 'boolean'
+             }
+
 scope_incrementers = ['function_definition_1', 'function_definition_2', 'iteration_statement_1', 'iteration_statement_2', 'selection_statement_1', 'selection_statement_2']
 loops = ['iteration_statement_1', 'iteration_statement_2']
 loop_controls = ['continue_statement_1', 'break_statement_1']
@@ -91,8 +99,12 @@ functions = ['function_definition_1', 'function_definition_2']
 function_return = ['return_statement_1', 'return_statement_2']
 loopFlag = 0
 functionFlag = 0
-def postorder(root, scope, loopFlag, functionFlag):
+functionID = None
+return_flag_temp = 0
 
+def postorder(root, scope, loopFlag, functionFlag):
+    global return_flag_temp
+    global functionID
     if root.__class__.__name__ != 'Node':
         return
     else:
@@ -104,10 +116,13 @@ def postorder(root, scope, loopFlag, functionFlag):
         elif root.type in function_return:
             if not functionFlag:
                 print "error: "+root.type + " is not inside a function"
+                return_flag_temp=1
         if root.type in loops:
             loopFlag = 1
         elif root.type in functions:
             functionFlag = 1
+##            functionID = (type_dict[root.children[0].type], root.children[1])
+            functionID = type_dict[root.children[0].type]
         
         for i in root.children:
             postorder(i, scope, loopFlag, functionFlag)
@@ -116,4 +131,12 @@ def postorder(root, scope, loopFlag, functionFlag):
         if root.type in scope_incrementers:
             if scope in symbol_table:
                 del symbol_table[scope]
+                
+        if root.type in function_return:
+            if not return_flag_temp:
+                if not root.datatype == functionID:
+                    root.code = 'ERROR ERROR ERROR'
+                    root.datatype = 'error'
+                    print 'Line Number ', root.lineno, ': Error in the return statement, Expected', functionID, 'found', root.datatype 
+    return symbol_table
 
