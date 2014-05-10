@@ -120,25 +120,25 @@ def function_expression_1(s, temp, scope, type_checking_error_flag):
         intrinsic.tab_function(s,temp,scope, type_checking_error_flag)
         return
     elif temp.children[0]=='tabE':
-        intrinsic.tab_function(s,temp,scope, type_checking_error_flag)
+        intrinsic.tabE_function(s,temp,scope, type_checking_error_flag)
         return
     elif temp.children[0]=='userInput':
-        intrinsic.userinput_function(s,temp,scope, type_checking_error_flag)
+        intrinsic.userInput_function(s,temp,scope, type_checking_error_flag)
         return
     elif temp.children[0]=='passwordInput':
-        intrinsic.passwordinput_function(s,temp,scope, type_checking_error_flag)
+        intrinsic.passwordInput_function(s,temp,scope, type_checking_error_flag)
         return
     elif temp.children[0]=='print':
         intrinsic.print_function(s, temp, scope,  type_checking_error_flag)
         return
     elif temp.children[0]=='clickLink':
-        intrinsic.tab_function(s,temp,scope, type_checking_error_flag)
+        intrinsic.clickLink_function(s,temp,scope, type_checking_error_flag)
         return
     elif temp.children[0]=='getPageText':
-        intrinsic.userinput_function(s,temp,scope, type_checking_error_flag)
+        intrinsic.getPageText_function(s,temp,scope, type_checking_error_flag)
         return
     elif temp.children[0]=='writeToFile':
-        intrinsic.passwordinput_function(s,temp,scope, type_checking_error_flag)
+        intrinsic.writeToFile_function(s,temp,scope, type_checking_error_flag)
         return
     
     flags = check_type(scope, s, temp.children[0])

@@ -7,9 +7,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 public class Target  {
 public static int func1(int a) {
+ String s = "string";
  int b = 2;
  a=a + 1;
- return a + b ; }
+ return a ; }
 public static int func2(int a) {
  a=a + 1;
  return a ; }
