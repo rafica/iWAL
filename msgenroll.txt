@@ -2,7 +2,7 @@ start("driver1");
 open("driver1","https://ssol.columbia.edu");
 tab("driver1", 1);
 input("driver1","pd2438");
-string s = passwordinput();
+string s = passwordInput();
 tab("driver1", 1);
 input("driver1",s);
 tab("driver1", 1);
