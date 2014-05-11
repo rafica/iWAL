@@ -15,21 +15,30 @@ static Actions builder;
 
 public static void main(String[] args) throws Exception {
         System.setProperty("webdriver.chrome.driver", "chromedriver");
-WebDriver drivera = new ChromeDriver();
-drivera.get( "https://www.surveymonkey.com/s/5TKSLBH");
-for(int loopa1=0;loopa1< 1;loopa1++)
-drivera.switchTo().activeElement().sendKeys(Keys.TAB);
-drivera.switchTo().activeElement().sendKeys( "ajfskjbdkjbnskvjbs");
-for(int loopa1=0;loopa1< 1;loopa1++)
-drivera.switchTo().activeElement().sendKeys(Keys.TAB);
-drivera.switchTo().activeElement().click();
-for (int loop2 = 0; loop2 <10 ; loop2++){
-drivera.switchTo().activeElement().sendKeys(Keys.ARROW_DOWN);
- Thread.sleep(1000);
- drivera.switchTo().activeElement().sendKeys(Keys.ARROW_UP);
- Thread.sleep(1000);
-
-}
+WebDriver driverdriver1 = new ChromeDriver();
+driverdriver1.get( "https://ssol.columbia.edu");
+for(int loopdriver11=0;loopdriver11< 1;loopdriver11++)
+driverdriver1.switchTo().activeElement().sendKeys(Keys.TAB);
+String s = new Scanner(System.in).next();
+driverdriver1.switchTo().activeElement().sendKeys( s);
+s=new String(System.console().readPassword());
+for(int loopdriver11=0;loopdriver11< 1;loopdriver11++)
+driverdriver1.switchTo().activeElement().sendKeys(Keys.TAB);
+driverdriver1.switchTo().activeElement().sendKeys( s);
+for(int loopdriver11=0;loopdriver11< 1;loopdriver11++)
+driverdriver1.switchTo().activeElement().sendKeys(Keys.TAB);
+driverdriver1.switchTo().activeElement().click();
+for(int loopdriver11=0;loopdriver11< 21;loopdriver11++)
+driverdriver1.switchTo().activeElement().sendKeys(Keys.TAB);
+driverdriver1.switchTo().activeElement().click();
+for(int loopdriver11=0;loopdriver11< 36;loopdriver11++)
+driverdriver1.switchTo().activeElement().sendKeys(Keys.TAB);
+driverdriver1.switchTo().activeElement().sendKeys( "646");
+driverdriver1.switchTo().activeElement().sendKeys( "462");
+driverdriver1.switchTo().activeElement().sendKeys( "1606");
+for(int loopdriver11=0;loopdriver11< 2;loopdriver11++)
+driverdriver1.switchTo().activeElement().sendKeys(Keys.TAB);
+driverdriver1.switchTo().activeElement().click();
 
 }
 }
