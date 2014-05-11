@@ -52,9 +52,6 @@ t_PLUS             = r'\+'
 t_MINUS            = r'-'
 t_TIMES            = r'\*'
 t_DIVIDE           = r'/'
-t_OR               = r'\|'
-t_AND              = r'&'
-t_NOT              = r'~'
 t_LOR              = r'\|\|'
 t_LAND             = r'&&'
 t_LNOT             = r'!'
@@ -72,13 +69,10 @@ t_EQUALS           = r'='
 # Delimeters
 t_LPAREN           = r'\('
 t_RPAREN           = r'\)'
-t_LBRACKET         = r'\['
-t_RBRACKET         = r'\]'
 t_LBRACE           = r'\{'
 t_RBRACE           = r'\}'
 t_COMMA            = r','
 t_SEMI             = r';'
-t_COLON            = r':'
 
 # Identifiers and reserved words
 
@@ -102,9 +96,6 @@ t_FCONST = r'((\d+)(\.\d+)(e(\+|-)?(\d+))?|(\d+)e(\+|-)?(\d+))([lL]|[fF])?'
 # String literal
 t_SCONST = r'\"([^\\\n]|(\\.))*?\"'
 
-# Character constant 'c' or L'c'
-t_CCONST = r'(L)?\'([^\\\n]|(\\.))*?\''
-
 # Comments
 def t_comment(t):
     r'/\*(.|\n)*?\*/'
@@ -121,7 +112,7 @@ def t_error(t):
 
 def mainLex():
     lexer = lex.lex(optimize=1)
-    return
+    return lexer
 
 ##lexer = lex.lex()
 
