@@ -1,0 +1,58 @@
+
+/*
+void increment(int i) {
+	open("plt", "http://www.cs.columbia.edu/~aho/cs4115/");
+	int j = i+1;
+	tab("plt", )
+}
+
+key back_space;
+
+start("plt");
+open("plt", "http://www.cs.columbia.edu/~aho/cs4115/");
+tab("plt", 22);
+click("plt");
+sleep(1000);
+tap("plt", back_space);
+tab("plt",1); */
+
+
+key back_space;
+
+start("plt");
+open("plt", "http://www.cs.columbia.edu/~aho/cs4115/");
+tab("plt", 27);
+
+string s = getText("plt");
+print(s);
+string t;
+repeat(3) {
+	tab("plt",1);
+	t = getText("plt");
+	print(t);
+	clickLink("plt", s);
+	sleep(4000);
+	tap("plt", back_space);
+	sleep(4000);
+	s = t;
+} 
+
+/*    Download Previous Presentations ...
+
+key enter;
+
+start("plt");
+open("plt", "http://www.cs.columbia.edu/~aho/cs4115/");
+string s = "Spring 2013 PLT Languages";
+print(s);
+clickLink("plt", s);
+s = getPageText("plt");
+tab("plt", 1);
+click("plt");
+print(s);
+
+repeat(23) {
+	tab("plt", 1);
+	click("plt");
+}
+*/

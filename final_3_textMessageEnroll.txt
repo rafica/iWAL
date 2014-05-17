@@ -1,0 +1,25 @@
+start("driver1");
+open("driver1","https://ssol.columbia.edu");
+tab("driver1", 1);
+
+print("Enter your UNI : ");
+string s1 = userInput("string");
+input("driver1",s1);
+tab("driver1", 1);
+print("Enter your password : ");
+string s2 = passwordInput();
+input("driver1",s2);
+tab("driver1", 1);
+click("driver1");
+tab("driver1", 21);
+click("driver1");
+tab("driver1", 36);
+
+string num1 = userInput("string");
+inputE("driver1", "tran[1]_area_code", num1);
+num1 = userInput("string");
+input("driver1", num1);
+num1 = userInput("string");
+input("driver1", num1);
+tab("driver1", 2);
+click("driver1");

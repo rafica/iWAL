@@ -19,26 +19,25 @@ WebDriver driverdriver1 = new ChromeDriver();
 driverdriver1.get( "https://ssol.columbia.edu");
 for(int loopdriver11=0;loopdriver11< 1;loopdriver11++)
 driverdriver1.switchTo().activeElement().sendKeys(Keys.TAB);
-String s = new Scanner(System.in).next();
-driverdriver1.switchTo().activeElement().sendKeys( s);
-s=new String(System.console().readPassword());
+System.out.println("Enter your UNI :");
+String s1 = new Scanner(System.in).next();
+driverdriver1.switchTo().activeElement().sendKeys( s1);
 for(int loopdriver11=0;loopdriver11< 1;loopdriver11++)
 driverdriver1.switchTo().activeElement().sendKeys(Keys.TAB);
-driverdriver1.switchTo().activeElement().sendKeys( s);
+System.out.println("Enter your password :");
+String s2 = new String(System.console().readPassword());
+driverdriver1.switchTo().activeElement().sendKeys( s2);
 for(int loopdriver11=0;loopdriver11< 1;loopdriver11++)
 driverdriver1.switchTo().activeElement().sendKeys(Keys.TAB);
 driverdriver1.switchTo().activeElement().click();
-for(int loopdriver11=0;loopdriver11< 21;loopdriver11++)
+for(int loopdriver11=0;loopdriver11< 15;loopdriver11++)
 driverdriver1.switchTo().activeElement().sendKeys(Keys.TAB);
 driverdriver1.switchTo().activeElement().click();
-for(int loopdriver11=0;loopdriver11< 36;loopdriver11++)
-driverdriver1.switchTo().activeElement().sendKeys(Keys.TAB);
-driverdriver1.switchTo().activeElement().sendKeys( "646");
-driverdriver1.switchTo().activeElement().sendKeys( "462");
-driverdriver1.switchTo().activeElement().sendKeys( "1606");
-for(int loopdriver11=0;loopdriver11< 2;loopdriver11++)
-driverdriver1.switchTo().activeElement().sendKeys(Keys.TAB);
-driverdriver1.switchTo().activeElement().click();
+String s = driverdriver1.findElement(By.xpath("//body")).getText();
+System.out.println(s);
+out = new BufferedWriter(new FileWriter("grades.txt"));
+out.write( s);
+out.close();
 
 }
 }

@@ -1,0 +1,31 @@
+
+/*
+void increment(int i) {
+	open("plt", "http://www.cs.columbia.edu/~aho/cs4115/");
+	int j = i+1;
+	tab("plt", )
+}
+
+key back_space;
+
+start("plt");
+open("plt", "http://www.cs.columbia.edu/~aho/cs4115/");
+tab("plt", 22);
+click("plt");
+sleep(1000);
+tap("plt", back_space);
+tab("plt",1); */
+
+key back_space;
+
+start("plt");
+open("plt", "http://www.cs.columbia.edu/~aho/cs4115/");
+tab("plt", 22);
+string s = getText("plt");
+print(s);
+/* clickLink("plt", "Introduction to PLT"); */
+clickLink("plt", s);
+sleep(1000);
+tap("plt", back_space);
+sleep(1000);
+clickNextLink("plt", s);

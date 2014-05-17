@@ -140,6 +140,18 @@ def function_expression_1(s, temp, scope, type_checking_error_flag):
     elif temp.children[0]=='tap':
         intrinsic.tap_function(s,temp,scope, type_checking_error_flag)
         return
+##    elif temp.children[0]=='getCurrentElement':
+##        intrinsic.getCurrentElement_function(s,temp,scope, type_checking_error_flag)
+##        return
+    elif temp.children[0]=='getText':
+        intrinsic.getText_function(s,temp,scope, type_checking_error_flag)
+        return
+    elif temp.children[0]=='clickNextLink':
+        intrinsic.clickNextLink_function(s,temp,scope, type_checking_error_flag)
+        return
+    elif temp.children[0]=='getNextLink':
+        intrinsic.getNextLink_function(s,temp,scope, type_checking_error_flag)
+        return
     
     flags = check_type(scope, s, temp.children[0])
     if flags[0]==0:

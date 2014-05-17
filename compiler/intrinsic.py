@@ -531,7 +531,147 @@ def tap_function(s, node, scope, error_flag):
         key = key.upper()
         node.code = 'driver'+str(driverNumber)+'.switchTo().activeElement().sendKeys(Keys.'+key+')'
         node.datatype = 'void'
+
+##def getCurrentElement_function(s, node, scope, error_flag):
+##    param = node.children[1].code.split(',')
+##    
+##    if len(node.children[1].datatype)!=1 or len(param)!=1:
+##        print "Line Number ", node.lineno, ": Inbuilt function 'click' takes 1 parameter, ",len(node.children[1].datatype)," given"
+##        click_syntax()
+##        node.code = 'ERROR ERROR ERROR'
+##        node.datatype = 'error'
+##    elif node.children[1].datatype[0]!='string':
+##        print "Line Number ", node.lineno, ": First parameter of Inbuilt function 'click' should be a 'string', '",node.children[1].datatype[0],"' given"
+##        click_syntax()
+##        node.code = 'ERROR ERROR ERROR'
+##        node.datatype = 'error'            
+##    else:
+##        driverNumber = param[0]
+##        driverNumber = driverNumber.replace('"',"").strip()
+##        key = 0
+##        if key in s and 'start' in s[key] and driverNumber in s[key]['start']:
+##            node.code = 'driver'+ str(driverNumber) +'.switchTo().activeElement().getAttribute("id")'
+##            node.datatype = 'string'
+##        else:
+##            print "Line Number ",node.lineno, ": Browser with the id '",driverNumber,"' does not exist"
+##            node.code = "ERROR ERROR ERROR"
+##            node.datatype ='error'
+
+def getText_function(s, node, scope, error_flag):
+    param = node.children[1].code.split(',')
     
+    if len(node.children[1].datatype)!=1 or len(param)!=1:
+        print "Line Number ", node.lineno, ": Inbuilt function 'click' takes 1 parameter, ",len(node.children[1].datatype)," given"
+        click_syntax()
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    elif node.children[1].datatype[0]!='string':
+        print "Line Number ", node.lineno, ": First parameter of Inbuilt function 'click' should be a 'string', '",node.children[1].datatype[0],"' given"
+        click_syntax()
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'            
+    else:
+        driverNumber = param[0]
+        driverNumber = driverNumber.replace('"',"").strip()
+        key = 0
+        if key in s and 'start' in s[key] and driverNumber in s[key]['start']:
+            node.code = 'driver'+ str(driverNumber) +'.switchTo().activeElement().getText()'
+            node.datatype = 'string'
+        else:
+            print "Line Number ",node.lineno, ": Browser with the id '",driverNumber,"' does not exist"
+            node.code = "ERROR ERROR ERROR"
+            node.datatype ='error'
+
+def getText_function(s, node, scope, error_flag):
+    param = node.children[1].code.split(',')
+    
+    if len(node.children[1].datatype)!=1 or len(param)!=1:
+        print "Line Number ", node.lineno, ": Inbuilt function 'click' takes 1 parameter, ",len(node.children[1].datatype)," given"
+        click_syntax()
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    elif node.children[1].datatype[0]!='string':
+        print "Line Number ", node.lineno, ": First parameter of Inbuilt function 'click' should be a 'string', '",node.children[1].datatype[0],"' given"
+        click_syntax()
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'            
+    else:
+        driverNumber = param[0]
+        driverNumber = driverNumber.replace('"',"").strip()
+        key = 0
+        if key in s and 'start' in s[key] and driverNumber in s[key]['start']:
+            node.code = 'driver'+ str(driverNumber) +'.switchTo().activeElement().getText()'
+            node.datatype = 'string'
+        else:
+            print "Line Number ",node.lineno, ": Browser with the id '",driverNumber,"' does not exist"
+            node.code = "ERROR ERROR ERROR"
+            node.datatype ='error'
+
+
+def getNextLink_function(s, node, scope, error_flag):
+    param = node.children[1].code.split(',')
+    
+    if len(node.children[1].datatype)!=2 or len(param)!=2:
+        print "Line Number ", node.lineno, ": Inbuilt function 'clicklink' takes 2 parameters, ",len(node.children[1].datatype)," given"
+        clicklink_syntax() #print the syntax
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    elif node.children[1].datatype[0]!='string':
+        print "Line Number ", node.lineno, ": First parameter of Inbuilt function 'clicklink' should be a 'string', '",node.children[1].datatype[0],"' given"
+        clicklink_syntax() #print the syntax
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    elif node.children[1].datatype[1]!='string':
+        print "Line Number ", node.lineno, ": Second parameter of Inbuilt function 'clicklink' should be a 'string', '",node.children[1].datatype[1],"' given"
+        clicklink_syntax() #print the syntax
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    else:
+        driverNumber = param[0]
+        element_name = param[1]
+        driverNumber = driverNumber.replace('"',"").strip()
+        key = 0
+        if key in s and 'start' in s[key] and driverNumber in s[key]['start']:
+            node.code = 'driver'+str(driverNumber)+'.findElement(By.linkText('+element_name+')).sendKeys(Keys.TAB);\n'+'driver'+ str(driverNumber) +'.switchTo().activeElement().getText()' 
+            node.datatype = 'string'
+
+        else:
+            print "Line Number ",node.lineno, ": Browser with the id '",driverNumber,"' does not exist"
+            node.code = "ERROR ERROR ERROR"
+            node.datatype ='error'
+
+def clickNextLink_function(s, node, scope, error_flag):
+    param = node.children[1].code.split(',')
+    
+    if len(node.children[1].datatype)!=2 or len(param)!=2:
+        print "Line Number ", node.lineno, ": Inbuilt function 'clicklink' takes 2 parameters, ",len(node.children[1].datatype)," given"
+        clicklink_syntax() #print the syntax
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    elif node.children[1].datatype[0]!='string':
+        print "Line Number ", node.lineno, ": First parameter of Inbuilt function 'clicklink' should be a 'string', '",node.children[1].datatype[0],"' given"
+        clicklink_syntax() #print the syntax
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    elif node.children[1].datatype[1]!='string':
+        print "Line Number ", node.lineno, ": Second parameter of Inbuilt function 'clicklink' should be a 'string', '",node.children[1].datatype[1],"' given"
+        clicklink_syntax() #print the syntax
+        node.code = 'ERROR ERROR ERROR'
+        node.datatype = 'error'
+    else:
+        driverNumber = param[0]
+        element_name = param[1]
+        driverNumber = driverNumber.replace('"',"").strip()
+        key = 0
+        if key in s and 'start' in s[key] and driverNumber in s[key]['start']:
+            node.code = 'driver'+str(driverNumber)+'.findElement(By.linkText('+element_name+')).sendKeys(Keys.TAB);\n'+'driver'+ str(driverNumber) +'.switchTo().activeElement().click()' 
+            node.datatype = 'void'
+
+        else:
+            print "Line Number ",node.lineno, ": Browser with the id '",driverNumber,"' does not exist"
+            node.code = "ERROR ERROR ERROR"
+            node.datatype ='error'
+
 def writeToFile_syntax():
     print "\nSyntax of writeToFile : writeToFile(file_path,string_to_write); "
     print "--'file_path'"

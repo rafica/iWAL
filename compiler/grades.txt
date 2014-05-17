@@ -1,0 +1,87 @@
+Menu | Help | Comments | Logout  
+STUDENT SERVICES ONLINE
+GRADES AND REGISTRATION STATUS
+Academic Records
+Academic Profile
+Addresses
+Certifications
+Degree App Status
+Degree Audit
+Grades
+Holds
+P/D/F Grading
+Reg Appts
+Registration
+Schedule
+Text Message Enrollment
+Transcripts
+Account
+Account
+Direct Deposit
+Refund
+CU Card
+Deactivate CU ID
+Flex & Dining Deposits
+Cardholder Transactions
+Financial Aid
+Award Info
+Student Loan Ent/Ext Int
+Loan History
+Perkins MPN
+Miscellaneous
+New Student Cklist
+Exam List
+Menu
+Help
+Comments
+Logout
+Viewing Options
+Hide my name and personal data 
+   Change...
+   Show my name and personal data
+  This document does not constitute an official transcript
+Data last updated 8:18 p.m. 05/11/2014
+ACADEMIC SUMMARY
+
+SCH OF ENGR & APP SCI: GRAD
+Completed Columbia Points 12.00
+Transfer Points 0.00
+Cumulative GPA 3.4150
+  COLUMBIA COURSES AND GRADES
+
+Fall 2014 - SCH OF ENGR & APP SCI: GRAD
+Call# Dept Number Section Points Title Grade
+25157 COMS W4733 001 3.00 COMPUTATNL ASPECTS OF ROB  
+19576 COMS W4705 001 3.00 NATURAL LANGUAGE PROCESSI  
+75739 COMS W4701 001 3.00 ARTIFICIAL INTELLIGENCE  
+27751 COMS W4170 001 3.00 USER INTERFACE DESIGN  
+76240 COMS W4118 001 3.00 OPERATING SYSTEMS I  
+Completed Columbia Points 0.000
+Enrollment Status Full-Time
+  Summer 2014 - SCH OF ENGR & APP SCI: GRAD
+Call# Dept Number Section Points Title Grade
+27397 COMS S4910 029 1.00 CURRICULAR PRACTICAL TRA  
+Completed Columbia Points 0.000
+Enrollment Status Part-Time
+  Spring 2014 - SCH OF ENGR & APP SCI: GRAD
+Call# Dept Number Section Points Title Grade
+88298 COMS E6901 037 3.00 PROJECTS IN COMPUTER SCIE  
+71300 COMS W4772 001 3.00 ADVANCED MACHINE LEARNING  
+21711 COMS W4115 001 3.00 PROGRAMMING LANG & TRANSL  
+18693 COMS W4112 001 3.00 DATABASE SYSTEM IMPLEMENT  
+Completed Columbia Points 0.000
+Enrollment Status Full-Time
+  Fall 2013 - SCH OF ENGR & APP SCI: GRAD
+Call# Dept Number Section Points Title Grade
+11535 CSOR W4231 001 3.00 ANALYSIS OF ALGORITHMS I A-
+88038 COMS E6998 006 3.00 SEARCH ENGINE TECHNOLOGY B+
+25530 COMS E6901 035 3.00 PROJECTS IN COMPUTER SCIE B+
+61743 COMS W4771 001 3.00 MACHINE LEARNING B+
+Completed Columbia Points 12.000
+Term GPA 3.4150
+Enrollment Status Full-Time
+  TRANSFER COURSES
+
+SCH OF ENGR & APP SCI: GRAD
+No Transfer Courses on Record
+   

@@ -1,0 +1,62 @@
+start("a");
+start("b");
+start("c");
+
+open("a","https://www.surveymonkey.com/s/5WD55L2");
+open("b","https://www.surveymonkey.com/s/THPYXC2");
+open("c","https://www.surveymonkey.com/s/5TKSLBH");
+
+int i = 4;
+
+repeat(i) {
+
+	/*   REDUNDANT FORM 1   */
+
+	tab("a", 1);
+	print("Enter name : ");
+	string s1 = userInput("string");
+	input("a", s);
+	tabE("a", "text_652332469_0", 1);
+	print("Enter UNI : ");
+	string s2 = userInput("string");
+	input("a", s);
+
+	repeat(8) {
+		tab("a", 1);
+		input("a", "This is the text to be filled ...");
+	}
+	tab("a",1);
+	open("a","https://www.surveymonkey.com/s/5WD55L2");
+
+	/*   REDUNDANT FORM 2   */
+
+	tab("b", 1);
+	input("b", s1);
+	tab("b", 1);
+	input("b", s2);
+
+	repeat(8) {
+		tab("b", 1);
+		input("b", "This is the text to be filled ...");
+	}
+	tab("a",1);
+	open("b","https://www.surveymonkey.com/s/THPYXC2");
+
+	/*   REDUNDANT FORM 3   */
+
+	key arrow_down;
+	key arrow_up;
+	tab("c", 1);
+	input("c", s1);
+	tab("c",  1);
+	input("c", s2);
+
+	tab("c", 1);
+	click("c");
+	repeat(10) {
+	tap("c", arrow_down);
+	tap("c", arrow_up);
+	}
+	open("c","https://www.surveymonkey.com/s/5TKSLBH");
+}
+

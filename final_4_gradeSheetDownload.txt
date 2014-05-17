@@ -1,0 +1,19 @@
+start("driver1");
+open("driver1","https://ssol.columbia.edu");
+tab("driver1", 1);
+
+print("Enter your UNI : ");
+string s1 = userInput("string");
+input("driver1",s1);
+tab("driver1", 1);
+print("Enter your password : ");
+string s2 = passwordInput();
+input("driver1",s2);
+tab("driver1", 1);
+click("driver1");
+
+tab("driver1", 15);
+click("driver1");
+string s = getPageText("driver1");
+print(s);
+writeToFile("grades.txt",s);
